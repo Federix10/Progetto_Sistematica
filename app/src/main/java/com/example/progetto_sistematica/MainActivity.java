@@ -41,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
              // There are paired devices. Get the name and address of each paired device.
              for (BluetoothDevice device : pairedDevices) {
                  s.add(device.getName());
-                 c.add(device.getAddress());
+             }
+             for (BluetoothDevice mac : pairedDevices){
+                 c.add(mac.getAddress());
              }
          }
          for(int i=0;i<s.size();i++) {
-             System.out.println("NOME DEVICE: " + s[i]);
-             System.out.println("INDIRIZZO MAC: " + c[i]);
+             System.out.println("NOME DEVICE: " + s.get(i));
+             System.out.println("INDIRIZZO MAC: " + c.get(i));
          }
      }//fine onStart
 }
