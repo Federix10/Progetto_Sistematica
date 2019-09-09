@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,11 +29,18 @@ public class MainActivity extends AppCompatActivity {
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            controllo();
         }
     } //fine on create
 
-     public void onStart(){
-        super.onStart();
+     public void controllo(){
+        //super.onStart();
+         if (bluetoothAdapter.isEnabled()) {
+             System.out.println("vado a dormire");
+             try {Thread.sleep(5000); }
+             catch (Exception e){ e.printStackTrace(); }
+             System.out.println("mi sveglio");
+         }
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          String deviceName="",deviceHardwareAddress="";
          List<String> s = new ArrayList<String>();
