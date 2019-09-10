@@ -57,4 +57,22 @@ public class MainActivity extends AppCompatActivity {
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
     } //fine on create
+
+    private void connessione() {
+        String macAddress = "E8:EC:A3:00:09:5D";
+
+        BluetoothDevice result = null;
+
+        Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
+        if (devices != null) {
+            for (BluetoothDevice device : devices) {
+                if (macAddress.equals(device.getAddress())) {
+                    result = device;
+                    break;
+                }
+            }
+        }
+        //connect.invoke(proxy, result);
+    }
+
 }
