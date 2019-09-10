@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
      public void controllo(){
 
-         TextView textView = (TextView)findViewById(R.id.NOMETEXTVIEW);
+         //TextView textView = (TextView)findViewById(R.id.NOMETEXTVIEW);
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          List<String> s = new ArrayList<String>();
          List<String> c = new ArrayList<String>();
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
              }
          }
          for(int i=0;i<s.size();i++) {
-             textView.setText(s.get(i));
+           //  textView.setText(s.get(i));
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
        }
