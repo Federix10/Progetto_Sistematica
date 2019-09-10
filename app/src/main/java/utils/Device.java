@@ -1,8 +1,10 @@
 package utils;
 
-public class Device {
+import com.example.progetto_sistematica.MainActivity;
 
-        private String nome;
+public class Device extends MainActivity {
+
+    private String nome;
         private String MAC;
 
         public Device(String nome, String MAC) {

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.progetto_sistematica.MainActivity;
 import com.example.progetto_sistematica.R;
 
 import java.util.ArrayList;
