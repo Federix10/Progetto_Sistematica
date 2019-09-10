@@ -17,10 +17,9 @@
         tools:context=".Camper" >
 
         <ListView
-            android:id="@+id/list"
+            android:id="@+id/listadevice"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_bg"
             android:divider="#005b00"
             android:dividerHeight="1dp" />
 
