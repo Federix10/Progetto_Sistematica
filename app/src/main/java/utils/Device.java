@@ -2,9 +2,9 @@ package utils;
 
 import com.example.progetto_sistematica.MainActivity;
 
-public class Device extends MainActivity {
+public class Device {
 
-    private String nome;
+        private String nome;
         private String MAC;
 
         public Device(String nome, String MAC) {

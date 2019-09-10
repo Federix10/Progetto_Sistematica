@@ -47,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
                 Device d = new Device(device.getName(), device.getAddress());
-                System.out.println("D: "+d);
+                //System.out.println("D: "+d);
                 //System.out.println("Dispositivo: "+device.getName() + " " + device.getAddress());
                 list2.add(d);
+                System.out.println("List2: "+list2);
             }
         }
         //setContentView(R.layout.activity_main);
