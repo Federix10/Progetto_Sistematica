@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 //System.out.println("D: "+d);
                 //System.out.println("Dispositivo: "+device.getName() + " " + device.getAddress());
                 list2.add(d);
-                System.out.println("List2: "+list2);
+                //System.out.println("List2: "+list2);
             }
         }
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         ListView mylistView = (ListView)findViewById(R.id.lista);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
-        //mylistView.setAdapter(listAdapter2);
+        mylistView.setAdapter(listAdapter2);
     } //fine on create
 
      public void controllo(){ //gestione dei dispositivi associati
