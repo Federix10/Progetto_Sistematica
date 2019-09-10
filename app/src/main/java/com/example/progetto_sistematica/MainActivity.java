@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
                 Device d = new Device(device.getName(), device.getAddress());
-                //System.out.println("D: "+d);
-                //System.out.println("Dispositivo: "+device.getName() + " " + device.getAddress());
                 list2.add(d);
-                //System.out.println("List2: "+list2);
             }
         }
         setContentView(R.layout.activity_main);
@@ -60,21 +57,4 @@ public class MainActivity extends AppCompatActivity {
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
     } //fine on create
-
-     public void controllo(){ //gestione dei dispositivi associati
-
-         List<Device> list2 = new ArrayList<Device>();
-         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-         if (pairedDevices.size() > 0) {
-             for (BluetoothDevice device : pairedDevices) {
-                 Device d = new Device(device.getName(), device.getAddress());
-                list2.add(d);
-             }
-         }
-         setContentView(R.layout.activity_main);
-         ListView mylistView = (ListView)findViewById(R.id.listadevice);
-         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
-         mylistView.setAdapter(listAdapter2);
-
-     }//fine controllo
 }
