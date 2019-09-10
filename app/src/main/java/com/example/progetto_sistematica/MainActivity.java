@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import utils.BluetoothDeviceListAdapter2;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
@@ -46,21 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
      public void controllo(){ //gestione dei dispositivi associati
 
+         String nome = null;
+         String mac = null;
+         List<Object> list2 = new ArrayList<Object>();
+         BluetoothDeviceListAdapter2 oggetto=new BluetoothDeviceListAdapter2(,list2);
+         
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-         /*List<String> s = new ArrayList<String>(); //nomi
-         List<String> c = new ArrayList<String>(); //indirizzi
          if (pairedDevices.size() > 0) {
              for (BluetoothDevice device : pairedDevices) {
-                 s.add(device.getName());
-             }
-             for (BluetoothDevice mac : pairedDevices){
-                 c.add(mac.getAddress());
+
              }
          }
+         /*List<String> s = new ArrayList<String>(); //nomi
+         List<String> c = new ArrayList<String>(); //indirizzi
+
          for(int i=0;i<s.size();i++) {
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
        }*/
-
      }//fine controllo
 }
