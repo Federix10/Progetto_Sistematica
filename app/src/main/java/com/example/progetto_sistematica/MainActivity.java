@@ -2,7 +2,9 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
                     .setTitle("ERRORE");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -34,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
                 {}
             });
             AlertDialog alertDialog = builder.create();
-            alertDialog.show();*/
+            alertDialog.show();
         }
 
         if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-        //while(!bluetoothAdapter.isEnabled());
+        while(!bluetoothAdapter.isEnabled());
         List<Device> list2 = new ArrayList<Device>();
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
