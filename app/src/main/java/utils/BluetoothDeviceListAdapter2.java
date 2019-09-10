@@ -31,8 +31,5 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         mac.setText(d.getMAC());
         return convertView;
     }
-
-
-
 }
 
