@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import utils.BluetoothDeviceListAdapter2;
 import utils.Device;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 list2.add(d);
              }
          }
+         setContentView(R.layout.activity_main);
+         ListView listView = (ListView)findViewById(R.id.list);
+         BluetoothDeviceListAdapter2 listAdapter2=new BluetoothDeviceListAdapter2(getApplicationContext(), R.id.list, list2);
+         listView.setAdapter(listAdapter2);
+
          /*List<String> s = new ArrayList<String>(); //nomi
          List<String> c = new ArrayList<String>(); //indirizzi
 
