@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
          String mac = null;
          List<Object> list2 = new ArrayList<Object>();
          BluetoothDeviceListAdapter2 oggetto=new BluetoothDeviceListAdapter2(,list2);
-         
+
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          if (pairedDevices.size() > 0) {
              for (BluetoothDevice device : pairedDevices) {
