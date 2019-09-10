@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import utils.BluetoothDeviceListAdapter2;
+import utils.Device;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,15 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
      public void controllo(){ //gestione dei dispositivi associati
 
-         String nome = null;
-         String mac = null;
-         List<Object> list2 = new ArrayList<Object>();
-         BluetoothDeviceListAdapter2 oggetto=new BluetoothDeviceListAdapter2(,list2);
-
+         List<Device> list2 = new ArrayList<Device>();
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          if (pairedDevices.size() > 0) {
              for (BluetoothDevice device : pairedDevices) {
-
+                 Device d = new Device(device.getName(), device.getAddress());
+                list2.add(d);
              }
          }
          /*List<String> s = new ArrayList<String>(); //nomi
