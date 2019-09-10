@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ListView mylistView = (ListView)findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
+        connessione();
     } //fine on create
 
     private void connessione() {
@@ -73,14 +74,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
-        }
-        try
-        {
-            connect.invoke(proxy, result);
-        }
-        catch(IOException)
-        {
-
         }
     }
 }
