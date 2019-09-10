@@ -2,16 +2,12 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
      public void controllo(){ //gestione dei dispositivi associati
 
-         //TextView textView = (TextView)findViewById(R.id.lista);
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          List<String> s = new ArrayList<String>(); //nomi
          List<String> c = new ArrayList<String>(); //indirizzi
-         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.row,s);
-         ListView listView = (ListView) findViewById(R.id.lista);
          if (pairedDevices.size() > 0) {
              for (BluetoothDevice device : pairedDevices) {
                  s.add(device.getName());
@@ -66,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
              }
          }
          for(int i=0;i<s.size();i++) {
-             listView.setAdapter(adapter);
-             //textView.setText(s.get(i));
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
        }

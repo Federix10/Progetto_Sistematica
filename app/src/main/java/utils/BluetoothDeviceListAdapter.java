@@ -12,5 +12,5 @@ public class BluetoothDeviceListAdapter extends ArrayAdapter<String>{
         super(context, resource, list);
     }
 
-    
+
 }
