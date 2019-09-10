@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
+        if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
                     .setTitle("ERRORE");
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.show();
         }
 
-        if (!bluetoothAdapter.isEnabled()) {
+        if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         controllo();
     } //fine on create
 
-     public void controllo(){
+     public void controllo(){ //gestione dei dispositivi associati
 
          //TextView textView = (TextView)findViewById(R.id.lista);
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
@@ -66,8 +66,12 @@ public class MainActivity extends AppCompatActivity {
              }
          }
          for(int i=0;i<s.size();i++) {
+<<<<<<< HEAD
              listView.setAdapter(adapter);
              //.setText(s.get(i));
+=======
+             //textView.setText(s.get(i));
+>>>>>>> 32d99b7496b7eb386339733df6f207cdfc5d1822
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
        }
