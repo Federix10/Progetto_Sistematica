@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
      public void controllo(){ //gestione dei dispositivi associati
 
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-         List<String> s = new ArrayList<String>(); //nomi
+         /*List<String> s = new ArrayList<String>(); //nomi
          List<String> c = new ArrayList<String>(); //indirizzi
          if (pairedDevices.size() > 0) {
              for (BluetoothDevice device : pairedDevices) {
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
          for(int i=0;i<s.size();i++) {
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
-       }
+       }*/
+
      }//fine controllo
 }
