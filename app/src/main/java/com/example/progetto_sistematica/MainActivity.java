@@ -66,12 +66,8 @@ public class MainActivity extends AppCompatActivity {
              }
          }
          for(int i=0;i<s.size();i++) {
-<<<<<<< HEAD
              listView.setAdapter(adapter);
-             //.setText(s.get(i));
-=======
              //textView.setText(s.get(i));
->>>>>>> 32d99b7496b7eb386339733df6f207cdfc5d1822
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
        }
