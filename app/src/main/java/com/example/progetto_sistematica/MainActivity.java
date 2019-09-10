@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import utils.BluetoothDeviceListAdapter2;
 import utils.Device;
 
 public class MainActivity extends AppCompatActivity {
