@@ -2,15 +2,11 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +42,18 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
         while(!bluetoothAdapter.isEnabled());
-        controllo();
+        List<Device> list2 = new ArrayList<Device>();
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                Device d = new Device(device.getName(), device.getAddress());
+                list2.add(d);
+            }
+        }
+        //setContentView(R.layout.activity_main);
+        ListView mylistView = (ListView)findViewById(R.id.lista);
+        BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
+        mylistView.setAdapter(listAdapter2);
     } //fine on create
 
      public void controllo(){ //gestione dei dispositivi associati
@@ -59,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 list2.add(d);
              }
          }
-         setContentView(R.layout.listitem);
-         ListView listView = (ListView)findViewById(R.id.list);
-         BluetoothDeviceListAdapter2 listAdapter2=new BluetoothDeviceListAdapter2(getApplicationContext(), R.id.list, list2);
-         listView.setAdapter(listAdapter2);
+         setContentView(R.layout.activity_main);
+         ListView mylistView = (ListView)findViewById(R.id.lista);
+         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
+         mylistView.setAdapter(listAdapter2);
 
          /*List<String> s = new ArrayList<String>(); //nomi
          List<String> c = new ArrayList<String>(); //indirizzi
