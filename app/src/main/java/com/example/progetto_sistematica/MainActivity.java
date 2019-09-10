@@ -76,12 +76,5 @@ public class MainActivity extends AppCompatActivity {
          BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
          mylistView.setAdapter(listAdapter2);
 
-         /*List<String> s = new ArrayList<String>(); //nomi
-         List<String> c = new ArrayList<String>(); //indirizzi
-
-         for(int i=0;i<s.size();i++) {
-             System.out.println("NOME DEVICE: " + s.get(i));
-             System.out.println("INDIRIZZO MAC: " + c.get(i));
-       }*/
      }//fine controllo
 }
