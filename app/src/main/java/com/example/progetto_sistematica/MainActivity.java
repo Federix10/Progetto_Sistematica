@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
     } //fine on create
-<<<<<<< HEAD
 
     private void connessione() {
         String macAddress = "E8:EC:A3:00:09:5D";
@@ -74,10 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        //connect.invoke(proxy, result);
-    }
+        try
+        {
+            connect.invoke(proxy, result);
+        }
+        catch(IOException)
+        {
 
-=======
-    
->>>>>>> 4332e6b7dc5d53ea165680f65719e53bac7906f3
+        }
+    }
 }
