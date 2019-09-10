@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
                     .setTitle("ERRORE");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 {}
             });
             AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            alertDialog.show();*/
         }
 
         if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 list2.add(d);
              }
          }
-         setContentView(R.layout.activity_main);
+         setContentView(R.layout.listitem);
          ListView listView = (ListView)findViewById(R.id.list);
          BluetoothDeviceListAdapter2 listAdapter2=new BluetoothDeviceListAdapter2(getApplicationContext(), R.id.list, list2);
          listView.setAdapter(listAdapter2);
