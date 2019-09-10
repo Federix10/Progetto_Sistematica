@@ -28,6 +28,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         TextView nome = (TextView)convertView.findViewById(R.id.title);
         TextView mac = (TextView)convertView.findViewById(R.id.description);
         Device d = getItem(position);
+
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
         return convertView;

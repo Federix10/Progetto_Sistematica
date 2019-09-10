@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         setContentView(R.layout.activity_main);
-        ListView mylistView = (ListView)findViewById(R.id.lista);
+        ListView mylistView = (ListView)findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
     } //fine on create
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
              }
          }
          setContentView(R.layout.activity_main);
-         ListView mylistView = (ListView)findViewById(R.id.lista);
+         ListView mylistView = (ListView)findViewById(R.id.listadevice);
          BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
          mylistView.setAdapter(listAdapter2);
 
