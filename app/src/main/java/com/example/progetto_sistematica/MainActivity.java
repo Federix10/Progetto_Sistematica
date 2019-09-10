@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
      public void controllo(){
 
+         TextView textView = (TextView)findViewById(R.id.NOMETEXTVIEW);
          AlertDialog.Builder builder = new AlertDialog.Builder(this);
          builder.setMessage("Il dispositivo non supporta il bluetooth")
                  .setTitle("ERRORE");
@@ -52,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
                  c.add(mac.getAddress());
              }
          }
-        /* for(int i=0;i<s.size();i++) {
+         for(int i=0;i<s.size();i++) {
+             textView.setText(s.get(i));
              System.out.println("NOME DEVICE: " + s.get(i));
              System.out.println("INDIRIZZO MAC: " + c.get(i));
-       }*/
+       }
      }//fine controllo
 }
