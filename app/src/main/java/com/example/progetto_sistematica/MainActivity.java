@@ -3,6 +3,7 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Il dispositivo non supporta il bluetooth")
+                    .setTitle("ERRORE");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {}
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
 
         if (!bluetoothAdapter.isEnabled()) {
@@ -39,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
      public void controllo(){
 
          TextView textView = (TextView)findViewById(R.id.NOMETEXTVIEW);
-         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-         builder.setMessage("Il dispositivo non supporta il bluetooth")
-                 .setTitle("ERRORE");
-         AlertDialog dialog = builder.create();
-
          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
          List<String> s = new ArrayList<String>();
          List<String> c = new ArrayList<String>();
