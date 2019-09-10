@@ -8,6 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,13 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
 
-    BluetoothAdapter bluetoothAdapter;
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
     } //fine on create
+<<<<<<< HEAD
 
     private void connessione() {
         String macAddress = "E8:EC:A3:00:09:5D";
@@ -75,4 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //connect.invoke(proxy, result);
     }
 
+=======
+    
+>>>>>>> 4332e6b7dc5d53ea165680f65719e53bac7906f3
 }
