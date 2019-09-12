@@ -71,8 +71,5 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
-        InputStream inputStream = socket.getInputStream();
-        OutputStream outputStream = socket.getOutputStream();
-        //outputStream.write(new byte[] { (byte) 0xa0, 0, 7, 16, 0, 4, 0 });
     }
 }
