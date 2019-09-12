@@ -2,6 +2,7 @@ package utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -13,11 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_sistematica.R;
+import com.github.pires.obd.commands.protocol.EchoOffCommand;
+import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
+import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
+import com.github.pires.obd.commands.protocol.TimeoutCommand;
+import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
+import com.github.pires.obd.enums.ObdProtocols;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-
-
+import java.util.UUID;
 
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
@@ -51,8 +58,11 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
                     for(BluetoothDevice btdevice : pairedDevices)
                     {
                         if (btdevice.getName().equals(d.getNome())) {
-                            //bluetooth.connectToDevice(btdevice);
-                            //bluetooth.pair(btdevice);
+                            try {
+                                pair(btdevice);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -61,11 +71,21 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         return convertView;
     }// fine onClick
 
-    /*public void pair(BluetoothDevice device) throws IOException {
+    public void pair(BluetoothDevice device) throws IOException {
         BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
-    }*/
+        try {
+            new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
+            new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
+            new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
+            new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
+            new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
+        } catch (Exception e) {
+            // handle errors
+        }
+
+    }
 }
 
