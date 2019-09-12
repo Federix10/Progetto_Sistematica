@@ -39,11 +39,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"Connessione in corso", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-                //pairDevice();
-=======
-                
->>>>>>> 36f54884720becbf9bdcf13027dcd35d665738f7
+                pairDevice();
             }
         });
         return convertView;
@@ -57,6 +53,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
             e.printStackTrace();
         }
     }
+
 
 }
 
