@@ -66,19 +66,13 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
             }
         });
         return convertView;
-    }
+    }// fine onClick
 
     public void pair(BluetoothDevice device) throws IOException {
         BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
-
         UUID uuid = device.getUuids()[0].getUuid();
-
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
-
         socket.connect();
-        
     }
-
-
 }
 
