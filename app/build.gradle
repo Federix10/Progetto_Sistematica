@@ -19,8 +19,7 @@ android {
 }
 
 dependencies {
-    //compile 'com.github.pires:obd-java-api:1.0'
-    implementation 'me.aflak.libraries:bluetooth:1.3.8'
+    compile 'com.github.pires:obd-java-api:1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

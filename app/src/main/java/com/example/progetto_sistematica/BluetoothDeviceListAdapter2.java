@@ -1,8 +1,7 @@
-package utils;
+package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -13,15 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.progetto_sistematica.MainActivity;
-import com.example.progetto_sistematica.R;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import me.aflak.bluetooth.Bluetooth;
+
 
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
@@ -42,10 +37,10 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         TextView nome = (TextView)convertView.findViewById(R.id.title);
         TextView mac = (TextView)convertView.findViewById(R.id.description);
         final Device d = getItem(position);
-        Button btnConnetti = convertView.findViewById(R.id.btnConnetti);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
 
+        Button btnConnetti = convertView.findViewById(R.id.btnConnetti);
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +51,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
                     for(BluetoothDevice btdevice : pairedDevices)
                     {
                         if (btdevice.getName().equals(d.getNome())) {
-                            bluetooth.connectToDevice(btdevice);
+                            //bluetooth.connectToDevice(btdevice);
                             //bluetooth.pair(btdevice);
                         }
                     }
