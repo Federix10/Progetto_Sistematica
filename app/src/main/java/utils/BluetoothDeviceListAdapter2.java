@@ -1,8 +1,10 @@
 package utils;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,14 @@ import com.example.progetto_sistematica.R;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
+
+
+    final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private BluetoothDevice boundingDevice;
+
 
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);
@@ -35,23 +43,32 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         Button btnConnetti = convertView.findViewById(R.id.btnConnetti);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
+
+
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Connessione in corso", Toast.LENGTH_SHORT).show();
-                pairDevice(d);
+                Toast.makeText(getContext(),"Connessione in corso a: "+ d.getNome()+" "+d.getMAC(), Toast.LENGTH_SHORT).show();
+                Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+                if (pairedDevices.size() > 0)
+                {
+                    for(BluetoothDevice btdevice : pairedDevices)
+                    {
+                        if (btdevice.getName().equals(d.getNome()))
+                            pair(btdevice);
+                    }
+                }
             }
         });
         return convertView;
     }
 
-    private void pairDevice(Device device) {
-        try {
-            Method method = device.getClass().getMethod("createBond", (Class[]) null);
-            method.invoke(device, (Object[]) null);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public boolean pair(BluetoothDevice device) {
+        boolean outcome = device.createBond();
+        if (outcome == true) {
+            this.boundingDevice = device;
         }
+        return outcome;
     }
 
 
