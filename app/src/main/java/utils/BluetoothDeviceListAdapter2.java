@@ -76,6 +76,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
 
         socket.connect();
+        
     }
 
 
