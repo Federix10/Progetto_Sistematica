@@ -21,16 +21,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import me.aflak.bluetooth.Bluetooth;
+
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
 
 
     final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private BluetoothDevice boundingDevice;
 
 
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);
+        Bluetooth bluetooth = new Bluetooth(context);
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -44,7 +46,6 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
 
-
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,11 +56,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
                     for(BluetoothDevice btdevice : pairedDevices)
                     {
                         if (btdevice.getName().equals(d.getNome())) {
-                            try {
-                                pair(btdevice);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            bluetooth.connectToDevice(btdevice);
+                            //bluetooth.pair(btdevice);
                         }
                     }
                 }
@@ -68,11 +66,11 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         return convertView;
     }// fine onClick
 
-    public void pair(BluetoothDevice device) throws IOException {
+    /*public void pair(BluetoothDevice device) throws IOException {
         BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
-    }
+    }*/
 }
 

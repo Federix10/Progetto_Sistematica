@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import me.aflak.bluetooth.Bluetooth;
 import utils.BluetoothDeviceListAdapter2;
 import utils.Device;
 
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Bluetooth bluetooth = new Bluetooth(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
