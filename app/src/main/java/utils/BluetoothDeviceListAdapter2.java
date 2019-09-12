@@ -2,6 +2,7 @@ package utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -17,10 +18,14 @@ import android.widget.Toast;
 import com.example.progetto_sistematica.MainActivity;
 import com.example.progetto_sistematica.R;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+
+import javax.crypto.Mac;
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
 
@@ -54,8 +59,13 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
                 {
                     for(BluetoothDevice btdevice : pairedDevices)
                     {
-                        if (btdevice.getName().equals(d.getNome()))
-                            pair(btdevice);
+                        if (btdevice.getName().equals(d.getNome())) {
+                            try {
+                                pair(btdevice);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             }
@@ -63,12 +73,14 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         return convertView;
     }
 
-    public boolean pair(BluetoothDevice device) {
-        boolean outcome = device.createBond();
-        if (outcome == true) {
-            this.boundingDevice = device;
-        }
-        return outcome;
+    public void pair(BluetoothDevice device) throws IOException {
+        BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
+
+        UUID uuid = device.getUuids()[0].getUuid();
+
+        BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
+
+        socket.connect();
     }
 
 
