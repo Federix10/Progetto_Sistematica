@@ -39,13 +39,13 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"Connessione in corso", Toast.LENGTH_SHORT).show();
-                pairDevice();
+                pairDevice(d);
             }
         });
         return convertView;
     }
 
-    private void pairDevice(BluetoothDevice device) {
+    private void pairDevice(Device device) {
         try {
             Method method = device.getClass().getMethod("createBond", (Class[]) null);
             method.invoke(device, (Object[]) null);
