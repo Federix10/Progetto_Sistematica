@@ -76,4 +76,3 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         //outputStream.write(new byte[] { (byte) 0xa0, 0, 7, 16, 0, 4, 0 });
     }
 }
-
