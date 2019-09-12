@@ -38,6 +38,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"Connessione in corso", Toast.LENGTH_SHORT).show();
+                
             }
         });
         return convertView;
