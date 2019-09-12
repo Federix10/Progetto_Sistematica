@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.example.progetto_sistematica.R;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 
-public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
+public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
 
 
     final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -30,13 +32,14 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listitem, null);
-        TextView nome = (TextView)convertView.findViewById(R.id.title);
-        TextView mac = (TextView)convertView.findViewById(R.id.description);
+        TextView nome = (TextView) convertView.findViewById(R.id.title);
+        TextView mac = (TextView) convertView.findViewById(R.id.description);
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
@@ -45,12 +48,10 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Connessione in corso a: "+ d.getNome()+" "+d.getMAC(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Connessione in corso a: " + d.getNome() + " " + d.getMAC(), Toast.LENGTH_SHORT).show();
                 Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-                if (pairedDevices.size() > 0)
-                {
-                    for(BluetoothDevice btdevice : pairedDevices)
-                    {
+                if (pairedDevices.size() > 0) {
+                    for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
                             try {
                                 pair(btdevice);
@@ -70,6 +71,9 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
+        //outputStream.write(new byte[] { (byte) 0xa0, 0, 7, 16, 0, 4, 0 });
     }
 }
 
