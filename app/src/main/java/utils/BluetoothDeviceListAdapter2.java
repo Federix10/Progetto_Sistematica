@@ -1,4 +1,4 @@
-package com.example.progetto_sistematica;
+package utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,10 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.progetto_sistematica.R;
+
 import java.util.List;
 import java.util.Set;
 
-import me.aflak.bluetooth.Bluetooth;
 
 
 
@@ -27,7 +28,6 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
 
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);
-        Bluetooth bluetooth = new Bluetooth(context);
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
