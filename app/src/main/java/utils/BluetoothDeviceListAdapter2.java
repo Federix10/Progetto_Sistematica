@@ -14,12 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_sistematica.R;
-import com.github.pires.obd.commands.protocol.EchoOffCommand;
-import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
-import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
-import com.github.pires.obd.commands.protocol.TimeoutCommand;
-import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
-import com.github.pires.obd.enums.ObdProtocols;
 
 import java.io.IOException;
 import java.util.List;
@@ -76,16 +70,6 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device>{
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
-        try {
-            new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-            new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-            new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
-            new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
-            new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
-        } catch (Exception e) {
-            // handle errors
-        }
-
     }
 }
 
