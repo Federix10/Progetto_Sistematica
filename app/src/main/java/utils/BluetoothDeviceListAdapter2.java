@@ -2,7 +2,6 @@ package utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -13,14 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.progetto_sistematica.AcceptThread;
 import com.example.progetto_sistematica.ConnectThread;
 import com.example.progetto_sistematica.R;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
@@ -43,7 +39,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
-        Button btnConnetti = convertView.findViewById(R.id.btnConnetti);
+        Button btnConnetti = convertView.findViewById(R.id.btnScrivi);
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
