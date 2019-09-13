@@ -14,6 +14,7 @@ public class ConnectThread extends Thread {
     private final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    public int CT=0;
 
     public ConnectThread(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket
@@ -55,6 +56,7 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
+        CT=1;
     }
 
     // Closes the client socket and causes the thread to finish.

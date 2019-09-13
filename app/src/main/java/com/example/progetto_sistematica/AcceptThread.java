@@ -16,6 +16,7 @@ public class AcceptThread extends Thread {
     private final BluetoothServerSocket mmServerSocket;
     String NAME="Progetto_Sistematica";
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+    public int AT=0;
 
     public AcceptThread(BluetoothAdapter bluetoothAdapter) {
 
@@ -58,6 +59,7 @@ public class AcceptThread extends Thread {
 
     private void manageMyConnectedSocket(BluetoothSocket socket) {
         System.out.println("Connesso con client");
+        AT=1;
     }
 
     // Closes the connect socket and causes the thread to finish.

@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private Context context;
+    private int CT=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,5 +67,17 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
+        if (CT==1)
+        {
+            //mostrare su text view connesso
+        }
+        else
+        {
+            //mostrare su text view disconnesso
+        }
     } //fine on creates
+    public void getCT(int ct)
+    {
+        this.CT=ct;
+    }
 }//fine MainActivity

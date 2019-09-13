@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_sistematica.ConnectThread;
+import com.example.progetto_sistematica.MainActivity;
 import com.example.progetto_sistematica.R;
 
 import java.util.List;
@@ -47,6 +48,11 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                             ConnectThread Client = new ConnectThread(btdevice);
                             Client.start();
                             Toast.makeText(getContext(), "Connesso con server", Toast.LENGTH_SHORT).show();
+                            if(Client.CT==1)
+                            {
+                                MainActivity ma=new MainActivity();
+                                ma.getCT(Client.CT);
+                            }
                         }
                     }
                 }
