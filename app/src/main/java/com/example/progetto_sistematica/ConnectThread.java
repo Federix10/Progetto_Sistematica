@@ -7,7 +7,7 @@ import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
 import java.util.UUID;
 
-class ConnectThread extends Thread {
+public class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
@@ -54,7 +54,7 @@ class ConnectThread extends Thread {
     }
 
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
-
+        System.out.println("Connesso con server");
     }
 
     // Closes the client socket and causes the thread to finish.

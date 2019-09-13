@@ -51,7 +51,7 @@ public class AcceptThread extends Thread {
     }
 
     private void manageMyConnectedSocket(BluetoothSocket socket) {
-
+        System.out.println("Connesso con client");
     }
 
     // Closes the connect socket and causes the thread to finish.

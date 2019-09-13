@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_sistematica.AcceptThread;
+import com.example.progetto_sistematica.ConnectThread;
 import com.example.progetto_sistematica.R;
 
 import java.io.IOException;
@@ -42,7 +43,6 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
-
         Button btnConnetti = convertView.findViewById(R.id.btnConnetti);
         btnConnetti.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +52,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
-                            try {
-                                pair(btdevice);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            ConnectThread Client = new ConnectThread(btdevice);
+                            Client.start();
                         }
                     }
                 }
@@ -65,12 +62,9 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         return convertView;
     }// fine onClick
 
-    public void pair(BluetoothDevice device) throws IOException {
+    /*public void pair(BluetoothDevice device) throws IOException {
         BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
-        socket.connect();
-        AcceptThread thr1=new AcceptThread(bluetoothAdapter);
-        thr1.start();
-    }
+        socket.connect();*/
 }

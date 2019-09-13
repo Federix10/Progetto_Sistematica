@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         ListView mylistView = (ListView)findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
+        AcceptThread Server=new AcceptThread(bluetoothAdapter);
+        Server.start();
     } //fine on create
 
 }//fine MainActivity
