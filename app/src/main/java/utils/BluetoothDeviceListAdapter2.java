@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+import static android.content.ContentValues.TAG;
 
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
@@ -66,7 +70,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         return convertView;
     }// fine onClick
 
-    public void pair(BluetoothDevice device) throws IOException {
+    /*public void pair(BluetoothDevice device) throws IOException {
         BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
@@ -74,5 +78,25 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         InputStream inputStream = socket.getInputStream();
         OutputStream outputStream = socket.getOutputStream();
         //outputStream.write(new byte[] { (byte) 0xa0, 0, 7, 16, 0, 4, 0 });
+    }*/
+
+    public ConnectedThread(BluetoothSocket socket, String socketType) {
+        Log.d(TAG, "create ConnectedThread: " + socketType);
+        mmSocket = socket;
+        InputStream tmpIn = null;
+        OutputStream tmpOut = null;
+
+        // Get the BluetoothSocket input and output streams
+        try {
+            tmpIn = socket.getInputStream();
+            tmpOut = socket.getOutputStream();
+        } catch (IOException e) {
+            Log.e(TAG, "temp sockets not created", e);
+        }
+
+        mmInStream = tmpIn;
+        mmOutStream = tmpOut;
+        mState = STATE_CONNECTED;
     }
+
 }
