@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
+import static android.content.ContentValues.TAG;
 
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
