@@ -2,12 +2,14 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,13 @@ import utils.BluetoothDeviceListAdapter2;
 import utils.Device;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
 
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,5 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
-    } //fine on create
-
-
+    } //fine on creates
 }//fine MainActivity

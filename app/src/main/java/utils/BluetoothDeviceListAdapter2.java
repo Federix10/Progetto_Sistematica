@@ -3,38 +3,28 @@ package utils;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progetto_sistematica.ConnectThread;
-import com.example.progetto_sistematica.MainActivity;
-import com.example.progetto_sistematica.MessageActivity;
 import com.example.progetto_sistematica.R;
 
 import java.util.List;
 import java.util.Set;
 
-import static android.support.v4.content.ContextCompat.startActivity;
-
-
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
 
-
     final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
 
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);
     }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
@@ -56,6 +46,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                         if (btdevice.getName().equals(d.getNome())) {
                             ConnectThread Client = new ConnectThread(btdevice);
                             Client.start();
+                            Toast.makeText(getContext(), "Connesso con server", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -63,10 +54,4 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         });
         return convertView;
     }// fine onClick
-
-    /*public void pair(BluetoothDevice device) throws IOException {
-        BluetoothDevice dev = bluetoothAdapter.getRemoteDevice(device.getAddress());
-        UUID uuid = device.getUuids()[0].getUuid();
-        BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
-        socket.connect();*/
 }

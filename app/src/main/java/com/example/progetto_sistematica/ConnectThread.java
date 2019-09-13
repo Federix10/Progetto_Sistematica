@@ -3,6 +3,8 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -12,12 +14,10 @@ public class ConnectThread extends Thread {
     private final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public int i=0;
 
     public ConnectThread(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket
         // because mmSocket is final.
-
         BluetoothSocket tmp = null;
         mmDevice = device;
 
@@ -53,7 +53,6 @@ public class ConnectThread extends Thread {
         // the connection in a separate thread.
         manageMyConnectedSocket(mmSocket);
     }
-
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
     }
