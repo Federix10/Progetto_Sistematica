@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class MyBluetoothService {
+public class MyBluetoothService extends Thread{
     private static final String TAG = "MyBluetoothService";
     private Handler handler; // handler that gets info from Bluetooth service
 

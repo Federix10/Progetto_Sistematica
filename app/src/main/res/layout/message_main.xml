@@ -5,26 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnScrivi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:text="Scrivi"
-        tools:layout_editor_absoluteX="317dp"
-        tools:layout_editor_absoluteY="640dp" />
+        <Button
+            android:id="@+id/btnScrivi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="16dp"
+            android:text="Scrivi"
+            tools:layout_editor_absoluteX="317dp"
+            tools:layout_editor_absoluteY="640dp"
+            android:layout_marginBottom="53dp" />
 
     <EditText
         android:id="@+id/textScrivi"
         android:layout_width="269dp"
         android:layout_height="93dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:layout_toStartOf="@+id/btnScrivi"
         android:ems="10"
-        android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toStartOf="@+id/btnScrivi"
-        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="613dp" />
+
+    <TextView
+        android:id="@+id/mostraTesto"
+        android:layout_width="392dp"
+        android:layout_height="339dp"
+        android:layout_above="@+id/textScrivi"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="184dp" />
 
 </RelativeLayout>
