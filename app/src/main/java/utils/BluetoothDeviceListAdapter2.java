@@ -55,7 +55,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
                             try {
-                                BluetoothManager.connect(btdevice); //Aniello è brutto
+                                BluetoothManager.connect(btdevice);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
