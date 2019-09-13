@@ -61,4 +61,4 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
     } //fine on create
 
-}
+}//fine MainActivity
