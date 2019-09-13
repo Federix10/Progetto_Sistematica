@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.progetto_sistematica.AcceptThread;
 import com.example.progetto_sistematica.R;
 
 import java.io.IOException;
@@ -69,5 +70,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         UUID uuid = device.getUuids()[0].getUuid();
         BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
         socket.connect();
+        AcceptThread thr1=new AcceptThread(bluetoothAdapter);
+        thr1.start();
     }
 }

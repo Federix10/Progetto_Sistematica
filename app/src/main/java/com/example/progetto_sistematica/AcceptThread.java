@@ -7,7 +7,7 @@ import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
 import java.util.UUID;
 
-class AcceptThread extends Thread {
+public class AcceptThread extends Thread {
     private final BluetoothServerSocket mmServerSocket;
     String NAME="Progetto_Sistematica";
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
