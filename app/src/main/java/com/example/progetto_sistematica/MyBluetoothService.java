@@ -40,7 +40,6 @@ public class MyBluetoothService {
             try {
                 tmpIn = socket.getInputStream();
             } catch (IOException e) {
-                System.out.println();
                 Log.e(TAG, "Error occurred when creating input stream", e);
             }
             try {
