@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.progetto_sistematica.AcceptThread;
+import com.example.progetto_sistematica.BluetoothManager;
 import com.example.progetto_sistematica.R;
 
 import java.io.IOException;
@@ -54,10 +56,11 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
                             try {
-                                pair(btdevice);
+                                BluetoothManager.connect(btdevice);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+
                         }
                     }
                 }
@@ -73,6 +76,5 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         socket.connect();
         InputStream inputStream = socket.getInputStream();
         OutputStream outputStream = socket.getOutputStream();
-        //outputStream.write(new byte[] { (byte) 0xa0, 0, 7, 16, 0, 4, 0 });
     }
 }
