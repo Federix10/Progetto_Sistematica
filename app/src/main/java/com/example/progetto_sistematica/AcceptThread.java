@@ -9,9 +9,10 @@ import java.util.UUID;
 
 class AcceptThread extends Thread {
     private final BluetoothServerSocket mmServerSocket;
+    String NAME="Progetto_Sistematica";
+    UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+    public AcceptThread(BluetoothAdapter bluetoothAdapter) {
 
-    public AcceptThread(BluetoothAdapter bluetoothAdapter, UUID MY_UUID) {
-        String NAME="Progetto_Sistematica";
         // Use a temporary object that is later assigned to mmServerSocket
         // because mmServerSocket is final.
         BluetoothServerSocket tmp = null;
