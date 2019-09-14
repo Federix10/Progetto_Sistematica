@@ -17,26 +17,24 @@ public class MessageActivity extends AppCompatActivity {
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
     OutputStream mmOutStream;
-    Button btnScrivi = (Button) findViewById(R.id.btnScrivi);
+    //Button btnScrivi = (Button) findViewById(R.id.btnScrivi);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+    }
+    public void scrivi(View view) throws IOException {
+        System.out.println("Entro in scrivi");
         EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        TextView showText = (TextView)findViewById(R.id.mostraTesto);
+        byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
+        mmOutStream.write(bytes);
+        System.out.println("Scrivo");
+        //String string=String.valueOf(editText.getText());
+        //mmOutStream.write(string.getBytes());
     }
-    public void scrivi(View view)
+
+    /*public void leggi()
     {
-        btnScrivi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                byte[] bytes = btnScrivi.getText().toString().getBytes(Charset.defaultCharset());
-                try {
-                    mmOutStream.write(bytes);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+        TextView showText = (TextView)findViewById(R.id.mostraTesto);
+    }*/
 }
