@@ -20,7 +20,9 @@ import utils.Device;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final int MESSAGE_READ = 0;
+    public static final int MESSAGE_WRITE = 1;
+    public static final int MESSAGE_TOAST = 2;
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private int CT=0;

@@ -57,6 +57,9 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
+        ConnectedThread CT = new ConnectedThread(mmSocket,"BluetoothSocket");
+        CT.start();
+
         /*Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
