@@ -55,9 +55,4 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         });
         return convertView;
     }// fine onClick
-
-    /*public void changeInflater()
-    {
-
-    }*/
 }

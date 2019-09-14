@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
 import java.util.UUID;
 
+import utils.BluetoothDeviceListAdapter2;
+
 public class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
@@ -54,6 +56,7 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
+
     }
 
     // Closes the client socket and causes the thread to finish.
