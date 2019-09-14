@@ -57,12 +57,12 @@ public class AcceptThread extends Thread {
 
     private void manageMyConnectedSocket(BluetoothSocket socket) {
         System.out.println("Connesso con client");
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
+        /*Context context2 = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context2
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        Intent intent = new Intent(context, MessageActivity.class);
-        context.startActivity(intent);
+        Intent intent = new Intent(context2, MessageActivity.class);
+        context2.startActivity(intent);*/
     }
 
     // Closes the connect socket and causes the thread to finish.

@@ -1,4 +1,4 @@
-package utils;
+package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,12 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.progetto_sistematica.ConnectThread;
-import com.example.progetto_sistematica.MainActivity;
 import com.example.progetto_sistematica.R;
 
 import java.util.List;
 import java.util.Set;
+
+import utils.Device;
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
 
