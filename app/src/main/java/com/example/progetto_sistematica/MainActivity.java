@@ -5,10 +5,18 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +30,18 @@ import utils.Device;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
-
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private Context context;
     private int CT=0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView textView = (TextView) findViewById(R.id.checkConnect);
+        textView.setText("Disconnesso"); //set text for text view
+
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -57,15 +68,19 @@ public class MainActivity extends AppCompatActivity {
                 list2.add(d);
             }
         }
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
         ListView mylistView = (ListView)findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
+        //MyBluetoothService mbs = new MyBluetoothService();
+        //mbs.start();
     } //fine on creates
-    public void getCT(int ct)
+
+    public void changeActivity(View view)
     {
-        this.CT=ct;
+        Intent startNewActivity = new Intent (this, MessageActivity.class);
+        startActivity(startNewActivity);
     }
 }//fine MainActivity

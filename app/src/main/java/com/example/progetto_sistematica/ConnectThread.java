@@ -54,10 +54,6 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
-        CT=1;
-        //MainActivity ma=new MainActivity();
-        //ma.getCT(CT);
-        //ma.changeActivity();
     }
 
     // Closes the client socket and causes the thread to finish.

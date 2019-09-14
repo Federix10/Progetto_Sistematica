@@ -13,22 +13,19 @@ import java.nio.charset.Charset;
 
 public class MessageActivity extends AppCompatActivity {
     OutputStream mmOutStream;
-    Button btnScrivi = (Button) findViewById(R.id.btnScrivi);
+    //Button btnScrivi = (Button) findViewById(R.id.btnScrivi);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MyBluetoothService btService = new MyBluetoothService();
-        btService.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        Intent intent = new Intent(this, MessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-        configurebtnScrivi();
+        //MyBluetoothService btService = new MyBluetoothService();
+        //btService.start();
+        //Intent intent = new Intent(this, MessageActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.scriviTesto);
+        //configurebtnScrivi();
     }
 
-    private void configurebtnScrivi()
+    /*private void configurebtnScrivi()
     {
         btnScrivi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,5 +38,5 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 }

@@ -36,8 +36,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
-        Button btnConnetti = convertView.findViewById(R.id.btnScrivi);
-        btnConnetti.setOnClickListener(new View.OnClickListener() {
+        Button btnConnect = convertView.findViewById(R.id.btnConnetti);
+        btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Connessione in corso a: " + d.getNome() + " " + d.getMAC(), Toast.LENGTH_SHORT).show();
@@ -55,4 +55,9 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         });
         return convertView;
     }// fine onClick
+
+    /*public void changeInflater()
+    {
+
+    }*/
 }
