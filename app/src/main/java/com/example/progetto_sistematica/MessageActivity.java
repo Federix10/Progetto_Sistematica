@@ -1,9 +1,11 @@
 package com.example.progetto_sistematica;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,6 +20,11 @@ public class MessageActivity extends AppCompatActivity {
         btService.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        Intent intent = new Intent(this, MessageActivity.class);
+        EditText editText = (EditText) findViewById(R.id.scriviTesto);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
         configurebtnScrivi();
     }
 
