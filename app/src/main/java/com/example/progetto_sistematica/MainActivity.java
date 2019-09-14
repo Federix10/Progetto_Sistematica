@@ -9,8 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -67,14 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
-        if (CT==1)
-        {
-            //mostrare su text view connesso
-        }
-        else
-        {
-            //mostrare su text view disconnesso
-        }
     } //fine on creates
     public void getCT(int ct)
     {

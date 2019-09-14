@@ -47,7 +47,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                         if (btdevice.getName().equals(d.getNome())) {
                             ConnectThread Client = new ConnectThread(btdevice);
                             Client.start();
-                            Toast.makeText(getContext(), "Connesso con server", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Connesso con server", Toast.LENGTH_SHORT).show();
                             if(Client.CT==1)
                             {
                                 MainActivity ma=new MainActivity();

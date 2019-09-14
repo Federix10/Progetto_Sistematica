@@ -3,8 +3,6 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
