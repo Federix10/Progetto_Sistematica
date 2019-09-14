@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 
 import java.io.IOException;
@@ -56,9 +57,12 @@ public class AcceptThread extends Thread {
 
     private void manageMyConnectedSocket(BluetoothSocket socket) {
         System.out.println("Connesso con client");
-        /*LayoutInflater inflater = (LayoutInflater) getContext()
+        Context context = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_message, null);*/
+        inflater.inflate(R.layout.activity_message, null);
+        Intent intent = new Intent(context, MessageActivity.class);
+        context.startActivity(intent);
     }
 
     // Closes the connect socket and causes the thread to finish.
