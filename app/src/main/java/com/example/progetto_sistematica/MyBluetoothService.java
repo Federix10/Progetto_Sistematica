@@ -80,6 +80,7 @@ public class MyBluetoothService extends Thread{
         // Call this from the main activity to send data to the remote device.
         public void write(byte[] bytes) {
             try {
+                System.out.println("Entro in write");
                 mmOutStream.write(bytes);
 
                 // Share the sent message with the UI activity.

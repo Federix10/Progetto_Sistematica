@@ -37,11 +37,28 @@
 
     <TextView
         android:id="@+id/mostraTesto"
-        android:layout_width="392dp"
-        android:layout_height="339dp"
+        android:layout_width="194dp"
+        android:layout_height="336dp"
         android:layout_above="@+id/scriviTesto"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="118dp" />
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="207dp"
+        android:layout_marginBottom="191dp" />
+
+    <TextView
+        android:id="@+id/mostraTesto2"
+        android:layout_width="194dp"
+        android:layout_height="336dp"
+        android:layout_above="@+id/scriviTesto"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="191dp" />
 
 </RelativeLayout>

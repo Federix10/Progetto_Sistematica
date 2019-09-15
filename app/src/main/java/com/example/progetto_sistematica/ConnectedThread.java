@@ -1,75 +1,106 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
-//CLASSE DA GUIDA
-// runs during a connection with a remote device
-
-
 public class ConnectedThread extends Thread {
-    private Handler handler;
-    private final BluetoothSocket bluetoothSocket;
-    private final InputStream inputStream;
-    private final OutputStream outputStream;
 
-    public ConnectedThread(BluetoothSocket socket, String socketType) {
-        this.bluetoothSocket = socket;
+    private final BluetoothSocket mmSocket;
+    private final InputStream mmInStream;
+    private final OutputStream mmOutStream;
+    private byte[] mmBuffer; // mmBuffer store for the stream
+    private static final String TAG = "MyBluetoothService";
+    private Handler handler; // handler that gets info from Bluetooth service
+
+    private interface MessageConstants {
+        public static final int MESSAGE_READ = 0;
+        public static final int MESSAGE_WRITE = 1;
+        public static final int MESSAGE_TOAST = 2;
+
+        // ... (Add other message types here as needed.)
+    }
+
+    public ConnectedThread(BluetoothSocket socket) {
+
+        mmSocket = socket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
 
+        // Get the input and output streams; using temp objects because
+        // member streams are final.
         try {
             tmpIn = socket.getInputStream();
+        } catch (IOException e) {
+            Log.e(TAG, "Error occurred when creating input stream", e);
+        }
+        try {
             tmpOut = socket.getOutputStream();
         } catch (IOException e) {
+            Log.e(TAG, "Error occurred when creating output stream", e);
         }
 
-        inputStream = tmpIn;
-        outputStream = tmpOut;
+        mmInStream = tmpIn;
+        mmOutStream = tmpOut;
     }
 
     public void run() {
-        byte[] buffer = new byte[1024];
-        int bytes;
+        mmBuffer = new byte[1024];
+        int numBytes; // bytes returned from read()
 
-        // Keep listening to the InputStream
+        // Keep listening to the InputStream until an exception occurs.
         while (true) {
-            System.out.println("Ascolto");
             try {
-                // Read from the InputStream
-                bytes = inputStream.read(buffer);
-
-                // Send the obtained bytes to the UI Activity
-                handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1,
-                        buffer).sendToTarget();
+                // Read from the InputStream.
+                numBytes = mmInStream.read(mmBuffer);
+                // Send the obtained bytes to the UI activity.
+                Message readMsg = handler.obtainMessage(
+                        ConnectedThread.MessageConstants.MESSAGE_READ, numBytes, -1,
+                        mmBuffer);
+                readMsg.sendToTarget();
             } catch (IOException e) {
-                //connectionLost();
-                // Start the service over to restart listening mode
-                //ChatService.this.start();
+                Log.d(TAG, "Input stream was disconnected", e);
                 break;
             }
         }
     }
 
-    // write to OutputStream
-    public void write(byte[] buffer) {
+    // Call this from the main activity to send data to the remote device.
+    public void write(byte[] bytes) {
         try {
-            outputStream.write(buffer);
-            handler.obtainMessage(MainActivity.MESSAGE_WRITE, -1, -1,
-                    buffer).sendToTarget();
+            System.out.println("Entro in write");
+            mmOutStream.write(bytes);
+
+            // Share the sent message with the UI activity.
+            Message writtenMsg = handler.obtainMessage(
+                    ConnectedThread.MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
+            writtenMsg.sendToTarget();
         } catch (IOException e) {
+            Log.e(TAG, "Error occurred when sending data", e);
+
+            // Send a failure message back to the activity.
+            Message writeErrorMsg =
+                    handler.obtainMessage(ConnectedThread.MessageConstants.MESSAGE_TOAST);
+            Bundle bundle = new Bundle();
+            bundle.putString("toast",
+                    "Couldn't send data to the other device");
+            writeErrorMsg.setData(bundle);
+            handler.sendMessage(writeErrorMsg);
         }
     }
 
+    // Call this method from the main activity to shut down the connection.
     public void cancel() {
         try {
-            bluetoothSocket.close();
+            mmSocket.close();
         } catch (IOException e) {
+            Log.e(TAG, "Could not close the connect socket", e);
         }
     }
 }

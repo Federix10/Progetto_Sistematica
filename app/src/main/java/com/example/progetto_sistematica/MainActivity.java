@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
-
         //MyBluetoothService mbs = new MyBluetoothService();
         //mbs.start();
     } //fine on creates

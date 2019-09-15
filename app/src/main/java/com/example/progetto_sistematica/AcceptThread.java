@@ -3,9 +3,6 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -57,8 +54,6 @@ public class AcceptThread extends Thread {
 
     private void manageMyConnectedSocket(BluetoothSocket socket) {
         System.out.println("Connesso con client");
-        ConnectedThread AT = new ConnectedThread(socket,"BluetoothSocket");
-        AT.start();
         /*Context context2 = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context2
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
