@@ -12,6 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <Switch
+            android:id="@+id/chatobd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chat/OBD" />
+
         <Button
             android:id="@+id/btnChat"
             android:layout_width="match_parent"
