@@ -8,7 +8,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,15 +28,25 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_TOAST = 2;
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    BluetoothDevice btdevice;
     private int CT=0;
     public TextView textView;
+    Switch aSwitch;
+    TextView switchBtn_txtView;
+    TextView switchBtnChat_txtView;
+    TextView checkConnect;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.checkConnect);
-        impostaDisconnesso();
+        aSwitch = findViewById(R.id.chatobd);
+        switchBtn_txtView = findViewById(R.id.chatobd);
+        switchBtnChat_txtView = findViewById(R.id.btnChat);
+        checkConnect = findViewById(R.id.checkConnect);
+        switchBtn_txtView.setText("CHAT");
+        //impostaDisconnesso();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -67,6 +79,19 @@ public class MainActivity extends AppCompatActivity {
         mylistView.setAdapter(listAdapter2);
         AcceptThread Server=new AcceptThread(bluetoothAdapter);
         Server.start();
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switchBtn_txtView.setText("OBD");
+                    switchBtnChat_txtView.setText("OBD");
+                }
+                else {
+                    switchBtn_txtView.setText("CHAT");
+                    switchBtnChat_txtView.setText("CHAT");
+                }
+            }
+        });
         //MyBluetoothService mbs = new MyBluetoothService();
         //mbs.start();
     } //fine on creates
@@ -74,27 +99,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void impostaDisconnesso()
     {
-        //textView.setText("Disconnesso"); //set text for text view
-        textView.setText(R.string.Disconnesso); //leave this line to assign a string resource
+        textView.setText("Disconnesso"); //leave this line to assign a string resource
     }
-    public void impostaConnesso()
+
+    public void changeActivity(View view)
     {
-        //textView.setText("Connesso"); //set text for text view
-    }
-    public void changeActivityMessage(View view)
-    {
-        Intent startNewActivity = new Intent (this, MessageActivity.class);
-        startActivity(startNewActivity);
-    }
-    public void changeActivityInformation(View view)
-    {
-        Intent startNewActivity = new Intent (this, MessageActivity.class);
-        startActivity(startNewActivity);
+        if (aSwitch.isChecked()==true)
+        {
+            //aSwitch.setText("OBD");
+            Intent startNewActivity = new Intent (this, OBDActivity.class);
+            startActivity(startNewActivity);
+        }
+        else
+        {
+            Intent startNewActivity = new Intent (this, MessageActivity.class);
+            startActivity(startNewActivity);
+        }
     }
     public void changeText(View view)
     {
-        //textView.setText("Connesso"); //set text for text view
-        textView.setText(R.string.Connesso);
+        ConnectThread connectThread = new ConnectThread(btdevice);
+        if (connectThread.mmSocket.isConnected())
+        textView.setText("Connesso");
+        else
+            textView.setText("Disconnesso");
     }
 
 

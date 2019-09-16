@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class ConnectThread extends Thread {
-    private final BluetoothSocket mmSocket;
-    private final BluetoothDevice mmDevice;
+    public final BluetoothSocket mmSocket;
+    public final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     public int CT=0;

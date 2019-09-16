@@ -15,15 +15,14 @@
         <Switch
             android:id="@+id/chatobd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chat/OBD" />
+            android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/btnChat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="changeActivityMessage"
-            android:text="Chat" />
+    <Button
+        android:id="@+id/btnChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="changeActivity"
+        android:text="Chat" />
 
         <ListView
             android:id="@+id/listadevice"
