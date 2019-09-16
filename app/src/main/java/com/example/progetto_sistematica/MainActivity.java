@@ -1,20 +1,15 @@
 package com.example.progetto_sistematica;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +20,7 @@ import utils.Device;
 
 
 public class MainActivity extends AppCompatActivity {
+
     public static final int MESSAGE_READ = 0;
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
@@ -32,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private int CT=0;
     public TextView textView;
-    public BluetoothSocket socket;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         //MyBluetoothService mbs = new MyBluetoothService();
         //mbs.start();
     } //fine on creates
+
+
     public void impostaDisconnesso()
     {
         //textView.setText("Disconnesso"); //set text for text view
@@ -95,21 +91,6 @@ public class MainActivity extends AppCompatActivity {
         //textView.setText("Connesso"); //set text for text view
         textView.setText(R.string.Connesso);
     }
-    /*public void scrivi(View view) {
-        connectedThread = new ConnectedThread(socket);
-        setContentView(R.layout.activity_message);
-        EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        TextView textViews = (TextView) findViewById(R.id.mostraTesto);
-        String string = String.valueOf(editText.getText());
-        textViews.setText(string);
-        byte[] bytes = editText.getText().toString().getBytes();
-        connectedThread.write(bytes);
-        //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
-        //mmOutStream.write(bytes);
-        //System.out.println("Bytes: "+bytes);
-        //String string = String.valueOf(scriviTesto.getText());
-        //String string=String.valueOf(editText.getText());
-        //mmOutStream.write(string.getBytes());
 
-    }*/
+
 }//fine MainActivity
