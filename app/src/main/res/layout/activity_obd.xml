@@ -12,19 +12,26 @@
         android:layout_height="30dp"
         android:text="Tempo Utilizzo"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="555dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.791" />
 
     <TextView
         android:id="@+id/pressioneGommeBar"
         android:layout_width="141dp"
         android:layout_height="29dp"
-        android:layout_marginTop="8dp"
         android:text="2.5 bar"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/pressioneGomme"
-        tools:layout_editor_absoluteX="43dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.868" />
 
     <TextView
         android:id="@+id/pressioneGomme"
@@ -32,30 +39,40 @@
         android:layout_height="26dp"
         android:text="Pressione Gomme"
         android:textSize="19sp"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="555dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.787" />
 
     <TextView
         android:id="@+id/tempRefrigeranteDegrees3"
         android:layout_width="100dp"
         android:layout_height="37dp"
-        android:layout_marginTop="16dp"
         android:text="1:03:22"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/tempoUtilizzo"
-        tools:layout_editor_absoluteX="255dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.819"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
 
     <TextView
         android:id="@+id/consumoMedioLT"
         android:layout_width="139dp"
         android:layout_height="22dp"
-        android:layout_marginTop="12dp"
         android:text="20l/100Km"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/consumoMedio"
-        tools:layout_editor_absoluteX="43dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.645" />
 
     <TextView
         android:id="@+id/consumoMedio"
@@ -63,8 +80,12 @@
         android:layout_height="28dp"
         android:text="Consumo Medio"
         android:textSize="19sp"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="405dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.168"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.576" />
 
     <TextView
         android:id="@+id/percBatteria"
@@ -72,19 +93,27 @@
         android:layout_height="28dp"
         android:text="Perc Batteria"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="405dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.576" />
 
     <TextView
         android:id="@+id/tempRefrigeranteDegrees"
         android:layout_width="78dp"
         android:layout_height="39dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="76dp"
         android:text="70%"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/percBatteria"
-        tools:layout_editor_absoluteX="255dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.992"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.661" />
 
     <TextView
         android:id="@+id/tempOut"
@@ -92,8 +121,12 @@
         android:layout_height="30dp"
         android:text="22°"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="343dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
     <TextView
         android:id="@+id/marcia"
@@ -101,8 +134,12 @@
         android:layout_height="137dp"
         android:text="N"
         android:textSize="120sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="38dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.077" />
 
     <TextView
         android:id="@+id/speed"
@@ -138,38 +175,52 @@
         android:layout_height="28dp"
         android:text="Temperatura motore"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="265dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.376" />
 
     <TextView
         android:id="@+id/tempMotoreDegrees"
-        android:layout_width="78dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="76dp"
+        android:layout_height="44dp"
         android:text="80°"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/tempMotore"
-        tools:layout_editor_absoluteX="74dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.467" />
 
     <TextView
         android:id="@+id/tempRefrigeranteDegrees2"
         android:layout_width="78dp"
         android:layout_height="39dp"
-        android:layout_marginTop="12dp"
         android:text="50°"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/tempRefrigerante"
-        tools:layout_editor_absoluteX="255dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.463" />
 
     <TextView
         android:id="@+id/tempRefrigerante"
         android:layout_width="138dp"
         android:layout_height="28dp"
-        android:text="Temperatura motore"
-        android:textSize="15sp"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="265dp" />
+        android:text="Temp Refrigerante"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.375" />
 
 </android.support.constraint.ConstraintLayout>
