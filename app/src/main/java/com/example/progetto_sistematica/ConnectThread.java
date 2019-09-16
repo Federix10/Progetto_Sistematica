@@ -3,6 +3,9 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -55,12 +58,12 @@ public class ConnectThread extends Thread {
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
 
-        /*Context context = GlobalApplication.getAppContext();
+        Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context, MessageActivity.class);
-        context.startActivity(intent);*/
+        context.startActivity(intent);
     }
 
     // Closes the client socket and causes the thread to finish.
