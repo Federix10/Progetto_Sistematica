@@ -62,7 +62,7 @@ public class AcceptThread extends Thread {
         LayoutInflater inflater = (LayoutInflater) context2
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        Intent intent = new Intent(context2, MessageActivity.class);
+        Intent intent = new Intent(context2, OBDActivity.class);
         context2.startActivity(intent);
     }
 
