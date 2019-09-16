@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OBDActivity">
+
+    <TextView
+        android:id="@+id/tempOut"
+        android:layout_width="52dp"
+        android:layout_height="30dp"
+        android:text="22°"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="343dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/marcia"
+        android:layout_width="89dp"
+        android:layout_height="137dp"
+        android:text="N"
+        android:textSize="120sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="38dp" />
+
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="174dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="16dp"
+        android:text="180 Km/h"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/rpm"
+        android:layout_width="171dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:text="5000 rpm"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.175" />
+
+    <TextView
+        android:id="@+id/tempMotore"
+        android:layout_width="138dp"
+        android:layout_height="22dp"
+        android:text="Temperatura motore"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="252dp" />
+
+    <TextView
+        android:id="@+id/tempMotoreDegrees"
+        android:layout_width="64dp"
+        android:layout_height="29dp"
+        android:text="80°"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/tempMotore"
+        tools:layout_editor_absoluteX="92dp" />
+
+</android.support.constraint.ConstraintLayout>
