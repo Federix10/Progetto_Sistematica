@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.UUID;

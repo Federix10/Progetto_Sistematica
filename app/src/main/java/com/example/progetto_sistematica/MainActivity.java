@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         TextView textView = (TextView) findViewById(R.id.checkConnect);
         textView.setText("Disconnesso"); //set text for text view
 
@@ -76,5 +75,11 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent startNewActivity = new Intent (this, MessageActivity.class);
         startActivity(startNewActivity);
+    }
+    public void changeText(View view)
+    {
+        setContentView(R.layout.activity_main);
+        TextView textView = (TextView) findViewById(R.id.checkConnect);
+        textView.setText("Connesso"); //set text for text view
     }
 }//fine MainActivity
