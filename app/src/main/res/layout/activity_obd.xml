@@ -7,6 +7,86 @@
     tools:context=".OBDActivity">
 
     <TextView
+        android:id="@+id/tempoUtilizzo"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:text="Tempo Utilizzo"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteY="555dp" />
+
+    <TextView
+        android:id="@+id/pressioneGommeBar"
+        android:layout_width="141dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:text="2.5 bar"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/pressioneGomme"
+        tools:layout_editor_absoluteX="43dp" />
+
+    <TextView
+        android:id="@+id/pressioneGomme"
+        android:layout_width="155dp"
+        android:layout_height="26dp"
+        android:text="Pressione Gomme"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="555dp" />
+
+    <TextView
+        android:id="@+id/tempRefrigeranteDegrees3"
+        android:layout_width="100dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:text="1:03:22"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/tempoUtilizzo"
+        tools:layout_editor_absoluteX="255dp" />
+
+    <TextView
+        android:id="@+id/consumoMedioLT"
+        android:layout_width="139dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="12dp"
+        android:text="20l/100Km"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/consumoMedio"
+        tools:layout_editor_absoluteX="43dp" />
+
+    <TextView
+        android:id="@+id/consumoMedio"
+        android:layout_width="138dp"
+        android:layout_height="28dp"
+        android:text="Consumo Medio"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="405dp" />
+
+    <TextView
+        android:id="@+id/percBatteria"
+        android:layout_width="138dp"
+        android:layout_height="28dp"
+        android:text="Perc Batteria"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteY="405dp" />
+
+    <TextView
+        android:id="@+id/tempRefrigeranteDegrees"
+        android:layout_width="78dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
+        android:text="70%"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/percBatteria"
+        tools:layout_editor_absoluteX="255dp" />
+
+    <TextView
         android:id="@+id/tempOut"
         android:layout_width="52dp"
         android:layout_height="30dp"
@@ -55,19 +135,41 @@
     <TextView
         android:id="@+id/tempMotore"
         android:layout_width="138dp"
-        android:layout_height="22dp"
+        android:layout_height="28dp"
         android:text="Temperatura motore"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="252dp" />
+        android:textSize="15sp"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="265dp" />
 
     <TextView
         android:id="@+id/tempMotoreDegrees"
-        android:layout_width="64dp"
-        android:layout_height="29dp"
+        android:layout_width="78dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
         android:text="80°"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@+id/tempMotore"
-        tools:layout_editor_absoluteX="92dp" />
+        tools:layout_editor_absoluteX="74dp" />
+
+    <TextView
+        android:id="@+id/tempRefrigeranteDegrees2"
+        android:layout_width="78dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
+        android:text="50°"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/tempRefrigerante"
+        tools:layout_editor_absoluteX="255dp" />
+
+    <TextView
+        android:id="@+id/tempRefrigerante"
+        android:layout_width="138dp"
+        android:layout_height="28dp"
+        android:text="Temperatura motore"
+        android:textSize="15sp"
+        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteY="265dp" />
 
 </android.support.constraint.ConstraintLayout>
