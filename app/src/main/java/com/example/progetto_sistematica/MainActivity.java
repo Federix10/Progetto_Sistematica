@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.checkConnect);
-        //impostaDisconnesso();
+        impostaDisconnesso();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -81,7 +81,12 @@ public class MainActivity extends AppCompatActivity {
     {
         //textView.setText("Connesso"); //set text for text view
     }
-    public void changeActivity(View view)
+    public void changeActivityMessage(View view)
+    {
+        Intent startNewActivity = new Intent (this, MessageActivity.class);
+        startActivity(startNewActivity);
+    }
+    public void changeActivityInformation(View view)
     {
         Intent startNewActivity = new Intent (this, MessageActivity.class);
         startActivity(startNewActivity);
