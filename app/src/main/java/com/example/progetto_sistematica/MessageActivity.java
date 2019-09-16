@@ -24,26 +24,8 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-
         //TextView textView = (TextView) findViewById(R.id.persona1);
         //textView.setText("Disconnesso"); //set text for text view
-    }
-    public void scrivi(View view) {
-        //ConnectedThread CT = new ConnectedThread(mmSocket);
-        //CT.start();
-        EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        TextView textViews = (TextView) findViewById(R.id.mostraTesto);
-        String string = String.valueOf(editText.getText());
-        textViews.setText(string);
-        //byte[] bytes = editText.getText().toString().getBytes();
-        //CT.write(bytes);
-        //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
-        //mmOutStream.write(bytes);
-        //System.out.println("Bytes: "+bytes);
-        //String string = String.valueOf(scriviTesto.getText());
-        //String string=String.valueOf(editText.getText());
-        //mmOutStream.write(string.getBytes());
-
     }
 
     /*public void leggi()

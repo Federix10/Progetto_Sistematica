@@ -51,8 +51,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                         }
                     }
                 }
-            }
-        });
+            }//fine onClick
+        });//fine setOnClickListener
         return convertView;
-    }// fine onClick
+    }// fine getView
 }

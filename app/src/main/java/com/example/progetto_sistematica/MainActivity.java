@@ -1,15 +1,20 @@
 package com.example.progetto_sistematica;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +31,16 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private int CT=0;
+    public TextView textView;
+    public BluetoothSocket socket;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView textView = (TextView) findViewById(R.id.checkConnect);
-        textView.setText("Disconnesso"); //set text for text view
-
+        textView = findViewById(R.id.checkConnect);
+        //impostaDisconnesso();
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -70,7 +76,15 @@ public class MainActivity extends AppCompatActivity {
         //MyBluetoothService mbs = new MyBluetoothService();
         //mbs.start();
     } //fine on creates
-
+    public void impostaDisconnesso()
+    {
+        //textView.setText("Disconnesso"); //set text for text view
+        textView.setText(R.string.Disconnesso); //leave this line to assign a string resource
+    }
+    public void impostaConnesso()
+    {
+        //textView.setText("Connesso"); //set text for text view
+    }
     public void changeActivity(View view)
     {
         Intent startNewActivity = new Intent (this, MessageActivity.class);
@@ -78,8 +92,24 @@ public class MainActivity extends AppCompatActivity {
     }
     public void changeText(View view)
     {
-        setContentView(R.layout.activity_main);
-        TextView textView = (TextView) findViewById(R.id.checkConnect);
-        textView.setText("Connesso"); //set text for text view
+        //textView.setText("Connesso"); //set text for text view
+        textView.setText(R.string.Connesso);
     }
+    /*public void scrivi(View view) {
+        connectedThread = new ConnectedThread(socket);
+        setContentView(R.layout.activity_message);
+        EditText editText = (EditText) findViewById(R.id.scriviTesto);
+        TextView textViews = (TextView) findViewById(R.id.mostraTesto);
+        String string = String.valueOf(editText.getText());
+        textViews.setText(string);
+        byte[] bytes = editText.getText().toString().getBytes();
+        connectedThread.write(bytes);
+        //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
+        //mmOutStream.write(bytes);
+        //System.out.println("Bytes: "+bytes);
+        //String string = String.valueOf(scriviTesto.getText());
+        //String string=String.valueOf(editText.getText());
+        //mmOutStream.write(string.getBytes());
+
+    }*/
 }//fine MainActivity

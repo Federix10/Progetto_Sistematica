@@ -51,6 +51,7 @@ public class ConnectedThread extends Thread {
     }
 
     public void run() {
+        System.out.println("Entro in ascolto");
         mmBuffer = new byte[1024];
         int numBytes; // bytes returned from read()
 
