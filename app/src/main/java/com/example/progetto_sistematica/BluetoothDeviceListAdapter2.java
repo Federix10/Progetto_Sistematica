@@ -36,7 +36,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
-        Button btnConnect = convertView.findViewById(R.id.btnConnetti);
+        final Button btnConnect = convertView.findViewById(R.id.btnConnetti);
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,9 +45,9 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
-                            ConnectThread Client = new ConnectThread(btdevice);
-                            Client.start();
-                            //Toast.makeText(getContext(), "Connesso con server", Toast.LENGTH_SHORT).show();
+                            final int status =(Integer) btnConnect.getTag();
+                                ConnectThread Client = new ConnectThread(btdevice);
+                                Client.start();
                         }
                     }
                 }

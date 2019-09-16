@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 public class AcceptThread extends Thread {
-    private final BluetoothServerSocket mmServerSocket;
+    public final BluetoothServerSocket mmServerSocket;
     String NAME="Progetto_Sistematica";
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
@@ -56,7 +56,7 @@ public class AcceptThread extends Thread {
         }
     }
 
-    private void manageMyConnectedSocket(BluetoothSocket socket) {
+    public void manageMyConnectedSocket(BluetoothSocket socket) {
         System.out.println("Connesso con client");
         Context context2 = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context2

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="changeActivity"
-        android:text="Chat" />
+        android:text="CHAT" />
 
         <ListView
             android:id="@+id/listadevice"
