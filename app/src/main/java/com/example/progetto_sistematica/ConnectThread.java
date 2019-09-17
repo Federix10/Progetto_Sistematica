@@ -69,7 +69,6 @@ public class ConnectThread extends Thread {
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
-        cancel();
     }
 
     // Closes the client socket and causes the thread to finish.
