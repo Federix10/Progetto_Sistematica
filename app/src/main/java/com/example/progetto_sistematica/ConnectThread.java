@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -24,6 +23,8 @@ public class ConnectThread extends Thread {
         BluetoothSocket tmp = null;
         mmDevice = device;
 
+        OBDActivity  obdActivity = new OBDActivity();
+
         try {
             // Get a BluetoothSocket to connect with the given BluetoothDevice.
             // MY_UUID is the app's UUID string, also used in the server code.
@@ -32,6 +33,7 @@ public class ConnectThread extends Thread {
             System.out.println("Socket's create() method failed");
         }
         mmSocket = tmp;
+        obdActivity.getRisorse(mmDevice, mmSocket);
     }
 
     public void run() {
@@ -58,11 +60,13 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
+        MessageActivity messageActivity = new MessageActivity();
+        messageActivity.getRisorse(mmSocket);
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        Intent intent = new Intent(context, OBDActivity.class);
+        Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
     }
 

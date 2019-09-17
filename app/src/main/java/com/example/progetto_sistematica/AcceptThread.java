@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -62,7 +61,7 @@ public class AcceptThread extends Thread {
         LayoutInflater inflater = (LayoutInflater) context2
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        Intent intent = new Intent(context2, OBDActivity.class);
+        Intent intent = new Intent(context2, MessageActivity.class);
         context2.startActivity(intent);
     }
 
