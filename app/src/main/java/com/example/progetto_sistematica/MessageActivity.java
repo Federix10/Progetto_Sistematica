@@ -23,14 +23,15 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        System.out.println("Device: "+device+" "+socket);
+
     }
     public void getRisorse(BluetoothSocket btsocket, BluetoothDevice  btdevice)
     {
-        socket=btsocket;
-        device=btdevice;
+        this.socket=btsocket;
+        this.device=btdevice;
     }
     public void scrivi(View view) {
+        System.out.println("Device: "+device+" "+socket);
         connectedThread = new ConnectedThread(socket);
         System.out.println("Socket: "+socket);
         EditText editText = (EditText) findViewById(R.id.scriviTesto);
