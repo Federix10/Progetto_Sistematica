@@ -16,7 +16,7 @@ import java.io.OutputStream;
 
 public class MyBluetoothService {
     private static final String TAG = "MY_APP_DEBUG_TAG";
-    public static Handler handler; // handler that gets info from Bluetooth service
+    public static Handler handler = new Handler(); // handler that gets info from Bluetooth service
 
     // Defines several constants used when transmitting messages between the
     // service and the UI.
