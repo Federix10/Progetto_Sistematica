@@ -28,6 +28,7 @@ public class AcceptThread extends Thread {
             System.out.println("Socket's listen() method failed");
         }
         mmServerSocket = tmp;
+        GlobalApplication.setServerSocket(mmServerSocket);
     }
 
     public void run() {

@@ -2,6 +2,7 @@ package com.example.progetto_sistematica;
 
 import android.app.Application;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 
@@ -10,6 +11,7 @@ public class GlobalApplication extends Application {
     private static Context appContext;
     private static BluetoothSocket socket;
     private static BluetoothDevice device;
+    private static BluetoothServerSocket serverSocket;
 
     @Override
     public void onCreate() {
@@ -36,5 +38,15 @@ public class GlobalApplication extends Application {
     public static void setDevice (BluetoothDevice btdevice)
     {
         device=btdevice;
+    }
+
+    public static synchronized  void setServerSocket (BluetoothServerSocket btserverSocket)
+    {
+        serverSocket=btserverSocket;
+    }
+
+    public static BluetoothServerSocket getServerSocket()
+    {
+        return serverSocket;
     }
 }

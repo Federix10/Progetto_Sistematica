@@ -37,12 +37,12 @@ public class ConnectedThread extends Thread {
         // member streams are final.
         try {
             System.out.println("mmSocket"+mmSocket);
-            tmpIn = socket.getInputStream();
+            tmpIn = GlobalApplication.getSocket().getInputStream();
         } catch (IOException e) {
             Log.e(TAG, "Error occurred when creating input stream", e);
         }
         try {
-            tmpOut = socket.getOutputStream();
+            tmpOut = GlobalApplication.getSocket().getOutputStream();
         } catch (IOException e) {
             Log.e(TAG, "Error occurred when creating output stream", e);
         }
