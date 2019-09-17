@@ -16,6 +16,7 @@ public class ConnectThread extends Thread {
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     public int CT=0;
+    MessageActivity messageActivity;
 
     public ConnectThread(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket
@@ -24,6 +25,7 @@ public class ConnectThread extends Thread {
         mmDevice = device;
 
         OBDActivity  obdActivity = new OBDActivity();
+        messageActivity = new MessageActivity();
 
         try {
             // Get a BluetoothSocket to connect with the given BluetoothDevice.
@@ -34,6 +36,7 @@ public class ConnectThread extends Thread {
         }
         mmSocket = tmp;
         obdActivity.getRisorse(mmDevice, mmSocket);
+        messageActivity.getRisorse(mmSocket,mmDevice);
     }
 
     public void run() {
@@ -60,14 +63,13 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
-        MessageActivity messageActivity = new MessageActivity();
-        messageActivity.getRisorse(mmSocket);
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
+        cancel();
     }
 
     // Closes the client socket and causes the thread to finish.
