@@ -22,10 +22,6 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        btnWrite = findViewById(R.id.btnScrivi);
-        editText = findViewById(R.id.scriviTesto);
-        textView = findViewById(R.id.mostraTesto);
-        connectedThread.start();
     }
 
     public void scrivi(View view) {
@@ -41,6 +37,15 @@ public class MessageActivity extends AppCompatActivity {
         } else {
             System.out.println("Non va");
         }
+    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        btnWrite = findViewById(R.id.btnScrivi);
+        editText = findViewById(R.id.scriviTesto);
+        textView = findViewById(R.id.mostraTesto);
+        connectedThread.run();
     }
         //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
