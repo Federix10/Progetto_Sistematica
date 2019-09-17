@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ public class MessageActivity extends AppCompatActivity {
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
     OutputStream mmOutStream;
-    //Button btnScrivi = (Button) findViewById(R.id.btnScrivi);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +26,13 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
     }
 
-    /*public void scrivi(View view) {
-        connectedThread = new ConnectedThread(socket);
-        setContentView(R.layout.activity_message);
+    public void scrivi(View view) {
         EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        TextView textViews = (TextView) findViewById(R.id.mostraTesto);
+        TextView textView = (TextView) findViewById(R.id.mostraTesto);
         String string = String.valueOf(editText.getText());
-        textViews.setText(string);
-        byte[] bytes = editText.getText().toString().getBytes();
-        connectedThread.write(bytes);
+        textView.setText(string);
+        //byte[] bytes = editText.getText().toString().getBytes();
+        //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
         //mmOutStream.write(bytes);
         //System.out.println("Bytes: "+bytes);
@@ -42,5 +40,5 @@ public class MessageActivity extends AppCompatActivity {
         //String string=String.valueOf(editText.getText());
         //mmOutStream.write(string.getBytes());
 
-    }*/
+    }
 }
