@@ -14,9 +14,9 @@ import java.io.OutputStream;
 //CLASSE DI GOOGLE
 
 
-public class MyBluetoothService extends Thread{
-    private static final String TAG = "MyBluetoothService";
-    private Handler handler; // handler that gets info from Bluetooth service
+public class MyBluetoothService {
+    private static final String TAG = "MY_APP_DEBUG_TAG";
+    public static Handler handler; // handler that gets info from Bluetooth service
 
     // Defines several constants used when transmitting messages between the
     // service and the UI.
@@ -28,7 +28,7 @@ public class MyBluetoothService extends Thread{
         // ... (Add other message types here as needed.)
     }
 
-    private class ConnectedThread extends Thread {
+    public static class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
@@ -80,7 +80,6 @@ public class MyBluetoothService extends Thread{
         // Call this from the main activity to send data to the remote device.
         public void write(byte[] bytes) {
             try {
-                System.out.println("Entro in write");
                 mmOutStream.write(bytes);
 
                 // Share the sent message with the UI activity.

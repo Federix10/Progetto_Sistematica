@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 public class MessageActivity extends AppCompatActivity {
 
-    public static final int MESSAGE_READ = 0;
-    public static final int MESSAGE_WRITE = 1;
-    public static final int MESSAG_TOAST = 2;
     Button btnWrite;
     EditText editText;
     TextView textView;
@@ -24,12 +21,12 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void scrivi(View view) {
-        ConnectedThread connectedThread2 = new ConnectedThread(GlobalApplication.getSocket());
+
         if (GlobalApplication.getDevice() != null && GlobalApplication.getSocket() != null) {
             System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
-            connectedThread2 = new ConnectedThread(GlobalApplication.getSocket());
+            MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
             byte[] bytes = editText.getText().toString().getBytes();
-            connectedThread2.write(bytes);
+            myBluetoothServiceThread.write(bytes);
             String string = String.valueOf(editText.getText());
             textView.setText(string);
             editText.setText("");
@@ -44,8 +41,8 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
-        ConnectedThread connectedThread = new ConnectedThread(GlobalApplication.getSocket());
-        connectedThread.start();
+        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
+        myBluetoothServiceThread.start();
     }
         //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
