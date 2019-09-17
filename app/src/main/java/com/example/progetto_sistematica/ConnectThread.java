@@ -15,7 +15,6 @@ public class ConnectThread extends Thread {
     public final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public int CT=0;
     MessageActivity messageActivity;
 
     public ConnectThread(BluetoothDevice device) {
@@ -24,7 +23,7 @@ public class ConnectThread extends Thread {
         BluetoothSocket tmp = null;
         mmDevice = device;
 
-        OBDActivity  obdActivity = new OBDActivity();
+        //OBDActivity  obdActivity = new OBDActivity();
         messageActivity = new MessageActivity();
 
         try {
@@ -36,7 +35,6 @@ public class ConnectThread extends Thread {
         }
         mmSocket = tmp;
         //obdActivity.getRisorse(mmDevice, mmSocket);
-        GlobalApplication.setSocket(mmSocket);
     }
 
     public void run() {
@@ -69,9 +67,11 @@ public class ConnectThread extends Thread {
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
-        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
+        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(mmSocket);
         myBluetoothServiceThread.start();
-    }
+        GlobalApplication.setSetCT(1);
+        GlobalApplication.setSocket(mmSocket);
+        }
 
     // Closes the client socket and causes the thread to finish.
     public void cancel() {

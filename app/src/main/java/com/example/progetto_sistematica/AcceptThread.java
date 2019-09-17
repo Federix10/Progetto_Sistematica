@@ -28,7 +28,6 @@ public class AcceptThread extends Thread {
             System.out.println("Socket's listen() method failed");
         }
         mmServerSocket = tmp;
-        GlobalApplication.setServerSocket(mmServerSocket);
     }
 
     public void run() {
@@ -64,8 +63,11 @@ public class AcceptThread extends Thread {
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context2, MessageActivity.class);
         context2.startActivity(intent);
-        //MyBluetoothService.ConnectedThread myBluetoothServiceThread2 = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
-        //myBluetoothServiceThread2.start();
+        GlobalApplication.setServerSocket(socket);
+        MyBluetoothService.ConnectedThread myBluetoothServiceThread2 = new MyBluetoothService.ConnectedThread(socket);
+        myBluetoothServiceThread2.start();
+        GlobalApplication.setSetAT(1);
+        GlobalApplication.setServerSocket(socket);
     }
 
     // Closes the connect socket and causes the thread to finish.

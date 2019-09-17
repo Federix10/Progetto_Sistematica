@@ -13,7 +13,6 @@ public class MessageActivity extends AppCompatActivity {
     Button btnWrite;
     EditText editText;
     TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +20,33 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void scrivi(View view) {
-
-        if (GlobalApplication.getDevice() != null && GlobalApplication.getSocket() != null) {
-            System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
-            MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
-            byte[] bytes = editText.getText().toString().getBytes();
-            myBluetoothServiceThread.write(bytes);
-            String string = String.valueOf(editText.getText());
-            textView.setText(string);
-            editText.setText("");
-        } else {
-            System.out.println("Non va");
+        if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
+        {
+            if (GlobalApplication.getServerSocket() != null) {
+                System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getServerSocket());
+                MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getServerSocket());
+                byte[] bytes = editText.getText().toString().getBytes();
+                myBluetoothServiceThread.write(bytes);
+                String string = String.valueOf(editText.getText());
+                textView.setText(string);
+                editText.setText("");
+            } else {
+                System.out.println("Non va");
+            }
+        }
+        else if (GlobalApplication.getCT()==1 && GlobalApplication.getAT()==0)
+        {
+            if (GlobalApplication.getSocket() != null) {
+                System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
+                MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
+                byte[] bytes = editText.getText().toString().getBytes();
+                myBluetoothServiceThread.write(bytes);
+                String string = String.valueOf(editText.getText());
+                textView.setText(string);
+                editText.setText("");
+            } else {
+                System.out.println("Non va");
+            }
         }
     }
     @Override
@@ -41,8 +56,8 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
-        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
-        myBluetoothServiceThread.start();
+        //MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
+        //myBluetoothServiceThread.start();
     }
         //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
