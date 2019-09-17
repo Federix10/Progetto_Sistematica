@@ -31,16 +31,21 @@ public class MessageActivity extends AppCompatActivity {
         this.device=btdevice;
     }
     public void scrivi(View view) {
-        System.out.println("Device: "+device+" "+socket);
-        connectedThread = new ConnectedThread(socket);
-        System.out.println("Socket: "+socket);
-        EditText editText = (EditText) findViewById(R.id.scriviTesto);
-        TextView textView = (TextView) findViewById(R.id.mostraTesto);
-        String string = String.valueOf(editText.getText());
-        editText.setText("");
-        textView.setText(string);
-        byte[] bytes = editText.getText().toString().getBytes();
-        connectedThread.write(bytes);
+        if (device!=null&&socket!=null) {
+            System.out.println("Device: " + device + " " + socket);
+            connectedThread = new ConnectedThread(socket);
+            System.out.println("Socket: " + socket);
+            EditText editText = (EditText) findViewById(R.id.scriviTesto);
+            TextView textView = (TextView) findViewById(R.id.mostraTesto);
+            String string = String.valueOf(editText.getText());
+            editText.setText("");
+            textView.setText(string);
+            byte[] bytes = editText.getText().toString().getBytes();
+            connectedThread.write(bytes);
+        }
+        else {
+            System.out.println("Non va");
+        }
         //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
 
