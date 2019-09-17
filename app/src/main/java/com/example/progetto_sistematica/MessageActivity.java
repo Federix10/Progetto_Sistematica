@@ -25,19 +25,22 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         btnWrite = findViewById(R.id.btnScrivi);
+
+
+
     }
     /*public void getRisorse(BluetoothSocket btsocket, BluetoothDevice  btdevice)
     {
         this.socket=btsocket;
         this.device=btdevice;
     }*/
-    public void scrivi(BluetoothSocket btsocket, BluetoothDevice  btdevice) {
-        socket=btsocket;
-        device=btdevice;
+    
+    public void scrivi(final BluetoothSocket btsocket, final BluetoothDevice  btdevice) {
+
         btnWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (device!=null&&socket!=null) {
+                if (btdevice!=null&&btsocket!=null) {
                     System.out.println("Device: " + device + " " + socket);
                     connectedThread = new ConnectedThread(socket);
                     System.out.println("Socket: " + socket);

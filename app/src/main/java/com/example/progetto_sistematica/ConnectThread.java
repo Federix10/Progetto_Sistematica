@@ -35,8 +35,8 @@ public class ConnectThread extends Thread {
             System.out.println("Socket's create() method failed");
         }
         mmSocket = tmp;
-        obdActivity.getRisorse(mmDevice, mmSocket);
-        messageActivity.scrivi(mmSocket,mmDevice);
+        //obdActivity.getRisorse(mmDevice, mmSocket);
+        //messageActivity.scrivi(mmSocket,mmDevice);
     }
 
     public void run() {

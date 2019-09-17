@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.progetto_sistematica.R;
-
 import java.util.List;
 import java.util.Set;
 
@@ -45,8 +43,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
-                                ConnectThread Client = new ConnectThread(btdevice);
-                                Client.start();
+                                ConnectThread client = new ConnectThread(btdevice);
+                                client.start();
                         }
                     }
                 }
