@@ -30,6 +30,7 @@ public class MessageActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.scriviTesto);
         TextView textView = (TextView) findViewById(R.id.mostraTesto);
         String string = String.valueOf(editText.getText());
+        editText.setText("");
         textView.setText(string);
         //byte[] bytes = editText.getText().toString().getBytes();
         //connectedThread.write(bytes);
