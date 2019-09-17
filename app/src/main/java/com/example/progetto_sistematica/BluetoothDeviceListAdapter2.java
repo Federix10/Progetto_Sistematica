@@ -45,7 +45,6 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
-                            final int status =(Integer) btnConnect.getTag();
                                 ConnectThread Client = new ConnectThread(btdevice);
                                 Client.start();
                         }

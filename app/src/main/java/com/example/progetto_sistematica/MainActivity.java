@@ -29,15 +29,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_TOAST = 2;
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    BluetoothDevice btdevice;
-    private int CT=0;
     public TextView textView;
     Switch aSwitch;
     TextView switchBtn_txtView;
     TextView switchBtnChat_txtView;
     TextView checkConnect;
-    AcceptThread Server;
-    Device d;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         switchBtnChat_txtView = findViewById(R.id.btnChat);
         checkConnect = findViewById(R.id.checkConnect);
         switchBtn_txtView.setText("CHAT");
+
         //textView.setText("Disconnesso");
+
         if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Il dispositivo non supporta il bluetooth")
@@ -72,15 +70,14 @@ public class MainActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
-                d = new Device(device.getName(), device.getAddress());
+                Device d = new Device(device.getName(), device.getAddress());
                 list2.add(d);
             }
         }
-        //setContentView(R.layout.activity_main);
         ListView mylistView = (ListView)findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
-        Server = new AcceptThread(bluetoothAdapter);
+        AcceptThread Server = new AcceptThread(bluetoothAdapter);
         Server.start();
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,25 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //MyBluetoothService mbs = new MyBluetoothService();
-        //mbs.start();
     } //fine on creates
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        ConnectThread connectThread = new ConnectThread(btdevice);
-        textView.setText("Connesso");
-        if (connectThread.mmSocket.isConnected())
-        {
-            textView.setText("Connesso");
-            System.out.println("changeActivity Connesso");
-
-        }
-        else
-            textView.setText("Disconnesso");
-
-    }*/
     public void changeActivity(View view)
     {
         if (aSwitch.isChecked()==true)
@@ -129,17 +109,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(startNewActivity);
         }
     }
-
-    /*public void changeText(View view)
-    {
-        if (connectThread.mmSocket.isConnected())
-        {
-            textView.setText("Connesso");
-            System.out.println("changeActivity Connesso");
-
-        }
-        else
-            textView.setText("Disconnesso");
-    }*/
 
 }//fine MainActivity
