@@ -23,8 +23,9 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         btnWrite = findViewById(R.id.btnScrivi);
-        editText = (EditText) findViewById(R.id.scriviTesto);
-        textView = (TextView) findViewById(R.id.mostraTesto);
+        editText = findViewById(R.id.scriviTesto);
+        textView = findViewById(R.id.mostraTesto);
+        connectedThread.start();
     }
 
     public void scrivi(View view) {
@@ -32,12 +33,11 @@ public class MessageActivity extends AppCompatActivity {
         if (GlobalApplication.getDevice() != null && GlobalApplication.getSocket() != null) {
             System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
             connectedThread = new ConnectedThread(GlobalApplication.getSocket());
-            connectedThread.start();
             byte[] bytes = editText.getText().toString().getBytes();
             connectedThread.write(bytes);
             String string = String.valueOf(editText.getText());
-            editText.setText("");
             textView.setText(string);
+            editText.setText("");
         } else {
             System.out.println("Non va");
         }
