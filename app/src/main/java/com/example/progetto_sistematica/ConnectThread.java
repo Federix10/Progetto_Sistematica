@@ -69,6 +69,8 @@ public class ConnectThread extends Thread {
         inflater.inflate(R.layout.activity_message, null);
         Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
+        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
+        myBluetoothServiceThread.start();
     }
 
     // Closes the client socket and causes the thread to finish.
