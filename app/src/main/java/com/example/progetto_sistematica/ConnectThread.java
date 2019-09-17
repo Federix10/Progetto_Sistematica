@@ -36,7 +36,7 @@ public class ConnectThread extends Thread {
         }
         mmSocket = tmp;
         //obdActivity.getRisorse(mmDevice, mmSocket);
-        //messageActivity.scrivi(mmSocket,mmDevice);
+        GlobalApplication.setSocket(mmSocket);
     }
 
     public void run() {

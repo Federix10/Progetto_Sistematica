@@ -45,6 +45,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                         if (btdevice.getName().equals(d.getNome())) {
                                 ConnectThread client = new ConnectThread(btdevice);
                                 client.start();
+                                GlobalApplication.setDevice(btdevice);
                         }
                     }
                 }

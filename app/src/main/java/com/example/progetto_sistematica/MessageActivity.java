@@ -4,10 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 
 public class MessageActivity extends AppCompatActivity {
@@ -27,36 +24,25 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
 
 
-
     }
-    /*public void getRisorse(BluetoothSocket btsocket, BluetoothDevice  btdevice)
-    {
-        this.socket=btsocket;
-        this.device=btdevice;
-    }*/
-    
-    public void scrivi(final BluetoothSocket btsocket, final BluetoothDevice  btdevice) {
 
-        btnWrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (btdevice!=null&&btsocket!=null) {
-                    System.out.println("Device: " + device + " " + socket);
-                    connectedThread = new ConnectedThread(socket);
-                    System.out.println("Socket: " + socket);
-                    EditText editText = (EditText) findViewById(R.id.scriviTesto);
-                    TextView textView = (TextView) findViewById(R.id.mostraTesto);
-                    String string = String.valueOf(editText.getText());
-                    editText.setText("");
-                    textView.setText(string);
-                    byte[] bytes = editText.getText().toString().getBytes();
-                    connectedThread.write(bytes);
-                }
-                else {
-                    System.out.println("Non va");
-                }
-            }
-        });
+    public void scrivi() {
+
+        if (GlobalApplication.getDevice() != null && GlobalApplication.getSocket() != null) {
+            System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
+            /*connectedThread = new ConnectedThread(socket);
+            System.out.println("Socket: " + socket);
+            EditText editText = (EditText) findViewById(R.id.scriviTesto);
+            TextView textView = (TextView) findViewById(R.id.mostraTesto);
+            String string = String.valueOf(editText.getText());
+            editText.setText("");
+            textView.setText(string);
+            byte[] bytes = editText.getText().toString().getBytes();
+            connectedThread.write(bytes);*/
+        } else {
+            System.out.println("Non va");
+        }
+    }
         //connectedThread.write(bytes);
         //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
 
@@ -66,5 +52,3 @@ public class MessageActivity extends AppCompatActivity {
         //mmOutStream.write(string.getBytes());
 
     }
-
-}
