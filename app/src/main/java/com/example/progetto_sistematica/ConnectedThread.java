@@ -36,6 +36,7 @@ public class ConnectedThread extends Thread {
         // Get the input and output streams; using temp objects because
         // member streams are final.
         try {
+            System.out.println("mmSocket"+mmSocket);
             tmpIn = socket.getInputStream();
         } catch (IOException e) {
             Log.e(TAG, "Error occurred when creating input stream", e);

@@ -13,7 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="53dp"
-        android:onClick="scrivi"
+        android:onClick="btnScrivi"
         android:text="Scrivi"
         tools:layout_editor_absoluteX="317dp"
         tools:layout_editor_absoluteY="640dp" />

@@ -24,8 +24,6 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         System.out.println("Device: "+device+" "+socket);
-        connectThread = new ConnectThread(device);
-        connectThread.start();
     }
     public void getRisorse(BluetoothSocket btsocket, BluetoothDevice  btdevice)
     {
