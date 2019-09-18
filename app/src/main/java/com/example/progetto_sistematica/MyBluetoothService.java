@@ -21,6 +21,7 @@ public class MyBluetoothService {
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
     public static List mConversationArrayAdapter;
+    private static byte[] mmBuffer; // mmBuffer store for the stream
     private static final String TAG = "MY_APP_DEBUG_TAG";
     public static final Handler handler = new Handler(Looper.getMainLooper()) { // handler that gets info from Bluetooth service
         @Override
@@ -31,7 +32,7 @@ public class MyBluetoothService {
                 System.out.println("Message: Write");
                 byte[] writeBuf = (byte[]) message.obj;
                 // construct a string from the buffer
-                String writeMessage = new String(writeBuf);
+                String writeMessage = new String(mmBuffer);
                 System.out.println("MESSAGGIO WRITE" + writeMessage);
                 mConversationArrayAdapter.add("Me:  " + writeMessage);
             }
@@ -40,7 +41,7 @@ public class MyBluetoothService {
                 System.out.println("Message: Read");
                 byte[] readBuf = (byte[]) message.obj;
                 // construct a string from the valid bytes in the buffer
-                String readMessage = new String(readBuf, 0, message.arg1);
+                String readMessage = new String(mmBuffer, 0, message.arg1);
                 System.out.println("MESSAGGIO READ" + readMessage);
                 mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
@@ -55,7 +56,6 @@ public class MyBluetoothService {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
-        private byte[] mmBuffer; // mmBuffer store for the stream
 
         public ConnectedThread(BluetoothSocket socket) {
             mmSocket = socket;
