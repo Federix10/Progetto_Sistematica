@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -57,8 +56,7 @@ public class AcceptThread extends Thread {
     }
 
     public void manageMyConnectedSocket(BluetoothSocket socket) {
-        Toast.makeText(GlobalApplication.getAppContext(), "Connesso con client", Toast.LENGTH_SHORT).show();
-        //System.out.println("Connesso con client");
+        System.out.println("Connesso con client");
         Context context2 = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context2
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

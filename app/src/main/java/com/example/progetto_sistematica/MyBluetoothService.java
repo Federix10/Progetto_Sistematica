@@ -3,6 +3,7 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,7 +18,14 @@ import java.io.OutputStream;
 
 public class MyBluetoothService {
     private static final String TAG = "MY_APP_DEBUG_TAG";
-    public static Handler handler = new Handler();
+    public static Handler handler = new Handler(Looper.getMainLooper()) { // handler that gets info from Bluetooth service
+        @Override
+        public void handleMessage(Message message) {
+            System.out.println("HANDLER MESSAGE");
+            // This is where you do your work in the UI thread.
+            // Your worker tells you in the message what to do.
+        }
+    };
     // Defines several constants used when transmitting messages between the
     // service and the UI.
     private interface MessageConstants {
