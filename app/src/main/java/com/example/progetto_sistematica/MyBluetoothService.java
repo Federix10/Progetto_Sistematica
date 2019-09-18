@@ -32,7 +32,8 @@ public class MyBluetoothService {
                 byte[] writeBuf = (byte[]) message.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
-                mConversationArrayAdapter.add("Me:  " + writeMessage);
+                System.out.println("MESSAGGIO WRITE" + writeMessage);
+                //mConversationArrayAdapter.add("Me:  " + writeMessage);
             }
             else if(message.what == MESSAGE_READ)
             {
@@ -40,7 +41,8 @@ public class MyBluetoothService {
                 byte[] readBuf = (byte[]) message.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, message.arg1);
-                mConversationArrayAdapter.add("Connected Device:  " + readMessage);
+                System.out.println("MESSAGGIO READ" + readMessage);
+                //mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
             // This is where you do your work in the UI thread.
             // Your worker tells you in the message what to do.
