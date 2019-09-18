@@ -16,7 +16,7 @@ public class MessageActivity extends AppCompatActivity {
     Button btnWrite;
     EditText editText;
     TextView textView;
-    TextView textView2;
+    static TextView textView2;
     Button btnLeggi;
 
     @Override
@@ -25,11 +25,10 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
     }
 
-    /*public void leggi (View view)
+    public static void leggi ()
     {
         textView2.setText(GlobalApplication.getMessage());
-
-    }*/
+    }
     public void scrivi(View view) {
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.widget.TextView;
 
 public class GlobalApplication extends Application {
 
@@ -15,7 +14,6 @@ public class GlobalApplication extends Application {
     private static int setAT = 0;
     private static int setCT = 0;
     private static String message;
-    private static MessageActivity messageActivity = new MessageActivity();
 
     @Override
     public void onCreate() {
@@ -75,8 +73,8 @@ public class GlobalApplication extends Application {
     {
         message=btmessage;
     }
-    public static synchronized void getMessage()
+    public static synchronized String getMessage()
     {
-        TextView textView = messageActivity.findViewById(R.id.mostraTesto2);
+        return message;
     }
 }

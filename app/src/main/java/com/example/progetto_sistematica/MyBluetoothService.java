@@ -43,8 +43,8 @@ public class MyBluetoothService {
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, message.arg1);
                 System.out.println("MESSAGGIO READ: " + readMessage);
-                GlobalApplication.getMessage();
-                //GlobalApplication.setMessage(readMessage);
+                GlobalApplication.setMessage(readMessage);
+                MessageActivity.leggi();
                 //mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
             // This is where you do your work in the UI thread.
