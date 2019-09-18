@@ -6,13 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.github.pires.obd.commands.SpeedCommand;
+import com.github.pires.obd.commands.control.DtcNumberCommand;
+import com.github.pires.obd.commands.engine.MassAirFlowCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
+import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
 import com.github.pires.obd.commands.protocol.ObdResetCommand;
 import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
 import com.github.pires.obd.commands.protocol.SpacesOffCommand;
 import com.github.pires.obd.commands.protocol.TimeoutCommand;
+import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
 import java.io.IOException;
@@ -38,16 +42,27 @@ public class OBDActivity extends AppCompatActivity {
     }
 
     public class DatiOBD extends Thread {
+        MassAirFlowCommand massAirFlowCommand;
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
-        TextView textViewRpm;
-        TextView textViewSpeed;
+        AmbientAirTemperatureCommand ambientAirTemperatureCommand;
+        FindFuelTypeCommand findFuelTypeCommand;
+        DtcNumberCommand dtcNumberCommand;
+        TextView textViewRpm,textViewSpeed,textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber;
         public DatiOBD ()
         {
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità
+            ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
+            dtcNumberCommand = new DtcNumberCommand();
+            //findFuelTypeCommand = new FindFuelTypeCommand();
+            //massAirFlowCommand = new MassAirFlowCommand();
             textViewRpm = findViewById(R.id.rpm);
             textViewSpeed = findViewById(R.id.speed);
+            textViewAmbieAirTemperature = findViewById(R.id.tempOut);
+            textViewDtcNumber = findViewById(R.id.DTC);
+            //textViewFindFuelType = findViewById(R.id.percBatteria2);
+            //textViewMassAirFlow = findViewById(R.id.percBatteria2);
         }
 
         public void inizializzaOBD ()
@@ -78,8 +93,17 @@ public class OBDActivity extends AppCompatActivity {
                 try {
                     rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                     speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    //setText
                     textViewSpeed.setText(speedCommand.getFormattedResult());
                     textViewRpm.setText(rpmCommand.getFormattedResult());
+                    textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                    textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
+                    //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
+                    //textViewAmbieAirTemperature.setText(findFuelTypeCommand.getFormattedResult());
                     Thread.sleep(500);
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -23,7 +23,6 @@
         android:id="@+id/pressioneGommeBar"
         android:layout_width="141dp"
         android:layout_height="29dp"
-        android:text="2.5 bar"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +49,6 @@
         android:id="@+id/tempRefrigeranteDegrees3"
         android:layout_width="100dp"
         android:layout_height="37dp"
-        android:text="1:03:22"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,7 +62,6 @@
         android:id="@+id/consumoMedioLT"
         android:layout_width="139dp"
         android:layout_height="22dp"
-        android:text="20l/100Km"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,25 +98,22 @@
         app:layout_constraintVertical_bias="0.576" />
 
     <TextView
-        android:id="@+id/tempRefrigeranteDegrees"
-        android:layout_width="78dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="76dp"
-        android:text="70%"
+        android:id="@+id/percBatteria2"
+        android:layout_width="111dp"
+        android:layout_height="53dp"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.992"
+        app:layout_constraintHorizontal_bias="0.813"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
+        app:layout_constraintVertical_bias="0.654" />
 
     <TextView
         android:id="@+id/tempOut"
         android:layout_width="52dp"
         android:layout_height="30dp"
-        android:text="22°"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,23 +137,23 @@
 
     <TextView
         android:id="@+id/speed"
-        android:layout_width="174dp"
-        android:layout_height="52dp"
+        android:layout_width="184dp"
+        android:layout_height="61dp"
         android:layout_marginEnd="16dp"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <TextView
         android:id="@+id/rpm"
-        android:layout_width="171dp"
-        android:layout_height="48dp"
+        android:layout_width="184dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -184,7 +178,6 @@
         android:id="@+id/tempMotoreDegrees"
         android:layout_width="76dp"
         android:layout_height="44dp"
-        android:text="80°"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,7 +191,6 @@
         android:id="@+id/tempRefrigeranteDegrees2"
         android:layout_width="78dp"
         android:layout_height="39dp"
-        android:text="50°"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -220,5 +212,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.375" />
+
+    <TextView
+        android:id="@+id/DTC"
+        android:layout_width="145dp"
+        android:layout_height="58dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </android.support.constraint.ConstraintLayout>
