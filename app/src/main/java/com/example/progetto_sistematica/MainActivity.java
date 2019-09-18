@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     public TextView textView;
-    Switch aSwitch;
+    public static Switch aSwitch;
     TextView switchBtn_txtView;
     TextView switchBtnChat_txtView;
     TextView checkConnect;

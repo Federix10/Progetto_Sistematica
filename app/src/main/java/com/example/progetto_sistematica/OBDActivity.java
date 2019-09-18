@@ -3,6 +3,7 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.pires.obd.commands.SpeedCommand;
@@ -38,6 +39,10 @@ public class OBDActivity extends AppCompatActivity {
         } catch (Exception e) {
             // handle errors
         }
+    }
+    public void informazioni(View view)
+    {
+        BluetoothSocket socket=GlobalApplication.getSocket();
         RPMCommand rpmCommand = new RPMCommand(); //giri motore
         SpeedCommand speedCommand = new SpeedCommand();//velocità
         while (!Thread.currentThread().isInterrupted())
@@ -54,5 +59,4 @@ public class OBDActivity extends AppCompatActivity {
             textViewRpm.setText(rpmCommand.getFormattedResult()+" rpm");
         }
     }
-
 }

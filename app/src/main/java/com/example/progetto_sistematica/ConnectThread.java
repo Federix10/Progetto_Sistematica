@@ -65,8 +65,16 @@ public class ConnectThread extends Thread {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        Intent intent = new Intent(context, OBDActivity.class);
-        context.startActivity(intent);
+        if (MainActivity.aSwitch.isChecked()==true)
+        {
+            Intent intent = new Intent(context, OBDActivity.class);
+            context.startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(context, MessageActivity.class);
+            context.startActivity(intent);
+        }
         MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(mmSocket);
         myBluetoothServiceThread.start();
         GlobalApplication.setSetCT(1);
