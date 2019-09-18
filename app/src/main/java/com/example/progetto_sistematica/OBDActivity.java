@@ -3,7 +3,6 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import com.github.pires.obd.commands.SpeedCommand;
@@ -25,11 +24,13 @@ public class OBDActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obd);
     }
+
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        BluetoothSocket socket=GlobalApplication.getSocket();
+        TextView textViewSpeed = findViewById(R.id.speed);
+        TextView textViewRpm = findViewById(R.id.rpm);
+        BluetoothSocket socket = GlobalApplication.getSocket();
         try {
             new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
             new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
@@ -39,24 +40,17 @@ public class OBDActivity extends AppCompatActivity {
         } catch (Exception e) {
             // handle errors
         }
-    }
-    public void informazioni(View view)
-    {
-        BluetoothSocket socket=GlobalApplication.getSocket();
         RPMCommand rpmCommand = new RPMCommand(); //giri motore
         SpeedCommand speedCommand = new SpeedCommand();//velocità
-        while (!Thread.currentThread().isInterrupted())
-        {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                 speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewSpeed.setText(speedCommand.getFormattedResult() + " Km/h");
+                textViewRpm.setText(rpmCommand.getFormattedResult() + " rpm");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-            TextView textViewSpeed = findViewById(R.id.speed);
-            TextView textViewRpm = findViewById(R.id.rpm);
-            textViewSpeed.setText(speedCommand.getFormattedResult()+" Km/h");
-            textViewRpm.setText(rpmCommand.getFormattedResult()+" rpm");
         }
     }
 }
