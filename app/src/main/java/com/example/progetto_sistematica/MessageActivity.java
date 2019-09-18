@@ -16,18 +16,18 @@ public class MessageActivity extends AppCompatActivity {
     Button btnWrite;
     EditText editText;
     TextView textView;
+    TextView textView2;
     Button btnLeggi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        final Button button = (Button) findViewById(R.id.btnScrivi);
     }
 
     public void leggi (View view)
     {
-        textView.setText(GlobalApplication.getMessage());
+        textView2.setText(GlobalApplication.getMessage());
 
     }
     public void scrivi(View view) {
@@ -71,6 +71,7 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
+        textView2 = findViewById(R.id.mostraTesto2);
         btnLeggi = findViewById(R.id.btnLeggi);
     }
 }
