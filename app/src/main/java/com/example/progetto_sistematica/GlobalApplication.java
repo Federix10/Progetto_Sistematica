@@ -13,6 +13,7 @@ public class GlobalApplication extends Application {
     private static BluetoothSocket serverSocket;
     private static int setAT = 0;
     private static int setCT = 0;
+    private static String message;
 
     @Override
     public void onCreate() {
@@ -67,5 +68,13 @@ public class GlobalApplication extends Application {
     public static synchronized int getCT()
     {
         return setCT;
+    }
+    public static void setMessage(String btmessage)
+    {
+        message=btmessage;
+    }
+    public static synchronized String getMessage()
+    {
+        return message;
     }
 }

@@ -34,7 +34,7 @@ public class MyBluetoothService {
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 System.out.println("MESSAGGIO WRITE" + writeMessage);
-                mConversationArrayAdapter.add("Me:  " + writeMessage);
+                //mConversationArrayAdapter.add("Me:  " + writeMessage);
             }
             else if(message.what == MESSAGE_READ)
             {
@@ -43,7 +43,8 @@ public class MyBluetoothService {
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, message.arg1);
                 System.out.println("MESSAGGIO READ" + readMessage);
-                mConversationArrayAdapter.add("Connected Device:  " + readMessage);
+                GlobalApplication.setMessage(readMessage);
+                //mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
             // This is where you do your work in the UI thread.
             // Your worker tells you in the message what to do.
@@ -90,7 +91,7 @@ public class MyBluetoothService {
                     numBytes = mmInStream.read(mmBuffer);
                     // Send the obtained bytes to the UI activity.
                     Message readMsg = handler.obtainMessage(
-                            MyBluetoothService.MESSAGE_READ, numBytes, -1,
+                            MessageActivity.MESSAGE_READ, numBytes, -1,
                             mmBuffer);
                     readMsg.sendToTarget();
                 } catch (IOException e) {
@@ -107,14 +108,14 @@ public class MyBluetoothService {
 
                 // Share the sent message with the UI activity.
                 Message writtenMsg = handler.obtainMessage(
-                        MyBluetoothService.MESSAGE_WRITE, -1, -1, mmBuffer);
+                        MessageActivity.MESSAGE_WRITE, -1, -1, mmBuffer);
                 writtenMsg.sendToTarget();
             } catch (IOException e) {
                 //Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when sending data", Toast.LENGTH_SHORT).show();
 
                 // Send a failure message back to the activity.
                 Message writeErrorMsg =
-                        handler.obtainMessage(MyBluetoothService.MESSAGE_TOAST);
+                        handler.obtainMessage(MessageActivity.MESSAGE_TOAST);
                 Bundle bundle = new Bundle();
                 bundle.putString("toast",
                         "Couldn't send data to the other device");

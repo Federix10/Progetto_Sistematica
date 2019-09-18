@@ -10,10 +10,13 @@ import android.widget.Toast;
 
 
 public class MessageActivity extends AppCompatActivity {
-
+    public static final int MESSAGE_READ = 0;
+    public static final int MESSAGE_WRITE = 1;
+    public static final int MESSAGE_TOAST = 2;
     Button btnWrite;
     EditText editText;
     TextView textView;
+    Button btnLeggi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,11 @@ public class MessageActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.btnScrivi);
     }
 
+    public void leggi (View view)
+    {
+        textView.setText(GlobalApplication.getMessage());
+
+    }
     public void scrivi(View view) {
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {
@@ -63,5 +71,6 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
+        btnLeggi = findViewById(R.id.btnLeggi);
     }
 }
