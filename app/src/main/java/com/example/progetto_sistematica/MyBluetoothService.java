@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +23,6 @@ public class MyBluetoothService {
     public static List mConversationArrayAdapter;
     private static byte[] mmBuffer; // mmBuffer store for the stream
     private static final String TAG = "MY_APP_DEBUG_TAG";
-    private static MessageActivity messageActivity = new MessageActivity();
     public static final Handler handler = new Handler(Looper.getMainLooper()) { // handler that gets info from Bluetooth service
         @Override
         public void handleMessage(Message message) {
@@ -45,7 +43,7 @@ public class MyBluetoothService {
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, message.arg1);
                 System.out.println("MESSAGGIO READ: " + readMessage);
-                TextView textView = messageActivity.findViewById(R.id.mostraTesto2);
+                GlobalApplication.getMessage();
                 //GlobalApplication.setMessage(readMessage);
                 //mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
