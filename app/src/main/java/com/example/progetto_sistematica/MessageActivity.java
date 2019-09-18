@@ -92,6 +92,11 @@ public class MessageActivity extends AppCompatActivity {
                 Toast.makeText(GlobalApplication.getAppContext(), "Non  va", Toast.LENGTH_SHORT).show();
             }
         }
+        else if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
+        {
+            Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dipossitivo", Toast.LENGTH_SHORT).show();
+
+        }
     }
     @Override
     public void onStart()
@@ -100,15 +105,5 @@ public class MessageActivity extends AppCompatActivity {
         btnWrite = findViewById(R.id.btnScrivi);
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
-        //MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
-        //myBluetoothServiceThread.start();
     }
-        //connectedThread.write(bytes);
-        //byte[] bytes = editText.getText().toString().getBytes(Charset.defaultCharset());
-
-        //System.out.println("Bytes: "+bytes);
-        //String string = String.valueOf(scriviTesto.getText());
-        //String string=String.valueOf(editText.getText());
-        //mmOutStream.write(string.getBytes());
-
-    }
+}
