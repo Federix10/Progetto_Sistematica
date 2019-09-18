@@ -49,6 +49,7 @@ public class OBDActivity extends AppCompatActivity {
             textViewRpm = findViewById(R.id.rpm);
             textViewSpeed = findViewById(R.id.speed);
         }
+
         public void inizializzaOBD ()
         {
             try {
@@ -77,9 +78,9 @@ public class OBDActivity extends AppCompatActivity {
                 try {
                     rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                     speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    Thread.sleep(500);
                     textViewSpeed.setText(speedCommand.getFormattedResult());
                     textViewRpm.setText(rpmCommand.getFormattedResult());
+                    Thread.sleep(500);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
