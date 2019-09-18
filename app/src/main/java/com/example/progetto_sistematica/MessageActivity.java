@@ -55,10 +55,6 @@ public class MessageActivity extends AppCompatActivity {
                 Toast.makeText(GlobalApplication.getAppContext(), "Non  va", Toast.LENGTH_SHORT).show();
             }
         }
-        else if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
-        {
-            Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dipossitivo", Toast.LENGTH_SHORT).show();
-        }
     }
     @Override
     public void onStart()

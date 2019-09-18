@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,15 +94,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeActivity(View view)
     {
-        if (aSwitch.isChecked()==true)
+        if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
         {
-            Intent startNewActivity = new Intent (this, OBDActivity.class);
-            startActivity(startNewActivity);
+        Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dipossitivo", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Intent startNewActivity = new Intent (this, MessageActivity.class);
-            startActivity(startNewActivity);
+            if (aSwitch.isChecked()==true)
+            {
+                Intent startNewActivity = new Intent (this, OBDActivity.class);
+                startActivity(startNewActivity);
+            }
+            else
+            {
+                Intent startNewActivity = new Intent (this, MessageActivity.class);
+                startActivity(startNewActivity);
+            }
         }
     }
 
