@@ -3,9 +3,9 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +17,7 @@ import java.io.OutputStream;
 
 public class MyBluetoothService {
     private static final String TAG = "MY_APP_DEBUG_TAG";
-    public static Handler handler = new Handler(Looper.getMainLooper()) { // handler that gets info from Bluetooth service
-        @Override
-        public void handleMessage(Message message) {
-            System.out.println("HANDLER MESSAGE");
-            // This is where you do your work in the UI thread.
-            // Your worker tells you in the message what to do.
-        }
-    };
-
+    public static Handler handler = new Handler();
     // Defines several constants used when transmitting messages between the
     // service and the UI.
     private interface MessageConstants {
@@ -52,12 +44,12 @@ public class MyBluetoothService {
             try {
                 tmpIn = socket.getInputStream();
             } catch (IOException e) {
-                Log.e(TAG, "Error occurred when creating input stream", e);
+                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating input stream", Toast.LENGTH_SHORT).show();
             }
             try {
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) {
-                Log.e(TAG, "Error occurred when creating output stream", e);
+                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating output stream", Toast.LENGTH_SHORT).show();
             }
 
             mmInStream = tmpIn;
@@ -79,7 +71,7 @@ public class MyBluetoothService {
                             mmBuffer);
                     readMsg.sendToTarget();
                 } catch (IOException e) {
-                    Log.d(TAG, "Input stream was disconnected", e);
+                    Toast.makeText(GlobalApplication.getAppContext(), "Input stream was disconnected", Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
@@ -95,7 +87,7 @@ public class MyBluetoothService {
                         MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
                 writtenMsg.sendToTarget();
             } catch (IOException e) {
-                Log.e(TAG, "Error occurred when sending data", e);
+                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when sending data", Toast.LENGTH_SHORT).show();
 
                 // Send a failure message back to the activity.
                 Message writeErrorMsg =

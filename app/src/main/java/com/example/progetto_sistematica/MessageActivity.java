@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private final Runnable mMessageSender = new Runnable() {
         public void run() {
+            Toast.makeText(GlobalApplication.getAppContext(), "mMessageSender", Toast.LENGTH_SHORT).show();
             Message msg = mHandler.obtainMessage();
             Bundle bundle = new Bundle();
             bundle.putString(editText.toString(), getCurrentTime());
@@ -63,7 +65,7 @@ public class MessageActivity extends AppCompatActivity {
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {
             if (GlobalApplication.getServerSocket() != null) {
-                System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getServerSocket());
+                //System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getServerSocket());
                 MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getServerSocket());
                 byte[] bytes = editText.getText().toString().getBytes();
                 myBluetoothServiceThread.write(bytes);
@@ -78,7 +80,7 @@ public class MessageActivity extends AppCompatActivity {
         else if (GlobalApplication.getCT()==1 && GlobalApplication.getAT()==0)
         {
             if (GlobalApplication.getSocket() != null) {
-                System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
+                //System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
                 MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
                 byte[] bytes = editText.getText().toString().getBytes();
                 myBluetoothServiceThread.write(bytes);
@@ -87,7 +89,7 @@ public class MessageActivity extends AppCompatActivity {
                 editText.setText("");
                 new Thread(mMessageSender).start();
             } else {
-                System.out.println("Non va");
+                Toast.makeText(GlobalApplication.getAppContext(), "Non  va", Toast.LENGTH_SHORT).show();
             }
         }
     }
