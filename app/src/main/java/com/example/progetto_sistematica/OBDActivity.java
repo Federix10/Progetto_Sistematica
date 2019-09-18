@@ -1,9 +1,8 @@
 package com.example.progetto_sistematica;
 
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
@@ -12,11 +11,7 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
-import java.util.UUID;
-
 public class OBDActivity extends AppCompatActivity {
-    private BluetoothSocket socket;
-    private BluetoothDevice device;
 
 
     @Override
@@ -24,22 +19,17 @@ public class OBDActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obd);
     }
-    public void getRisorse(BluetoothDevice btdevice, BluetoothSocket btsocket)
+    @Override
+    public void onStart()
     {
-        socket=btsocket;
-        device=btdevice;
-        comandi();
-    }
-    public void comandi()
-    {
+        BluetoothSocket socket=GlobalApplication.getSocket();
+        super.onStart();
         try {
             new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
             new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
             new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
             new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
-            AmbientAirTemperatureCommand air = new AmbientAirTemperatureCommand();
-            air.run(socket.getInputStream(), socket.getOutputStream());
-            //new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
+            new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
         } catch (Exception e) {
             // handle errors
         }

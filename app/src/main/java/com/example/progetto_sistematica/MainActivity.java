@@ -23,9 +23,6 @@ import utils.Device;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int MESSAGE_READ = 0;
-    public static final int MESSAGE_WRITE = 1;
-    public static final int MESSAGE_TOAST = 2;
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     public TextView textView;
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 list2.add(d);
             }
         }
-        ListView mylistView = (ListView)findViewById(R.id.listadevice);
+        ListView mylistView = findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
         AcceptThread server = new AcceptThread(bluetoothAdapter);
@@ -98,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     {
         if (aSwitch.isChecked()==true)
         {
-            //aSwitch.setText("OBD");
             Intent startNewActivity = new Intent (this, OBDActivity.class);
             startActivity(startNewActivity);
         }
