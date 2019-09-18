@@ -1,4 +1,4 @@
-package com.example.progetto_sistematica;
+/*package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
@@ -86,4 +86,4 @@ public class AcceptThread extends Thread {
             System.out.println("Could not close the connect socket");
         }
     }
-}
+}*/

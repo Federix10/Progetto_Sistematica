@@ -15,7 +15,6 @@ public class ConnectThread extends Thread {
     public final BluetoothDevice mmDevice;
     UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    MessageActivity messageActivity;
 
     public ConnectThread(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket
@@ -23,8 +22,7 @@ public class ConnectThread extends Thread {
         BluetoothSocket tmp = null;
         mmDevice = device;
 
-        //OBDActivity  obdActivity = new OBDActivity();
-        messageActivity = new MessageActivity();
+
 
         try {
             // Get a BluetoothSocket to connect with the given BluetoothDevice.
@@ -65,18 +63,8 @@ public class ConnectThread extends Thread {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_message, null);
-        if (MainActivity.aSwitch.isChecked()==true)
-        {
             Intent intent = new Intent(context, OBDActivity.class);
             context.startActivity(intent);
-        }
-        else
-        {
-            Intent intent = new Intent(context, MessageActivity.class);
-            context.startActivity(intent);
-        }
-        MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(mmSocket);
-        myBluetoothServiceThread.start();
         GlobalApplication.setSetCT(1);
         GlobalApplication.setSocket(mmSocket);
         }

@@ -1,4 +1,4 @@
-package com.example.progetto_sistematica;
+/*package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
@@ -121,4 +121,4 @@ public class MyBluetoothService {
             }
         }
     }
-}
+}*/

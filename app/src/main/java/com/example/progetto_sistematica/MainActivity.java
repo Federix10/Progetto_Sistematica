@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
         ListView mylistView = findViewById(R.id.listadevice);
         BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
         mylistView.setAdapter(listAdapter2);
-        AcceptThread server = new AcceptThread(bluetoothAdapter);
-        server.start();
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,16 +98,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            if (aSwitch.isChecked()==true)
-            {
-                Intent startNewActivity = new Intent (this, OBDActivity.class);
-                startActivity(startNewActivity);
-            }
-            else
-            {
-                Intent startNewActivity = new Intent (this, MessageActivity.class);
-                startActivity(startNewActivity);
-            }
+            Intent startNewActivity = new Intent (this, OBDActivity.class);
+            startActivity(startNewActivity);
         }
     }
 

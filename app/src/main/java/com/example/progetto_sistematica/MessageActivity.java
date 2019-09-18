@@ -1,4 +1,4 @@
-package com.example.progetto_sistematica;
+/*package com.example.progetto_sistematica;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -65,4 +65,4 @@ public class MessageActivity extends AppCompatActivity {
         textView = findViewById(R.id.mostraTesto);
         textView2 = findViewById(R.id.mostraTesto2);
     }
-}
+}*/

@@ -40,8 +40,8 @@ public class OBDActivity extends AppCompatActivity {
         textViewSpeed = findViewById(R.id.speed);
         textViewRpm = findViewById(R.id.rpm);
     }
-    public void inizializza(View view)
-    {
+
+    public void inizializza(View view) {
         try {
             Thread.sleep(DELAY_TWO_SECOND);
             final Thread newThread = new Thread(new Runnable() {
@@ -85,20 +85,18 @@ public class OBDActivity extends AppCompatActivity {
     }
 
 
-
-    public void informazioni(View view)
-    {
+    public void informazioni(View view) {
         rpmCommand = new RPMCommand(); //giri motore
         speedCommand = new SpeedCommand();//velocità
-        try {
-            rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
-            speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-            textViewSpeed.setText(speedCommand.getFormattedResult() + " Km/h");
-            textViewRpm.setText(rpmCommand.getFormattedResult() + " rpm");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            try {
+                rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
+                speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewSpeed.setText(speedCommand.getFormattedResult());
+                textViewRpm.setText(rpmCommand.getFormattedResult());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
     }
 }
