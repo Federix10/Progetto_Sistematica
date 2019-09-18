@@ -25,11 +25,11 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
     }
 
-    public void leggi (View view)
+    /*public void leggi (View view)
     {
         textView2.setText(GlobalApplication.getMessage());
 
-    }
+    }*/
     public void scrivi(View view) {
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {
@@ -72,6 +72,6 @@ public class MessageActivity extends AppCompatActivity {
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
         textView2 = findViewById(R.id.mostraTesto2);
-        btnLeggi = findViewById(R.id.btnLeggi);
+        //btnLeggi = findViewById(R.id.btnLeggi);
     }
 }
