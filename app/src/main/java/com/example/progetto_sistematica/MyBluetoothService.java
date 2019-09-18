@@ -32,7 +32,7 @@ public class MyBluetoothService {
                 System.out.println("Message: Write");
                 byte[] writeBuf = (byte[]) message.obj;
                 // construct a string from the buffer
-                String writeMessage = new String(mmBuffer);
+                String writeMessage = new String(writeBuf);
                 System.out.println("MESSAGGIO WRITE" + writeMessage);
                 mConversationArrayAdapter.add("Me:  " + writeMessage);
             }
@@ -41,7 +41,7 @@ public class MyBluetoothService {
                 System.out.println("Message: Read");
                 byte[] readBuf = (byte[]) message.obj;
                 // construct a string from the valid bytes in the buffer
-                String readMessage = new String(mmBuffer, 0, message.arg1);
+                String readMessage = new String(readBuf, 0, message.arg1);
                 System.out.println("MESSAGGIO READ" + readMessage);
                 mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
