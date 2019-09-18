@@ -27,7 +27,7 @@ public class MessageActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
-            String string = bundle.getString(editText.toString());
+            String string = bundle.getString(editText.getText().toString());
             final TextView myTextView = (TextView) findViewById(R.id.scriviTesto);
             myTextView.setText(string);
         }
@@ -38,7 +38,7 @@ public class MessageActivity extends AppCompatActivity {
             //Toast.makeText(GlobalApplication.getAppContext(), "mMessageSender", Toast.LENGTH_SHORT).show();
             Message msg = mHandler.obtainMessage();
             Bundle bundle = new Bundle();
-            bundle.putString(editText.toString(), getCurrentTime());
+            bundle.putString(editText.getText().toString(), getCurrentTime());
             msg.setData(bundle);
             mHandler.sendMessage(msg);
         }
@@ -62,6 +62,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     public void scrivi(View view) {
+        System.out.println("Messaggio inviato: "+editText.getText().toString());
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {
             if (GlobalApplication.getServerSocket() != null) {
