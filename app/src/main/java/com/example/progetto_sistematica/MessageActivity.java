@@ -35,7 +35,7 @@ public class MessageActivity extends AppCompatActivity {
 
     private final Runnable mMessageSender = new Runnable() {
         public void run() {
-            Toast.makeText(GlobalApplication.getAppContext(), "mMessageSender", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(GlobalApplication.getAppContext(), "mMessageSender", Toast.LENGTH_SHORT).show();
             Message msg = mHandler.obtainMessage();
             Bundle bundle = new Bundle();
             bundle.putString(editText.toString(), getCurrentTime());
