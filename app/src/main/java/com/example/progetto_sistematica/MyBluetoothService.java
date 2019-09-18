@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,12 +51,12 @@ public class MyBluetoothService {
             try {
                 tmpIn = socket.getInputStream();
             } catch (IOException e) {
-                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating input stream", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating input stream", Toast.LENGTH_SHORT).show();
             }
             try {
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) {
-                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating output stream", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when creating output stream", Toast.LENGTH_SHORT).show();
             }
 
             mmInStream = tmpIn;
@@ -79,7 +78,7 @@ public class MyBluetoothService {
                             mmBuffer);
                     readMsg.sendToTarget();
                 } catch (IOException e) {
-                    Toast.makeText(GlobalApplication.getAppContext(), "Input stream was disconnected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(GlobalApplication.getAppContext(), "Input stream was disconnected", Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
@@ -95,7 +94,7 @@ public class MyBluetoothService {
                         MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
                 writtenMsg.sendToTarget();
             } catch (IOException e) {
-                Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when sending data", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GlobalApplication.getAppContext(), "Error occurred when sending data", Toast.LENGTH_SHORT).show();
 
                 // Send a failure message back to the activity.
                 Message writeErrorMsg =
