@@ -10,17 +10,12 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
-
-
-//CLASSE DI GOOGLE
 
 
 public class MyBluetoothService {
     public static final int MESSAGE_READ = 0;
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
-    public static List mConversationArrayAdapter;
     private static byte[] mmBuffer; // mmBuffer store for the stream
     private static final String TAG = "MY_APP_DEBUG_TAG";
     public static final Handler handler = new Handler(Looper.getMainLooper()) { // handler that gets info from Bluetooth service
@@ -31,28 +26,20 @@ public class MyBluetoothService {
             {
                 System.out.println("Message: Write");
                 byte[] writeBuf = (byte[]) message.obj;
-                // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 System.out.println("MESSAGGIO WRITE: " + writeMessage);
-                //mConversationArrayAdapter.add("Me:  " + writeMessage);
             }
             else if(message.what == MESSAGE_READ)
             {
                 System.out.println("Message: Read");
                 byte[] readBuf = (byte[]) message.obj;
-                // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, message.arg1);
                 System.out.println("MESSAGGIO READ: " + readMessage);
                 GlobalApplication.setMessage(readMessage);
                 MessageActivity.leggi();
-                //mConversationArrayAdapter.add("Connected Device:  " + readMessage);
             }
-            // This is where you do your work in the UI thread.
-            // Your worker tells you in the message what to do.
         }
     };
-    // Defines several constants used when transmitting messages between the
-    // service and the UI.
 
     public static class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;

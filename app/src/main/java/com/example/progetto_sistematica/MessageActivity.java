@@ -17,7 +17,6 @@ public class MessageActivity extends AppCompatActivity {
     EditText editText;
     TextView textView;
     static TextView textView2;
-    Button btnLeggi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class MessageActivity extends AppCompatActivity {
         if (GlobalApplication.getAT()==1 && GlobalApplication.getCT()==0)
         {
             if (GlobalApplication.getServerSocket() != null) {
-                //System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getServerSocket());
                 MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getServerSocket());
                 byte[] bytes = editText.getText().toString().getBytes();
                 myBluetoothServiceThread.write(bytes);
@@ -47,7 +45,6 @@ public class MessageActivity extends AppCompatActivity {
         else if (GlobalApplication.getCT()==1 && GlobalApplication.getAT()==0)
         {
             if (GlobalApplication.getSocket() != null) {
-                //System.out.println("Device: " + GlobalApplication.getDevice() + " Socket: " + GlobalApplication.getSocket());
                 MyBluetoothService.ConnectedThread myBluetoothServiceThread = new MyBluetoothService.ConnectedThread(GlobalApplication.getSocket());
                 byte[] bytes = editText.getText().toString().getBytes();
                 myBluetoothServiceThread.write(bytes);
@@ -71,6 +68,5 @@ public class MessageActivity extends AppCompatActivity {
         editText = findViewById(R.id.scriviTesto);
         textView = findViewById(R.id.mostraTesto);
         textView2 = findViewById(R.id.mostraTesto2);
-        //btnLeggi = findViewById(R.id.btnLeggi);
     }
 }
