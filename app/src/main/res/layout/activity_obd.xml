@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.787" />
 
     <TextView
-        android:id="@+id/tempRefrigeranteDegrees3"
+        android:id="@+id/utilizzo"
         android:layout_width="103dp"
         android:layout_height="43dp"
         android:textAlignment="center"
@@ -88,7 +88,6 @@
         android:id="@+id/carburante"
         android:layout_width="114dp"
         android:layout_height="28dp"
-        android:text="Carburante"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
