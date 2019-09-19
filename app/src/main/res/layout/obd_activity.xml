@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/rpm"
-        android:layout_width="184dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="16dp"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        card_view:layout_constraintBottom_toTopOf="@+id/gridLayout"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="1.0"
-        card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.798" />
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/speed"
         android:layout_width="184dp"
         android:layout_height="61dp"
-        android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textSize="40sp"
         card_view:layout_constraintBottom_toTopOf="@+id/rpm"
@@ -32,7 +16,20 @@
         card_view:layout_constraintHorizontal_bias="1.0"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="1.0" />
+        card_view:layout_constraintVertical_bias="0.837" />
+
+    <TextView
+        android:id="@+id/rpm"
+        android:layout_width="184dp"
+        android:layout_height="61dp"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="1.0"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/marcia"
@@ -40,17 +37,30 @@
         android:layout_height="137dp"
         android:textAlignment="center"
         android:textSize="120sp"
-        card_view:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        card_view:layout_constraintBottom_toBottomOf="@+id/gridLayout"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.103"
+        card_view:layout_constraintHorizontal_bias="0.059"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.067" />
+
+    <TextView
+        android:id="@+id/tempOut"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.954"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.022" />
 
     <android.support.v7.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="450dp"
-        android:background="#00FF0000"
         card_view:columnCount="2"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +72,7 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/CardView1"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="150dp">
 
             <android.support.constraint.ConstraintLayout
@@ -83,7 +93,7 @@
 
                 <TextView
                     android:id="@+id/tempMotoreDegress"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +106,7 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/CardView2"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="150dp">
 
             <android.support.constraint.ConstraintLayout
@@ -111,13 +121,14 @@
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintHorizontal_bias="0.0"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tempRefrigeranteDegrees"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +162,7 @@
 
                 <TextView
                     android:id="@+id/consumoMedioLT"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -184,7 +195,7 @@
 
                 <TextView
                     android:id="@+id/carburante2"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -218,7 +229,7 @@
 
                 <TextView
                     android:id="@+id/pressioneGommeBar"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -252,7 +263,7 @@
 
                 <TextView
                     android:id="@+id/utilizzo"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
@@ -265,16 +276,5 @@
 
     </android.support.v7.widget.GridLayout>
 
-    <TextView
-        android:id="@+id/tempOut"
-        android:layout_width="60dp"
-        android:layout_height="20dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        card_view:layout_constraintBottom_toTopOf="@+id/speed"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.925"
-        card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
 
