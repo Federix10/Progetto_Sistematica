@@ -110,7 +110,7 @@ public class OBDActivity extends AppCompatActivity {
                     //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
                     //textViewAmbieAirTemperature.setText(findFuelTypeCommand.getFormattedResult());
                     //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
-                    Thread.sleep(500);
+                    //Thread.sleep(200);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
