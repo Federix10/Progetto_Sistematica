@@ -6,26 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.github.pires.obd.commands.SpeedCommand;
-import com.github.pires.obd.commands.control.DtcNumberCommand;
-import com.github.pires.obd.commands.engine.MassAirFlowCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
-import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
-import com.github.pires.obd.commands.fuel.FuelLevelCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
-import com.github.pires.obd.commands.protocol.ObdResetCommand;
 import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
-import com.github.pires.obd.commands.protocol.SpacesOffCommand;
 import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
-import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
 import java.io.IOException;
 
 public class OBDActivity extends AppCompatActivity {
 
-    BluetoothSocket socket = GlobalApplication.getSocket();
+    private static BluetoothSocket socket = GlobalApplication.getSocket();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,35 +30,36 @@ public class OBDActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        DatiOBD datiOBD = new DatiOBD();
-        datiOBD.inizializzaOBD();
-        datiOBD.start();
+        DataOBD dataOBD = new DataOBD();
+        dataOBD.inizializzaOBD();
+        dataOBD.start();
     }
 
-    public class DatiOBD extends Thread {
-        MassAirFlowCommand massAirFlowCommand;
+    public class DataOBD extends Thread {
+        //MassAirFlowCommand massAirFlowCommand;
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
-        AmbientAirTemperatureCommand ambientAirTemperatureCommand;
-        FindFuelTypeCommand findFuelTypeCommand;
-        EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
-        FuelLevelCommand fuelLevelCommand;
-        DtcNumberCommand dtcNumberCommand;
+        //AmbientAirTemperatureCommand ambientAirTemperatureCommand;
+        //FindFuelTypeCommand findFuelTypeCommand;
+        //EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
+        //FuelLevelCommand fuelLevelCommand;
+        //DtcNumberCommand dtcNumberCommand;
 
-        TextView textViewRpm,textViewSpeed,textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
-        public DatiOBD ()
+        TextView textViewRpm,textViewSpeed;
+        //TextView textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
+        public DataOBD()
         {
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità
             //fuelLevelCommand = new FuelLevelCommand();
-            ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
+            //ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
             //dtcNumberCommand = new DtcNumberCommand();
             //engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
             //massAirFlowCommand = new MassAirFlowCommand();
             textViewRpm = findViewById(R.id.rpm);
             textViewSpeed = findViewById(R.id.speed);
-            textViewAmbieAirTemperature = findViewById(R.id.tempOut);
+            //textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             //textViewDtcNumber = findViewById(R.id.DTC);
             //textViewFindFuelType = findViewById(R.id.carburante);
             //textViewMassAirFlow = findViewById(R.id.percBatteria2);
@@ -76,23 +70,14 @@ public class OBDActivity extends AppCompatActivity {
         public void inizializzaOBD ()
         {
             try {
-                new ObdResetCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(1000);
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
-                new SpacesOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
-                new SpacesOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
                 new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
-                new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(200);
-            } catch (Exception e) { }
+                new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
+            } catch (Exception e) {
+                // handle errors
+            }
         }
         public void run()
         {
@@ -109,7 +94,7 @@ public class OBDActivity extends AppCompatActivity {
                 try {
                     rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                     speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
@@ -117,7 +102,7 @@ public class OBDActivity extends AppCompatActivity {
                     //setText
                     textViewSpeed.setText(speedCommand.getFormattedResult());
                     textViewRpm.setText(rpmCommand.getFormattedResult());
-                    textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                    //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
                     //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                     //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
                     //textViewAmbieAirTemperature.setText(findFuelTypeCommand.getFormattedResult());
