@@ -10,6 +10,7 @@ import com.github.pires.obd.commands.control.DtcNumberCommand;
 import com.github.pires.obd.commands.engine.MassAirFlowCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
 import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
+import com.github.pires.obd.commands.fuel.FuelLevelCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
 import com.github.pires.obd.commands.protocol.ObdResetCommand;
@@ -47,12 +48,14 @@ public class OBDActivity extends AppCompatActivity {
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         FindFuelTypeCommand findFuelTypeCommand;
+        FuelLevelCommand fuelLevelCommand;
         DtcNumberCommand dtcNumberCommand;
-        TextView textViewRpm,textViewSpeed,textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber;
+        TextView textViewRpm,textViewSpeed,textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel;
         public DatiOBD ()
         {
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità
+            fuelLevelCommand = new FuelLevelCommand();
             ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
             dtcNumberCommand = new DtcNumberCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
@@ -61,8 +64,9 @@ public class OBDActivity extends AppCompatActivity {
             textViewSpeed = findViewById(R.id.speed);
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             textViewDtcNumber = findViewById(R.id.DTC);
-            //textViewFindFuelType = findViewById(R.id.percBatteria2);
+            //textViewFindFuelType = findViewById(R.id.carburante);
             //textViewMassAirFlow = findViewById(R.id.percBatteria2);
+            textViewfuelLevel = findViewById(R.id.carburante2);
         }
 
         public void inizializzaOBD ()
@@ -97,6 +101,7 @@ public class OBDActivity extends AppCompatActivity {
                     //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                     dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //setText
                     textViewSpeed.setText(speedCommand.getFormattedResult());
                     textViewRpm.setText(rpmCommand.getFormattedResult());
@@ -104,6 +109,7 @@ public class OBDActivity extends AppCompatActivity {
                     textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                     //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
                     //textViewAmbieAirTemperature.setText(findFuelTypeCommand.getFormattedResult());
+                    //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
                     Thread.sleep(500);
                 } catch (IOException e) {
                     e.printStackTrace();
