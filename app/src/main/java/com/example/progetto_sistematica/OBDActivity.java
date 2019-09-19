@@ -24,7 +24,6 @@ public class OBDActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
-
     }
 
     @Override
@@ -49,16 +48,12 @@ public class OBDActivity extends AppCompatActivity {
         //TextView textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
         public DataOBD()
         {
-            rpmCommand = new RPMCommand(); //giri motore
-            speedCommand = new SpeedCommand();//velocità
             //fuelLevelCommand = new FuelLevelCommand();
             //ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
             //dtcNumberCommand = new DtcNumberCommand();
             //engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
             //massAirFlowCommand = new MassAirFlowCommand();
-            textViewRpm = findViewById(R.id.rpm);
-            textViewSpeed = findViewById(R.id.speed);
             //textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             //textViewDtcNumber = findViewById(R.id.DTC);
             //textViewFindFuelType = findViewById(R.id.carburante);
@@ -69,6 +64,10 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            rpmCommand = new RPMCommand(); //giri motore
+            speedCommand = new SpeedCommand();//velocità
+            textViewRpm = findViewById(R.id.rpm);
+            textViewSpeed = findViewById(R.id.speed);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
