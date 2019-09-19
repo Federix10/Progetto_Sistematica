@@ -26,21 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public TextView textView;
     public static Switch aSwitch;
     TextView switchBtn_txtView;
     TextView switchBtnChat_txtView;
-    TextView checkConnect;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = findViewById(R.id.checkConnect);
         aSwitch = findViewById(R.id.chatobd);
         switchBtn_txtView = findViewById(R.id.chatobd);
         switchBtnChat_txtView = findViewById(R.id.btnChat);
-        checkConnect = findViewById(R.id.checkConnect);
         switchBtn_txtView.setText("CHAT");
 
         //textView.setText("Disconnesso");
