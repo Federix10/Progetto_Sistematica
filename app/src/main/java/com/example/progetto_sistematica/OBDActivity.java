@@ -101,7 +101,7 @@ public class OBDActivity extends AppCompatActivity {
                     //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                     dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //setText
                     textViewSpeed.setText(speedCommand.getFormattedResult());
                     textViewRpm.setText(rpmCommand.getFormattedResult());
