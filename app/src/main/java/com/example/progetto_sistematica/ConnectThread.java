@@ -62,7 +62,7 @@ public class ConnectThread extends Thread {
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_message, null);
+        inflater.inflate(R.layout.obd_activity, null);
             Intent intent = new Intent(context, OBDActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
