@@ -38,14 +38,15 @@ public class OBDActivity extends AppCompatActivity {
         //MassAirFlowCommand massAirFlowCommand;
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
-        //AmbientAirTemperatureCommand ambientAirTemperatureCommand;
+        AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         //FindFuelTypeCommand findFuelTypeCommand;
         //EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         //FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
 
         TextView textViewRpm,textViewSpeed;
-        //TextView textViewAmbieAirTemperature, textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
+        TextView textViewAmbieAirTemperature;
+        // textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
         public DataOBD()
         {
             //fuelLevelCommand = new FuelLevelCommand();
@@ -54,7 +55,7 @@ public class OBDActivity extends AppCompatActivity {
             //engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
             //massAirFlowCommand = new MassAirFlowCommand();
-            //textViewAmbieAirTemperature = findViewById(R.id.tempOut);
+            textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             //textViewDtcNumber = findViewById(R.id.DTC);
             //textViewFindFuelType = findViewById(R.id.carburante);
             //textViewMassAirFlow = findViewById(R.id.percBatteria2);
@@ -93,7 +94,7 @@ public class OBDActivity extends AppCompatActivity {
                 try {
                     rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                     speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                    ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
                     //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
@@ -104,7 +105,7 @@ public class OBDActivity extends AppCompatActivity {
                     //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
                     //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                     //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
-                    //textViewAmbieAirTemperature.setText(findFuelTypeCommand.getFormattedResult());
+                    textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
                     //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
                     //textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
                     //Thread.sleep(200);
