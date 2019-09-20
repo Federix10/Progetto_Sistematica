@@ -19,6 +19,7 @@ import java.io.IOException;
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
+    DataOBD dataOBD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class OBDActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        DataOBD dataOBD = new DataOBD();
+        dataOBD = new DataOBD();
         dataOBD.inizializzaOBD();
         dataOBD.start();
     }
@@ -39,6 +40,7 @@ public class OBDActivity extends AppCompatActivity {
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
+        int i=0;
         //FindFuelTypeCommand findFuelTypeCommand;
         //EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         //FuelLevelCommand fuelLevelCommand;
@@ -50,12 +52,10 @@ public class OBDActivity extends AppCompatActivity {
         public DataOBD()
         {
             //fuelLevelCommand = new FuelLevelCommand();
-            //ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
             //dtcNumberCommand = new DtcNumberCommand();
             //engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
             //massAirFlowCommand = new MassAirFlowCommand();
-            textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             //textViewDtcNumber = findViewById(R.id.DTC);
             //textViewFindFuelType = findViewById(R.id.carburante);
             //textViewMassAirFlow = findViewById(R.id.percBatteria2);
@@ -67,8 +67,10 @@ public class OBDActivity extends AppCompatActivity {
         {
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità
+            ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
             textViewRpm = findViewById(R.id.rpm);
             textViewSpeed = findViewById(R.id.speed);
+            textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
@@ -91,29 +93,50 @@ public class OBDActivity extends AppCompatActivity {
             }*/
             while (true)
             {
-                try {
-                    rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
-                    //setText
-                    textViewSpeed.setText(speedCommand.getFormattedResult());
-                    textViewRpm.setText(rpmCommand.getFormattedResult());
-                    //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
-                    //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
-                    //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
-                    textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
-                    //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
-                    //textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
-                    //Thread.sleep(200);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (i!=25)
+                {
+                    try {
+                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                        //setText
+                        Thread.sleep(200);
+                        textViewSpeed.setText(speedCommand.getFormattedResult());
+                        textViewRpm.setText(rpmCommand.getFormattedResult());
+                        //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                        //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
+                        //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
+                        //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
+                        //textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
+                        //Thread.sleep(200);
+                        i++;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else if (i==25)
+                {
+                    i=0;
+                    info();
+                }
+
+            }
+        }
+        public void info ()
+        {
+            try {
+                ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                System.out.println("Temperatura");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
