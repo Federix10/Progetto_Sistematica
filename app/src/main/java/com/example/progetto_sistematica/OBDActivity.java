@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.github.pires.obd.commands.SpeedCommand;
 import com.github.pires.obd.commands.control.VinCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
+import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
 import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
@@ -42,15 +43,15 @@ public class OBDActivity extends AppCompatActivity {
         VinCommand vinCommand;
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
-        int i=0;
-        //FindFuelTypeCommand findFuelTypeCommand;
+        FindFuelTypeCommand findFuelTypeCommand;
         //EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         //FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
+        int i=0;
 
-        TextView textViewRpm,textViewSpeed;
-        TextView textViewAmbieAirTemperature, textViewVin;
-        // textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
+
+        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin;
+        TextView textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
 
         public void inizializzaOBD ()
         {
@@ -88,19 +89,14 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewVin.setText(vinCommand.getFormattedResult());
+                //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            /*try {
-                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
-                textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
             while (true)
             {
                 if (i!=25)
@@ -110,16 +106,11 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream());
                         //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                         //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
-                        //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
-                        //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
-
+                        
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         textViewRpm.setText(rpmCommand.getFormattedResult());
-
                         //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                         //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
-                        //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
-                        //textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
                         Thread.sleep(200);
                         i++;
                     } catch (IOException e) {
@@ -141,6 +132,10 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                //engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
+                //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
