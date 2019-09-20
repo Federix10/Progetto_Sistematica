@@ -132,7 +132,6 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
-                System.out.println("Temperatura");
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
