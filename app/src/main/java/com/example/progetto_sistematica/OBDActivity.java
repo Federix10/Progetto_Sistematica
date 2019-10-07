@@ -23,7 +23,6 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +48,8 @@ public class OBDActivity extends AppCompatActivity {
         //FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
         int i;
-
-
-        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin;
-        TextView textViewFindFuelType, textViewMassAirFlow, textViewDtcNumber, textViewfuelLevel, textViewengineCoolantTemperature;
+        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewMassAirFlow, textViewengineCoolantTemperature;
+        //TextView textViewFindFuelType, textViewDtcNumber, textViewfuelLevel;
 
         public void inizializzaOBD ()
         {
@@ -113,12 +110,12 @@ public class OBDActivity extends AppCompatActivity {
                         massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                         //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
 
-                        textViewSpeed.setText(speedCommand.getFormattedResult());
                         textViewRpm.setText(rpmCommand.getFormattedResult());
-                        //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
+                        textViewSpeed.setText(speedCommand.getFormattedResult());
                         textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
-                        Thread.sleep(400);
+                        //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                         i++;
+                        Thread.sleep(400);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -130,9 +127,9 @@ public class OBDActivity extends AppCompatActivity {
                     i=0;
                     info();
                 }
-
             }
         }
+
         public void info ()
         {
             try {
