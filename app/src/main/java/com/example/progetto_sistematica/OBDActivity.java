@@ -22,7 +22,7 @@ import java.io.IOException;
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    DataOBD dataOBD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class OBDActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        dataOBD = new DataOBD();
+        DataOBD dataOBD = new DataOBD();
         dataOBD.inizializzaOBD();
         dataOBD.start();
     }
@@ -48,7 +48,7 @@ public class OBDActivity extends AppCompatActivity {
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         //FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
-        int i=0;
+        int i;
 
 
         TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin;
@@ -56,24 +56,24 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            i=0;
             //fuelLevelCommand = new FuelLevelCommand();
             //dtcNumberCommand = new DtcNumberCommand();
-            engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
             //findFuelTypeCommand = new FindFuelTypeCommand();
-            massAirFlowCommand = new MassAirFlowCommand();
             //textViewDtcNumber = findViewById(R.id.DTC);
             //textViewFindFuelType = findViewById(R.id.carburante);
-            textViewMassAirFlow = findViewById(R.id.massAirFlowg_s);
             //textViewfuelLevel = findViewById(R.id.carburante2);
+            massAirFlowCommand = new MassAirFlowCommand();//
+            textViewMassAirFlow = findViewById(R.id.massAirFlowg_s);
+            engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();//temp regrigerante
             textViewengineCoolantTemperature = findViewById(R.id.tempRefrigeranteDegrees);
-
             rpmCommand = new RPMCommand(); //giri motore
-            speedCommand = new SpeedCommand();//velocità
-            ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
-            vinCommand = new VinCommand();
             textViewRpm = findViewById(R.id.rpm);
+            speedCommand = new SpeedCommand();//velocità
             textViewSpeed = findViewById(R.id.speed);
+            ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();//temp ambientale
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
+            vinCommand = new VinCommand();//comando vin auto
             textViewVin = findViewById(R.id.tempMotoreDegress);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());

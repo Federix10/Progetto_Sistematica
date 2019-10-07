@@ -59,6 +59,7 @@ public class ConnectThread extends Thread {
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
+        GlobalApplication.setSocket(mmSocket);
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,7 +68,6 @@ public class ConnectThread extends Thread {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         GlobalApplication.setSetCT(1);
-        GlobalApplication.setSocket(mmSocket);
         }
 
     // Closes the client socket and causes the thread to finish.
