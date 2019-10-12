@@ -7,8 +7,9 @@ import android.widget.TextView;
 
 import com.github.pires.obd.commands.SpeedCommand;
 import com.github.pires.obd.commands.control.VinCommand;
-import com.github.pires.obd.commands.engine.MassAirFlowCommand;
 import com.github.pires.obd.commands.engine.RPMCommand;
+import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
+import com.github.pires.obd.commands.fuel.FuelLevelCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
 import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
@@ -38,30 +39,31 @@ public class OBDActivity extends AppCompatActivity {
     }
 
     public class DataOBD extends Thread {
-        MassAirFlowCommand massAirFlowCommand;
+        //MassAirFlowCommand massAirFlowCommand;
         RPMCommand rpmCommand;
         VinCommand vinCommand;
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
-        //FindFuelTypeCommand findFuelTypeCommand;
+        FindFuelTypeCommand findFuelTypeCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
-        //FuelLevelCommand fuelLevelCommand;
+        FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
         int i;
-        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewMassAirFlow, textViewengineCoolantTemperature;
-        //TextView textViewFindFuelType, textViewDtcNumber, textViewfuelLevel;
+        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature;
+        TextView textViewFindFuelType, textViewDtcNumber, textViewfuelLevel;
+        //textViewMassAirFlow;
 
         public void inizializzaOBD ()
         {
             i=0;
-            //fuelLevelCommand = new FuelLevelCommand();
+            fuelLevelCommand = new FuelLevelCommand();
             //dtcNumberCommand = new DtcNumberCommand();
-            //findFuelTypeCommand = new FindFuelTypeCommand();
+            findFuelTypeCommand = new FindFuelTypeCommand();
             //textViewDtcNumber = findViewById(R.id.DTC);
-            //textViewFindFuelType = findViewById(R.id.carburante);
-            //textViewfuelLevel = findViewById(R.id.carburante2);
-            massAirFlowCommand = new MassAirFlowCommand();//
-            textViewMassAirFlow = findViewById(R.id.massAirFlowg_s);
+            textViewFindFuelType = findViewById(R.id.carburante);
+            textViewfuelLevel = findViewById(R.id.carburante2);
+            //massAirFlowCommand = new MassAirFlowCommand();//
+            //textViewMassAirFlow = findViewById(R.id.massAirFlowg_s);
             engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();//temp regrigerante
             textViewengineCoolantTemperature = findViewById(R.id.tempRefrigeranteDegrees);
             rpmCommand = new RPMCommand(); //giri motore
@@ -94,6 +96,8 @@ public class OBDActivity extends AppCompatActivity {
                 textViewVin.setText(vinCommand.getFormattedResult());
                 //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
                 //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+                //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,15 +111,16 @@ public class OBDActivity extends AppCompatActivity {
                     try {
                         rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-                        massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
+
+                        //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
                         //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
 
                         textViewRpm.setText(rpmCommand.getFormattedResult());
                         textViewSpeed.setText(speedCommand.getFormattedResult());
-                        textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
+                        //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
                         //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                         i++;
-                        Thread.sleep(400);
+                        Thread.sleep(300);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -133,12 +138,12 @@ public class OBDActivity extends AppCompatActivity {
         public void info ()
         {
             try {
-                ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
-                textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
                 engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
-                //fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
-                //textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
+                fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
