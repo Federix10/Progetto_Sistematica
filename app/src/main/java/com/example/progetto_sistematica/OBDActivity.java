@@ -87,7 +87,7 @@ public class OBDActivity extends AppCompatActivity {
         public void run()
         {
             try {
-                vinCommand.run(socket.getInputStream(), socket.getOutputStream());
+                vinCommand.run(socket.getInputStream(), socket.getOutputStream());//vin
                 textViewVin.setText(vinCommand.getFormattedResult());
                 info();
             } catch (IOException e) {
