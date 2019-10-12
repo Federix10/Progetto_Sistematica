@@ -52,6 +52,7 @@ public class OBDActivity extends AppCompatActivity {
         TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature;
         TextView textViewFindFuelType, textViewDtcNumber, textViewfuelLevel;
         //textViewMassAirFlow;
+        TextView textViewTempMotore;
 
         public void inizializzaOBD ()
         {
@@ -60,6 +61,7 @@ public class OBDActivity extends AppCompatActivity {
             //dtcNumberCommand = new DtcNumberCommand();
             findFuelTypeCommand = new FindFuelTypeCommand();
             //textViewDtcNumber = findViewById(R.id.DTC);
+            textViewTempMotore = findViewById(R.id.tempMotoreDegress);
             textViewFindFuelType = findViewById(R.id.carburante);
             textViewfuelLevel = findViewById(R.id.carburante2);
             //massAirFlowCommand = new MassAirFlowCommand();//
@@ -94,8 +96,10 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewVin.setText(vinCommand.getFormattedResult());
-                //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
-                //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
+                fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
                 //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
                 //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
 

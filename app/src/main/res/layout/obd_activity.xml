@@ -84,7 +84,7 @@
                     android:id="@+id/tempMotore"
                     android:layout_width="180dp"
                     android:layout_height="25dp"
-                    android:text="Temperatura Motore"
+                    android:text="Codice Identificatico Auto"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
+                    android:textSize="14sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
@@ -132,6 +133,7 @@
                     android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
+                    android:textSize="24sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
@@ -164,36 +166,16 @@
                 <TextView
                     android:id="@+id/consumoMedioLT"
                     android:layout_width="0dp"
-                    android:layout_height="65dp"
+                    android:layout_height="125dp"
+                    android:text="Work in progress"
                     android:textAlignment="center"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintVertical_bias="0.29000002" />
-
-                <TextView
-                    android:id="@+id/massAirFlow"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:text="Mass Air Flow"
-                    android:textAlignment="center"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintVertical_bias="0.69" />
-
-                <TextView
-                    android:id="@+id/massAirFlowg_s"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:textAlignment="center"
+                    android:textSize="18sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_bias="1.0" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
@@ -210,6 +192,7 @@
                     android:id="@+id/carburante"
                     android:layout_width="180dp"
                     android:layout_height="25dp"
+                    android:text="Carburante: Benzina"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -222,6 +205,7 @@
                     android:layout_width="0dp"
                     android:layout_height="125dp"
                     android:textAlignment="center"
+                    android:textSize="24sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
@@ -255,7 +239,9 @@
                     android:id="@+id/pressioneGommeBar"
                     android:layout_width="0dp"
                     android:layout_height="125dp"
+                    android:text="2.5 bar"
                     android:textAlignment="center"
+                    android:textSize="24sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
@@ -289,7 +275,9 @@
                     android:id="@+id/utilizzo"
                     android:layout_width="0dp"
                     android:layout_height="125dp"
+                    android:text="Work in progress"
                     android:textAlignment="center"
+                    android:textSize="18sp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"
