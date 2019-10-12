@@ -39,7 +39,6 @@ public class OBDActivity extends AppCompatActivity {
     }
 
     public class DataOBD extends Thread {
-        //MassAirFlowCommand massAirFlowCommand;
         RPMCommand rpmCommand;
         VinCommand vinCommand;
         SpeedCommand speedCommand;
@@ -49,23 +48,17 @@ public class OBDActivity extends AppCompatActivity {
         FuelLevelCommand fuelLevelCommand;
         //DtcNumberCommand dtcNumberCommand;
         int i;
-        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature;
-        TextView textViewFindFuelType, textViewDtcNumber, textViewfuelLevel;
-        //textViewMassAirFlow;
-        TextView textViewTempMotore;
+        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewVIN;
 
         public void inizializzaOBD ()
         {
             i=0;
-            fuelLevelCommand = new FuelLevelCommand();
-            //dtcNumberCommand = new DtcNumberCommand();
-            findFuelTypeCommand = new FindFuelTypeCommand();
+            //dtcNumberCommand = new DtcNumberCommand(); //dtc number
             //textViewDtcNumber = findViewById(R.id.DTC);
-            textViewTempMotore = findViewById(R.id.tempMotoreDegress);
-            textViewFindFuelType = findViewById(R.id.carburante);
+            fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
-            //massAirFlowCommand = new MassAirFlowCommand();//
-            //textViewMassAirFlow = findViewById(R.id.massAirFlowg_s);
+            findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
+            textViewFindFuelType = findViewById(R.id.carburante);
             engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();//temp regrigerante
             textViewengineCoolantTemperature = findViewById(R.id.tempRefrigeranteDegrees);
             rpmCommand = new RPMCommand(); //giri motore
@@ -75,10 +68,10 @@ public class OBDActivity extends AppCompatActivity {
             ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();//temp ambientale
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             vinCommand = new VinCommand();//comando vin auto
-            textViewVin = findViewById(R.id.tempMotoreDegress);
+            textViewVin = findViewById(R.id.vin);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(1000);
+                Thread.sleep(500);
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(500);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
@@ -96,13 +89,7 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewVin.setText(vinCommand.getFormattedResult());
-                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
-                textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
-                fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
-                textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
-                //findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
-                //textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
-
+                info();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -113,16 +100,10 @@ public class OBDActivity extends AppCompatActivity {
                 if (i!=25)
                 {
                     try {
-                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
-                        speedCommand.run(socket.getInputStream(), socket.getOutputStream());
-
-                        //massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());
-                        //dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream());
-
+                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
                         textViewRpm.setText(rpmCommand.getFormattedResult());
+                        speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
-                        //textViewMassAirFlow.setText(massAirFlowCommand.getFormattedResult());
-                        //textViewDtcNumber.setText(dtcNumberCommand.getFormattedResult());
                         i++;
                         Thread.sleep(300);
                     } catch (IOException e) {
@@ -142,11 +123,11 @@ public class OBDActivity extends AppCompatActivity {
         public void info ()
         {
             try {
-                //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
                 //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
-                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());
+                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temp refrigerante
                 textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
-                fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());
+                fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
                 textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
             } catch (IOException e) {
                 e.printStackTrace();
