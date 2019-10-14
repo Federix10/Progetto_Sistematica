@@ -1,8 +1,11 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -38,7 +41,12 @@ public class OBDActivity extends AppCompatActivity {
         dataOBD.inizializzaOBD();
         dataOBD.start();
     }
-
+    public void dtcactivity (View view)
+    {
+        Context context = GlobalApplication.getAppContext();
+        Intent intent = new Intent(context, DTC.class);
+        context.startActivity(intent);
+    }
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
         VinCommand vinCommand;
