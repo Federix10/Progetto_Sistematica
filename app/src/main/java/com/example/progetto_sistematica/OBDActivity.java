@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,7 +45,11 @@ public class OBDActivity extends AppCompatActivity {
     public void dtcactivity (View view)
     {
         Context context = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_dtc, null);
         Intent intent = new Intent(context, DTC.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
     public class DataOBD extends Thread {
