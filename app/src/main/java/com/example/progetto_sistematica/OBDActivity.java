@@ -13,9 +13,6 @@ import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
-import br.ufrn.imd.obd.commands.protocol.AvailablePidsCommand01to20;
-import br.ufrn.imd.obd.commands.protocol.AvailablePidsCommand21to40;
-import br.ufrn.imd.obd.commands.protocol.AvailablePidsCommand41to60;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
 import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
@@ -51,9 +48,6 @@ public class OBDActivity extends AppCompatActivity {
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
         DtcNumberCommand dtcNumberCommand;
-        AvailablePidsCommand01to20 availablePidsCommand01to20;
-        AvailablePidsCommand21to40 availablePidsCommand21to40;
-        AvailablePidsCommand41to60 availablePidsCommand41to60;
         int i;
         TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
@@ -97,8 +91,6 @@ public class OBDActivity extends AppCompatActivity {
             try {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());//vin
                 textViewVin.setText(vinCommand.getFormattedResult());
-                availablePidsCommand01to20.run(socket.getInputStream(), socket.getOutputStream());
-                textViewConsumoMedio.setText(availablePidsCommand01to20.getFormattedResult());
                 info();
             } catch (IOException e) {
                 e.printStackTrace();
