@@ -5,21 +5,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.github.pires.obd.commands.SpeedCommand;
-import com.github.pires.obd.commands.control.DtcNumberCommand;
-import com.github.pires.obd.commands.control.VinCommand;
-import com.github.pires.obd.commands.engine.RPMCommand;
-import com.github.pires.obd.commands.fuel.FindFuelTypeCommand;
-import com.github.pires.obd.commands.fuel.FuelLevelCommand;
-import com.github.pires.obd.commands.protocol.EchoOffCommand;
-import com.github.pires.obd.commands.protocol.LineFeedOffCommand;
-import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
-import com.github.pires.obd.commands.protocol.TimeoutCommand;
-import com.github.pires.obd.commands.temperature.AmbientAirTemperatureCommand;
-import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
-import com.github.pires.obd.enums.ObdProtocols;
-
 import java.io.IOException;
+
+import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
+import br.ufrn.imd.obd.commands.control.VinCommand;
+import br.ufrn.imd.obd.commands.engine.RPMCommand;
+import br.ufrn.imd.obd.commands.engine.SpeedCommand;
+import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
+import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
+import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
+import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
+import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
+import br.ufrn.imd.obd.commands.protocol.TimeoutCommand;
+import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
+import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
+import br.ufrn.imd.obd.enums.ObdProtocols;
 
 public class OBDActivity extends AppCompatActivity {
 
