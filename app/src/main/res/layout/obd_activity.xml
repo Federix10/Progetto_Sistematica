@@ -256,10 +256,10 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/pressioneGomme"
+                    android:id="@+id/consumoLH"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:text="Pressione Gomme"
+                    android:text="Consumo istantaneo?"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
