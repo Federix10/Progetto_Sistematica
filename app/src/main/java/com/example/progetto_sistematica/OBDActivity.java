@@ -93,8 +93,8 @@ public class OBDActivity extends AppCompatActivity {
                 Thread.sleep(500);
                 new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(500);
-                new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(500);
+                //new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
+                //Thread.sleep(500);
             } catch (Exception e) {
                 // handle errors
             }
@@ -105,11 +105,18 @@ public class OBDActivity extends AppCompatActivity {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());//vin
                 textViewVin.setText(vinCommand.getFormattedResult());
                 info();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (IOException | InterruptedException e) {
+               e.printStackTrace();
             }
+            /*try
+            {
+                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+            } catch (InterruptedException | IOException e) {
+                textViewFindFuelType.setText("Errore");
+                //continue;
+                e.printStackTrace();
+            }*/
             while (true)
             {
                 if (i!=25)
@@ -138,8 +145,8 @@ public class OBDActivity extends AppCompatActivity {
         public void info ()
         {
             try {
-                //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
-                //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+                ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
+                textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
                 engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temp refrigerante
                 textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
                 fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
