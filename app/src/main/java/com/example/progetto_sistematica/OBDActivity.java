@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
 
-import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 import br.ufrn.imd.obd.commands.control.VinCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
@@ -28,6 +28,7 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
+    DataOBD dataOBD = new DataOBD();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,26 @@ public class OBDActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        DataOBD dataOBD = new DataOBD();
         dataOBD.inizializzaOBD();
         dataOBD.start();
     }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            GlobalApplication.setSetCT(0);
+            finish();
+            /*Context context = GlobalApplication.getAppContext();
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.activity_main, null);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);*/
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public void dtcactivity (View view)
     {
         Context context = GlobalApplication.getAppContext();
@@ -52,6 +69,7 @@ public class OBDActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
         VinCommand vinCommand;
@@ -60,15 +78,12 @@ public class OBDActivity extends AppCompatActivity {
         FindFuelTypeCommand findFuelTypeCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
-        DtcNumberCommand dtcNumberCommand;
         int i;
         TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
         public void inizializzaOBD ()
         {
             i=0;
-            //dtcNumberCommand = new DtcNumberCommand(); //dtc number
-            //textViewDtcNumber = findViewById(R.id.DTC);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
