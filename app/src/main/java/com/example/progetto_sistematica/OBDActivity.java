@@ -61,6 +61,7 @@ public class OBDActivity extends AppCompatActivity {
 
     public void dtcactivity (View view)
     {
+        OBDActivity.this.finish();
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -149,7 +150,7 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         i++;
-                        //Thread.sleep(300);
+                        Thread.sleep(300);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
