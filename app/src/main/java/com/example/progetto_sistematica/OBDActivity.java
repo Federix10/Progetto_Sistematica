@@ -86,15 +86,15 @@ public class OBDActivity extends AppCompatActivity {
             textViewConsumoMedio = findViewById(R.id.consumoMedioLT);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(500);
+                Thread.sleep(100);
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(500);
+                Thread.sleep(100);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(500);
+                Thread.sleep(100);
                 new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(500);
+                Thread.sleep(100);
                 //new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
-                //Thread.sleep(500);
+                //Thread.sleep(200);
             } catch (Exception e) {
                 // handle errors
             }
