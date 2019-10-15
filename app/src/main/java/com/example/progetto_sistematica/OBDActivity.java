@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.anastr.speedviewlib.ImageSpeedometer;
+
 import java.io.IOException;
 
 import br.ufrn.imd.obd.commands.control.VinCommand;
@@ -29,6 +31,8 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     DataOBD dataOBD = new DataOBD();
+    Context context2 = GlobalApplication.getAppContext();
+    ImageSpeedometer imageSpeedometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,8 @@ public class OBDActivity extends AppCompatActivity {
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_speed, null);
-        Intent intent = new Intent(context, Speed.class);
+        inflater.inflate(R.layout.activity_dtc, null);
+        Intent intent = new Intent(context, DTC.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
@@ -100,6 +104,7 @@ public class OBDActivity extends AppCompatActivity {
             vinCommand = new VinCommand();//comando vin auto
             textViewVin = findViewById(R.id.vin);
             textViewConsumoMedio = findViewById(R.id.consumoMedioLT);
+            imageSpeedometer = findViewById(R.id.imageSpeedometer);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(100);
