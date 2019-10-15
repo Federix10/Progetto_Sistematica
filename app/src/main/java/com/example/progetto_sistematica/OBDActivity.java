@@ -45,15 +45,15 @@ public class OBDActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            GlobalApplication.setSetCT(0);
-            finish();
-            /*Context context = GlobalApplication.getAppContext();
+            //GlobalApplication.setSetCT(0);
+            OBDActivity.this.finish();
+            Context context = GlobalApplication.getAppContext();
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.activity_main, null);
             Intent intent = new Intent(context, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);*/
+            context.startActivity(intent);
             return false;
         }
         return super.onKeyDown(keyCode, event);
@@ -116,6 +116,13 @@ public class OBDActivity extends AppCompatActivity {
         }
         public void run()
         {
+            /*try {
+                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
+                textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }*/
             try {
                 vinCommand.run(socket.getInputStream(), socket.getOutputStream());//vin
                 textViewVin.setText(vinCommand.getFormattedResult());
@@ -129,7 +136,7 @@ public class OBDActivity extends AppCompatActivity {
                 textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
             } catch (InterruptedException | IOException e) {
                 textViewFindFuelType.setText("Errore");
-                //continue;
+                continue;
                 e.printStackTrace();
             }*/
             while (true)
@@ -142,7 +149,7 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         i++;
-                        Thread.sleep(300);
+                        //Thread.sleep(300);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
