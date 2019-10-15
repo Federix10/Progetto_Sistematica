@@ -64,8 +64,8 @@ public class OBDActivity extends AppCompatActivity {
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_dtc, null);
-        Intent intent = new Intent(context, DTC.class);
+        inflater.inflate(R.layout.activity_speed, null);
+        Intent intent = new Intent(context, Speed.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
