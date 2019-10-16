@@ -104,8 +104,6 @@ public class OBDActivity extends AppCompatActivity {
                 Thread.sleep(200);
                 new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
-                //new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
-                //Thread.sleep(200);
             } catch (Exception e) {
                 // handle errors
             }
