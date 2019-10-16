@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import br.ufrn.imd.obd.commands.control.VinCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
@@ -73,14 +72,13 @@ public class OBDActivity extends AppCompatActivity {
 
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
-        VinCommand vinCommand;
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         FindFuelTypeCommand findFuelTypeCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
         int i;
-        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewVin, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
+        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
         public void inizializzaOBD ()
         {
             i=0;
@@ -96,18 +94,16 @@ public class OBDActivity extends AppCompatActivity {
             textViewSpeed = findViewById(R.id.speed);
             ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();//temp ambientale
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
-            vinCommand = new VinCommand();//comando vin auto
-            textViewVin = findViewById(R.id.vin);
             textViewConsumoMedio = findViewById(R.id.consumoMedioLT);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(100);
+                Thread.sleep(200);
                 new LineFeedOffCommand().run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(100);
+                Thread.sleep(200);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(100);
+                Thread.sleep(200);
                 new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
-                Thread.sleep(100);
+                Thread.sleep(200);
                 //new AmbientAirTemperatureCommand().run(socket.getInputStream(), socket.getOutputStream());
                 //Thread.sleep(200);
             } catch (Exception e) {
@@ -123,13 +119,7 @@ public class OBDActivity extends AppCompatActivity {
             catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }*/
-            try {
-                vinCommand.run(socket.getInputStream(), socket.getOutputStream());//vin
-                textViewVin.setText(vinCommand.getFormattedResult());
-                info();
-            } catch (IOException | InterruptedException e) {
-               e.printStackTrace();
-            }
+            info();
             while (true)
             {
                 if (i!=25)
