@@ -33,6 +33,10 @@ public class OBDActivity extends AppCompatActivity {
     DataOBD dataOBD = new DataOBD();
     EditText editText;
     int delay=150;
+    String scomando=null;
+    String comandoresult =null;
+    Character dec1 =null;
+    Character dec2= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,17 +205,14 @@ public class OBDActivity extends AppCompatActivity {
 
         public void comandocustom() {
             try {
-                String scomando=null;
-                String comandoresult =null;
-                Character dec1 =null;
-                Character dec2= null;
                 comando.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
                 scomando=comando.getFormattedResult();
                 dec1 = scomando.charAt(scomando.length() - 2);
                 dec2 = scomando.charAt(scomando.length() - 1);
                 comandoresult= new StringBuilder().append(dec1).append(dec2).toString();
                 int dec = Integer.parseInt(comandoresult, 16);
-                textViewPosizioneAcceleratore.setText(dec);
+                scomando = Integer.toString(dec);
+                textViewPosizioneAcceleratore.setText(scomando);
             }
             catch (IOException | InterruptedException e) {}
             finally {
