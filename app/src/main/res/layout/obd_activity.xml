@@ -7,7 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!-- This is the Toolbar-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"/>
+
+    </android.support.design.widget.AppBarLayout>
+<TextView
         android:id="@+id/speed"
         android:layout_width="184dp"
         android:layout_height="61dp"
@@ -66,7 +79,7 @@
         android:id="@+id/DTC"
         android:layout_width="64dp"
         android:layout_height="32dp"
-        android:onClick="dtcactivity"
+        android:onClick="setTimeout"
         android:text="dtc"
         android:textSize="8sp"
         card_view:layout_constraintBottom_toBottomOf="parent"
@@ -318,6 +331,20 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
     </android.support.v7.widget.GridLayout>
+
+    <EditText
+        android:id="@+id/delayms"
+        android:layout_width="87dp"
+        android:layout_height="37dp"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="number"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.435"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.008" />
 
 </android.support.constraint.ConstraintLayout>
 

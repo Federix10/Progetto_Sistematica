@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -28,6 +30,8 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     DataOBD dataOBD = new DataOBD();
+    EditText editText;
+    int delay=150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,13 @@ public class OBDActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    public void setTimeout (View view)
+    {
+        Editable editable=editText.getText();
+        String str_age = editable.toString();
+        delay=Integer.valueOf(str_age);
+        System.out.println("DELAY: "+delay);
+    }
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
@@ -82,6 +93,7 @@ public class OBDActivity extends AppCompatActivity {
         public void inizializzaOBD ()
         {
             i=0;
+            editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
@@ -120,7 +132,7 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         i++;
-                        Thread.sleep(150);
+                        Thread.sleep(delay);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
