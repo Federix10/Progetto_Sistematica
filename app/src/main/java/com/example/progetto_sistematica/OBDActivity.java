@@ -139,7 +139,7 @@ public class OBDActivity extends AppCompatActivity {
                         textViewRpm.setText(rpmCommand.getFormattedResult());
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
-                        comandocustom();
+                        comandocustomAcceleratore();
                         i++;
                         Thread.sleep(150);
                     } catch (IOException e) {
@@ -203,7 +203,7 @@ public class OBDActivity extends AppCompatActivity {
             }
         }
 
-        public void comandocustom() {
+        public void comandocustomAcceleratore() {
             try {
                 comando.run(socket.getInputStream(), socket.getOutputStream());//posizione acceleratore
                 scomando=comando.getFormattedResult();
