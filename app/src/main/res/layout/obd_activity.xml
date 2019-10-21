@@ -7,19 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <!-- This is the Toolbar-->
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
-
-    </android.support.design.widget.AppBarLayout>
 <TextView
         android:id="@+id/speed"
         android:layout_width="184dp"
@@ -49,18 +36,18 @@
         card_view:layout_constraintVertical_bias="0.203" />
 
     <TextView
-        android:id="@+id/marcia"
-        android:layout_width="89dp"
-        android:layout_height="137dp"
+        android:id="@+id/posizioneAcceleratore"
+        android:layout_width="197dp"
+        android:layout_height="131dp"
         android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="120sp"
+        android:textAlignment="textStart"
+        android:textSize="80sp"
         card_view:layout_constraintBottom_toBottomOf="@+id/gridLayout"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.059"
+        card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.067" />
+        card_view:layout_constraintVertical_bias="0.104" />
 
     <TextView
         android:id="@+id/tempOut"

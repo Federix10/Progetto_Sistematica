@@ -20,6 +20,7 @@ import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
+import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
 import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
 import br.ufrn.imd.obd.commands.protocol.TimeoutCommand;
 import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
@@ -83,19 +84,21 @@ public class OBDActivity extends AppCompatActivity {
     }
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
+        ObdRawCommand comando;
         SpeedCommand speedCommand;
         FindFuelTypeCommand findFuelTypeCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
         int i;
-        TextView textViewRpm, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
+        TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
         public void inizializzaOBD ()
         {
             i=0;
-            editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
+            comando = new ObdRawCommand("01 11");
+            textViewPosizioneAcceleratore= findViewById(R.id.posizioneAcceleratore);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
             textViewFindFuelType = findViewById(R.id.carburante);
             engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();//temp regrigerante
@@ -123,6 +126,7 @@ public class OBDActivity extends AppCompatActivity {
         public void run() {
             findfuel();
             ambientair();
+            comandocustom();
             info();
             while (true) {
                 if (i != 25) {
@@ -132,7 +136,7 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         i++;
-                        Thread.sleep(delay);
+                        Thread.sleep(150);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -194,6 +198,21 @@ public class OBDActivity extends AppCompatActivity {
             }
         }
 
+        public void comandocustom() {
+            try {
+                comando.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
+                textViewPosizioneAcceleratore.setText(comando.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewPosizioneAcceleratore.getText()=="") {
+                    textViewPosizioneAcceleratore.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
     }
-
 }
