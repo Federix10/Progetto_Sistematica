@@ -101,7 +101,7 @@ public class OBDActivity extends AppCompatActivity {
             i=0;
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
-            comando = new ObdRawCommand("01 0D");
+            comando = new ObdRawCommand("01 11");
             textViewPosizioneAcceleratore= findViewById(R.id.posizioneAcceleratore);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
             textViewFindFuelType = findViewById(R.id.carburante);
@@ -205,7 +205,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void comandocustom() {
             try {
-                comando.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
+                comando.run(socket.getInputStream(), socket.getOutputStream());//posizione acceleratore
                 scomando=comando.getFormattedResult();
                 dec1 = scomando.charAt(scomando.length() - 2);
                 dec2 = scomando.charAt(scomando.length() - 1);
