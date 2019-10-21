@@ -130,7 +130,7 @@ public class OBDActivity extends AppCompatActivity {
         public void run() {
             findfuel();
             ambientair();
-            comandocustom();
+            comandocustomAcceleratore();
             info();
             while (true) {
                 if (i != 25) {
