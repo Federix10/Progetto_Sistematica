@@ -28,7 +28,7 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     DataOBD dataOBD = new DataOBD();
-    String sText;
+    FindFuelTypeCommand findFuelTypeCommand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,6 @@ public class OBDActivity extends AppCompatActivity {
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
-        FindFuelTypeCommand findFuelTypeCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
         int i;
@@ -113,15 +112,10 @@ public class OBDActivity extends AppCompatActivity {
         {
             try
             {
-                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());//find fuel
-                textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
-            }
-            catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                findfuel();
             }
             finally
             {
-                textViewFindFuelType.setText("Parametro non corretto");
                 info();
                 while (true)
                 {
@@ -163,6 +157,19 @@ public class OBDActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void findfuel()
+    {
+        TextView textView = findViewById(R.id.carburante);
+        try {
+            findFuelTypeCommand.run(socket.getInputStream(),socket.getOutputStream());
+            textView.setText(findFuelTypeCommand.getFormattedResult());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        finally {
+            textView.setText("Parametro non accessibile");
         }
     }
 }
