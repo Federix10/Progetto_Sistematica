@@ -110,37 +110,41 @@ public class OBDActivity extends AppCompatActivity {
         }
         public void run()
         {
-            /*try {
+            try {
                 findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());
                 textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {
                 e.printStackTrace();
-            }*/
-            info();
-            while (true)
-            {
-                if (i!=25)
+            }
+            finally {
+                textViewFindFuelType.setText("Parametro non accessibile");
+                info();
+                while (true)
                 {
-                    try {
-                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
-                        textViewRpm.setText(rpmCommand.getFormattedResult());
-                        speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                        textViewSpeed.setText(speedCommand.getFormattedResult());
-                        i++;
-                        Thread.sleep(150);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (i!=25)
+                    {
+                        try {
+                            rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
+                            textViewRpm.setText(rpmCommand.getFormattedResult());
+                            speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
+                            textViewSpeed.setText(speedCommand.getFormattedResult());
+                            i++;
+                            Thread.sleep(150);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if (i==25)
+                    {
+                        i=0;
+                        info();
                     }
                 }
-                else if (i==25)
-                {
-                    i=0;
-                    info();
-                }
             }
+
         }
 
         public void info ()
