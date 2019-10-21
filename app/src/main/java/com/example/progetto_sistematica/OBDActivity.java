@@ -28,7 +28,6 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     DataOBD dataOBD = new DataOBD();
-    FindFuelTypeCommand findFuelTypeCommand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +73,7 @@ public class OBDActivity extends AppCompatActivity {
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
         SpeedCommand speedCommand;
+        FindFuelTypeCommand findFuelTypeCommand;
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
