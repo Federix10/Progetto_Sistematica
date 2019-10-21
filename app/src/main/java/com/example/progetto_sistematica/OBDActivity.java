@@ -108,37 +108,27 @@ public class OBDActivity extends AppCompatActivity {
                 // handle errors
             }
         }
-        public void run()
-        {
-            try
-            {
-                findfuel();
-            }
-            finally
-            {
-                info();
-                while (true)
-                {
-                    if (i!=25)
-                    {
-                        try {
-                            rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
-                            textViewRpm.setText(rpmCommand.getFormattedResult());
-                            speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                            textViewSpeed.setText(speedCommand.getFormattedResult());
-                            i++;
-                            Thread.sleep(150);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+        public void run() {
+            findfuel();
+            ambientair();
+            info();
+            while (true) {
+                if (i != 25) {
+                    try {
+                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
+                        textViewRpm.setText(rpmCommand.getFormattedResult());
+                        speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
+                        textViewSpeed.setText(speedCommand.getFormattedResult());
+                        i++;
+                        Thread.sleep(150);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    else if (i==25)
-                    {
-                        i=0;
-                        info();
-                    }
+                } else if (i == 25) {
+                    i = 0;
+                    info();
                 }
             }
         }
@@ -146,8 +136,7 @@ public class OBDActivity extends AppCompatActivity {
         public void info ()
         {
             try {
-                //ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
-                //textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+
                 engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temp refrigerante
                 textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
                 fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
@@ -158,18 +147,41 @@ public class OBDActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
-    public void findfuel()
-    {
-        TextView textView = findViewById(R.id.carburante);
-        try {
-            findFuelTypeCommand.run(socket.getInputStream(),socket.getOutputStream());
-            textView.setText(findFuelTypeCommand.getFormattedResult());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+
+        public void findfuel() {
+            try {
+                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());//find fuel
+                textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewFindFuelType.getText()=="") {
+                    textViewFindFuelType.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
         }
-        finally {
-            textView.setText("Parametro non accessibile");
+
+        public void ambientair() {
+            try {
+                ambientAirTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
+                textViewAmbieAirTemperature.setText(ambientAirTemperatureCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewAmbieAirTemperature.getText()=="") {
+                    textViewAmbieAirTemperature.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
         }
+
     }
+
 }
