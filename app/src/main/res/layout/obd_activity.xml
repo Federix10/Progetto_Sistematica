@@ -41,7 +41,7 @@
         android:layout_height="131dp"
         android:gravity="center"
         android:textAlignment="textStart"
-        android:textSize="80sp"
+        android:textSize="30sp"
         card_view:layout_constraintBottom_toBottomOf="@+id/gridLayout"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.0"

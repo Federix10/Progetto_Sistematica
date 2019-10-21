@@ -97,7 +97,7 @@ public class OBDActivity extends AppCompatActivity {
             i=0;
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
-            comando = new ObdRawCommand("01 11");
+            comando = new ObdRawCommand("01 0D");
             textViewPosizioneAcceleratore= findViewById(R.id.posizioneAcceleratore);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
             textViewFindFuelType = findViewById(R.id.carburante);
@@ -135,6 +135,7 @@ public class OBDActivity extends AppCompatActivity {
                         textViewRpm.setText(rpmCommand.getFormattedResult());
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
+                        comandocustom();
                         i++;
                         Thread.sleep(150);
                     } catch (IOException e) {
@@ -200,8 +201,17 @@ public class OBDActivity extends AppCompatActivity {
 
         public void comandocustom() {
             try {
+                String scomando=null;
+                String comandoresult =null;
+                Character dec1 =null;
+                Character dec2= null;
                 comando.run(socket.getInputStream(), socket.getOutputStream());//temperatura ambientale
-                textViewPosizioneAcceleratore.setText(comando.getFormattedResult());
+                scomando=comando.getFormattedResult();
+                dec1 = scomando.charAt(scomando.length() - 2);
+                dec2 = scomando.charAt(scomando.length() - 1);
+                comandoresult= new StringBuilder().append(dec1).append(dec2).toString();
+                int dec = Integer.parseInt(comandoresult, 16);
+                textViewPosizioneAcceleratore.setText(dec);
             }
             catch (IOException | InterruptedException e) {}
             finally {
