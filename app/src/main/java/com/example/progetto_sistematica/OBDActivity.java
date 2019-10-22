@@ -82,9 +82,8 @@ public class OBDActivity extends AppCompatActivity {
     public void setTimeout (View view)
     {
         Editable editable=editText.getText();
-        String str_age = editable.toString();
-        delay=Integer.valueOf(str_age);
-        System.out.println("DELAY: "+delay);
+        String str_delay = editable.toString();
+        delay=Integer.valueOf(str_delay);
     }
     public class DataOBD extends Thread {
         RPMCommand rpmCommand;
@@ -141,7 +140,7 @@ public class OBDActivity extends AppCompatActivity {
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         comandocustomAcceleratore();
                         i++;
-                        Thread.sleep(150);
+                        Thread.sleep(delay);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
