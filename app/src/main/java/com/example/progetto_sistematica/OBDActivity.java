@@ -98,6 +98,7 @@ public class OBDActivity extends AppCompatActivity {
         public void inizializzaOBD ()
         {
             i=0;
+            editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
             comando = new ObdRawCommand("01 11");
