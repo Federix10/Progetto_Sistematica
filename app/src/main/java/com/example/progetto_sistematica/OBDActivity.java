@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
+import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
@@ -93,11 +95,18 @@ public class OBDActivity extends AppCompatActivity {
         AmbientAirTemperatureCommand ambientAirTemperatureCommand;
         EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
         FuelLevelCommand fuelLevelCommand;
+        MassAirFlowCommand massAirFlowCommand;
+        ThrottlePositionCommand throttlePositionCommand;
         int i;
+        TextView maf,utilizzo1;
         TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
         public void inizializzaOBD ()
         {
             i=0;
+            throttlePositionCommand = new ThrottlePositionCommand();
+            utilizzo1 = findViewById(R.id.utilizzo);
+            maf = findViewById(R.id.pressioneGommeBar);
+            massAirFlowCommand = new MassAirFlowCommand();
             editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.carburante2);
@@ -140,6 +149,8 @@ public class OBDActivity extends AppCompatActivity {
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
                         comandocustomAcceleratore();
+                        maf();
+                        throttleposition();
                         i++;
                         Thread.sleep(delay);
                     } catch (IOException e) {
@@ -195,6 +206,40 @@ public class OBDActivity extends AppCompatActivity {
             finally {
                 if (textViewAmbieAirTemperature.getText()=="") {
                     textViewAmbieAirTemperature.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
+        public void maf() {
+            try {
+                massAirFlowCommand.run(socket.getInputStream(), socket.getOutputStream());//maf
+                maf.setText(massAirFlowCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (maf.getText()=="") {
+                    maf.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
+        public void throttleposition() {
+            try {
+                throttlePositionCommand.run(socket.getInputStream(), socket.getOutputStream());//maf
+                utilizzo1.setText(throttlePositionCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (utilizzo1.getText()=="") {
+                    utilizzo1.setText("Parametro non corretto");
                     return;
                 }
                 else{
