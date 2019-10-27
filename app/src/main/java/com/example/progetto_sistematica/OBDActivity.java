@@ -138,9 +138,10 @@ public class OBDActivity extends AppCompatActivity {
         }
         public void run() {
             findfuel();
+            fuellevel();
             ambientair();
             comandocustomAcceleratore();
-            info();
+            enginecoolant();
             while (true) {
                 if (i != 25) {
                     try {
@@ -160,23 +161,43 @@ public class OBDActivity extends AppCompatActivity {
                     }
                 } else if (i == 25) {
                     i = 0;
-                    info();
+                    fuellevel();
+                    enginecoolant();
                 }
             }
         }
 
-        public void info ()
-        {
+        public void fuellevel() {
             try {
-
-                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temp refrigerante
-                textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
                 fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
                 textViewfuelLevel.setText(fuelLevelCommand.getFormattedResult());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewfuelLevel.getText()=="") {
+                    textViewfuelLevel.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
+        public void enginecoolant() {
+            try {
+                engineCoolantTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream());//temp refrigerante
+                textViewengineCoolantTemperature.setText(engineCoolantTemperatureCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewengineCoolantTemperature.getText()=="") {
+                    textViewengineCoolantTemperature.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
             }
         }
 
