@@ -148,17 +148,13 @@ public class OBDActivity extends AppCompatActivity {
             while (true) {
                 if (i != 25) {
                     try {
-                        rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
-                        textViewRpm.setText(rpmCommand.getFormattedResult());
-                        speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                        textViewSpeed.setText(speedCommand.getFormattedResult());
+                        comandi.rpm();
+                        comandi.speed();
                         comandi.comandocustomAcceleratore();
                         comandi.maf();
                         comandi.throttleposition();
                         i++;
                         Thread.sleep(delay);
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -173,6 +169,41 @@ public class OBDActivity extends AppCompatActivity {
 
     private class Comandi
     {
+
+        public void rpm() {
+            try {
+                rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
+                textViewRpm.setText(rpmCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewRpm.getText()=="") {
+                    textViewRpm.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
+        public void speed() {
+            try {
+                speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
+                textViewSpeed.setText(speedCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewSpeed.getText()=="") {
+                    textViewSpeed.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
         public void fuellevel() {
             try {
                 fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
