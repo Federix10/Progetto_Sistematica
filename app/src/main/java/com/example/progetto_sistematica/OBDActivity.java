@@ -33,12 +33,25 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     DataOBD dataOBD = new DataOBD();
+    Comandi comandi;
     EditText editText;
     int delay=150;
     String scomando=null;
     String comandoresult =null;
     Character dec1 =null;
     Character dec2= null;
+    RPMCommand rpmCommand;
+    ObdRawCommand comando;
+    SpeedCommand speedCommand;
+    FindFuelTypeCommand findFuelTypeCommand;
+    AmbientAirTemperatureCommand ambientAirTemperatureCommand;
+    EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
+    FuelLevelCommand fuelLevelCommand;
+    MassAirFlowCommand massAirFlowCommand;
+    ThrottlePositionCommand throttlePositionCommand;
+    int i;
+    TextView maf,utilizzo1;
+    TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,21 +101,11 @@ public class OBDActivity extends AppCompatActivity {
         delay=Integer.valueOf(str_delay);
     }
     public class DataOBD extends Thread {
-        RPMCommand rpmCommand;
-        ObdRawCommand comando;
-        SpeedCommand speedCommand;
-        FindFuelTypeCommand findFuelTypeCommand;
-        AmbientAirTemperatureCommand ambientAirTemperatureCommand;
-        EngineCoolantTemperatureCommand engineCoolantTemperatureCommand;
-        FuelLevelCommand fuelLevelCommand;
-        MassAirFlowCommand massAirFlowCommand;
-        ThrottlePositionCommand throttlePositionCommand;
-        int i;
-        TextView maf,utilizzo1;
-        TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
+
         public void inizializzaOBD ()
         {
             i=0;
+            comandi = new Comandi();
             throttlePositionCommand = new ThrottlePositionCommand();
             utilizzo1 = findViewById(R.id.utilizzo);
             maf = findViewById(R.id.pressioneGommeBar);
@@ -137,11 +140,11 @@ public class OBDActivity extends AppCompatActivity {
             }
         }
         public void run() {
-            findfuel();
-            fuellevel();
-            ambientair();
-            comandocustomAcceleratore();
-            enginecoolant();
+            comandi.findfuel();
+            comandi.fuellevel();
+            comandi.ambientair();
+            comandi.comandocustomAcceleratore();
+            comandi.enginecoolant();
             while (true) {
                 if (i != 25) {
                     try {
@@ -149,9 +152,9 @@ public class OBDActivity extends AppCompatActivity {
                         textViewRpm.setText(rpmCommand.getFormattedResult());
                         speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                         textViewSpeed.setText(speedCommand.getFormattedResult());
-                        comandocustomAcceleratore();
-                        maf();
-                        throttleposition();
+                        comandi.comandocustomAcceleratore();
+                        comandi.maf();
+                        comandi.throttleposition();
                         i++;
                         Thread.sleep(delay);
                     } catch (IOException e) {
@@ -161,12 +164,15 @@ public class OBDActivity extends AppCompatActivity {
                     }
                 } else if (i == 25) {
                     i = 0;
-                    fuellevel();
-                    enginecoolant();
+                    comandi.fuellevel();
+                    comandi.enginecoolant();
                 }
             }
         }
+    }
 
+    private class Comandi
+    {
         public void fuellevel() {
             try {
                 fuelLevelCommand.run(socket.getInputStream(), socket.getOutputStream());//livello carburante
