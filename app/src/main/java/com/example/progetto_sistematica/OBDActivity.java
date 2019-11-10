@@ -166,7 +166,6 @@ public class OBDActivity extends AppCompatActivity {
 
     public void speedactivity (View view)
     {
-        OBDActivity.this.finish();
         Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
