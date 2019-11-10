@@ -94,6 +94,18 @@ public class OBDActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    public void speedactivity (View view)
+    {
+        OBDActivity.this.finish();
+        Context context = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_speed, null);
+        Intent intent = new Intent(context, Speed.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
     public void setTimeout (View view)
     {
         Editable editable=editText.getText();
