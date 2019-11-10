@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,10 +33,11 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
+    Button setspeed, settimeout;
     DataOBD dataOBD = new DataOBD();
     Comandi comandi;
     EditText editText;
-    int delay=150;
+    int delay=150,i;
     String scomando=null;
     String comandoresult =null;
     Character dec1 =null;
@@ -49,7 +51,6 @@ public class OBDActivity extends AppCompatActivity {
     FuelLevelCommand fuelLevelCommand;
     MassAirFlowCommand massAirFlowCommand;
     ThrottlePositionCommand throttlePositionCommand;
-    int i;
     TextView maf,utilizzo1;
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
@@ -66,57 +67,13 @@ public class OBDActivity extends AppCompatActivity {
         dataOBD.start();
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //GlobalApplication.setSetCT(0);
-            OBDActivity.this.finish();
-            Context context = GlobalApplication.getAppContext();
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.activity_main, null);
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public void dtcactivity (View view)
-    {
-        OBDActivity.this.finish();
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_dtc, null);
-        Intent intent = new Intent(context, DTC.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
-
-    public void speedactivity (View view)
-    {
-        OBDActivity.this.finish();
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_speed, null);
-        Intent intent = new Intent(context, Speed.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
-
-    public void setTimeout (View view)
-    {
-        Editable editable=editText.getText();
-        String str_delay = editable.toString();
-        delay=Integer.valueOf(str_delay);
-    }
     public class DataOBD extends Thread {
 
         public void inizializzaOBD ()
         {
             i=0;
+            setspeed = findViewById(R.id.btnSpeed);
+            settimeout = findViewById(R.id.btnDTC);
             comandi = new Comandi();
             throttlePositionCommand = new ThrottlePositionCommand();
             utilizzo1 = findViewById(R.id.utilizzo);
@@ -177,6 +134,53 @@ public class OBDActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //GlobalApplication.setSetCT(0);
+            OBDActivity.this.finish();
+            Context context = GlobalApplication.getAppContext();
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.activity_main, null);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void dtcactivity (View view)
+    {
+        OBDActivity.this.finish();
+        Context context = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_dtc, null);
+        Intent intent = new Intent(context, DTC.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public void speedactivity (View view)
+    {
+        OBDActivity.this.finish();
+        Context context = GlobalApplication.getAppContext();
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_speed, null);
+        Intent intent = new Intent(context, Speed.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public void setTimeout (View view)
+    {
+        Editable editable=editText.getText();
+        String str_delay = editable.toString();
+        delay=Integer.valueOf(str_delay);
     }
 
     private class Comandi
