@@ -51,7 +51,7 @@ public class OBDActivity extends AppCompatActivity {
     FuelLevelCommand fuelLevelCommand;
     MassAirFlowCommand massAirFlowCommand;
     ThrottlePositionCommand throttlePositionCommand;
-    TextView maf,utilizzo1;
+    TextView maf,utilizzo1, protocollo;
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
     @Override
@@ -71,6 +71,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            protocollo = findViewById(R.id.protocol);
             i=0;
             setspeed = findViewById(R.id.btnSpeed);
             settimeout = findViewById(R.id.btnDTC);
@@ -102,7 +103,11 @@ public class OBDActivity extends AppCompatActivity {
                 Thread.sleep(200);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
-                new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
+                SelectProtocolCommand selectProtocolCommand;
+                selectProtocolCommand = new SelectProtocolCommand(ObdProtocols.AUTO);
+                selectProtocolCommand.run(socket.getInputStream(), socket.getOutputStream());
+                protocollo.setText(selectProtocolCommand.getFormattedResult());
+                //new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
             } catch (Exception e) {
                 // handle errors
