@@ -116,7 +116,6 @@
                     android:id="@+id/tempMotore"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:text="DECIDERE COSA METTERE"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -273,7 +272,6 @@
                     android:id="@+id/consumoLH"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:text="DECIDERE COSA METTERE"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -309,7 +307,6 @@
                     android:id="@+id/tempoUtilizzo"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:text="DECIDERE COSA METTERE"
                     android:textAlignment="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
@@ -346,6 +343,17 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintVertical_bias="0.008" />
+
+    <TextView
+        android:id="@+id/protocol"
+        android:layout_width="409dp"
+        android:layout_height="62dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.0"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.316" />
 
 </android.support.constraint.ConstraintLayout>
 
