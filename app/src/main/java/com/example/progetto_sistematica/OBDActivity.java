@@ -37,7 +37,7 @@ public class OBDActivity extends AppCompatActivity {
     DataOBD dataOBD = new DataOBD();
     Comandi comandi;
     EditText editText;
-    int delay=150,i;
+    int delay,i;
     String scomando=null;
     String comandoresult =null;
     Character dec1 =null;
@@ -71,6 +71,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            delay=150;
             protocollo = findViewById(R.id.protocol);
             i=0;
             setspeed = findViewById(R.id.btnSpeed);
