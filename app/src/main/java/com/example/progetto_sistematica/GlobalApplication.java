@@ -14,6 +14,7 @@ public class GlobalApplication extends Application {
     private static int setAT = 0;
     private static int setCT = 0;
     private static String message;
+    private static ConnectThread connectThread;
 
     @Override
     public void onCreate() {
@@ -24,6 +25,16 @@ public class GlobalApplication extends Application {
     public static Context getAppContext() {
         return appContext;
     }
+
+
+    public static synchronized ConnectThread getClient(){
+        return connectThread;
+    }
+
+    public static synchronized void setClient(ConnectThread connectThread1){
+        connectThread = connectThread1;
+    }
+
 
     public static synchronized BluetoothSocket getSocket(){
         return socket;

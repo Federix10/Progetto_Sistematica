@@ -34,6 +34,7 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     Button setspeed, settimeout;
+    Boolean ciclo = true;
     DataOBD dataOBD = new DataOBD();
     Comandi comandi;
     EditText editText;
@@ -120,7 +121,7 @@ public class OBDActivity extends AppCompatActivity {
             comandi.ambientair();
             comandi.comandocustomAcceleratore();
             comandi.enginecoolant();
-            while (true) {
+            while (ciclo == true) {
                 if (i != 25) {
                     try {
                         comandi.rpm();
@@ -144,15 +145,11 @@ public class OBDActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //GlobalApplication.setSetCT(0);
+            ciclo = false;
+            dataOBD.interrupt();
             OBDActivity.this.finish();
-            Context context = GlobalApplication.getAppContext();
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.activity_main, null);
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            GlobalApplication.setSetCT(0);
+            GlobalApplication.getClient().cancel();
             return false;
         }
         return super.onKeyDown(keyCode, event);
