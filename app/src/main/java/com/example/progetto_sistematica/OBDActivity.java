@@ -21,6 +21,7 @@ import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
+import br.ufrn.imd.obd.commands.protocol.DescribeProtocolCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
@@ -52,6 +53,7 @@ public class OBDActivity extends AppCompatActivity {
     FuelLevelCommand fuelLevelCommand;
     MassAirFlowCommand massAirFlowCommand;
     ThrottlePositionCommand throttlePositionCommand;
+    DescribeProtocolCommand describeProtocolCommand;
     TextView maf,utilizzo1, protocollo;
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
 
@@ -72,6 +74,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            describeProtocolCommand = new DescribeProtocolCommand();
             delay=150;
             protocollo = findViewById(R.id.protocol);
             i=0;
@@ -105,17 +108,14 @@ public class OBDActivity extends AppCompatActivity {
                 Thread.sleep(200);
                 new TimeoutCommand(125).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
-                SelectProtocolCommand selectProtocolCommand;
-                selectProtocolCommand = new SelectProtocolCommand(ObdProtocols.AUTO);
-                selectProtocolCommand.run(socket.getInputStream(), socket.getOutputStream());
-                protocollo.setText(selectProtocolCommand.getFormattedResult());
-                //new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
+                new SelectProtocolCommand(ObdProtocols.AUTO).run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
             } catch (Exception e) {
                 // handle errors
             }
         }
         public void run() {
+            comandi.describeProtocol();
             comandi.findfuel();
             comandi.fuellevel();
             comandi.ambientair();
@@ -146,7 +146,7 @@ public class OBDActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             ciclo = false;
-            dataOBD.interrupt();
+            this.dataOBD.interrupt();
             OBDActivity.this.finish();
             GlobalApplication.setSetCT(0);
             GlobalApplication.getClient().cancel();
@@ -187,6 +187,23 @@ public class OBDActivity extends AppCompatActivity {
 
     private class Comandi
     {
+
+        public void describeProtocol() {
+            try {
+                describeProtocolCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
+                protocollo.setText(describeProtocolCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (protocollo.getText()=="") {
+                    protocollo.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
 
         public void rpm() {
             try {
