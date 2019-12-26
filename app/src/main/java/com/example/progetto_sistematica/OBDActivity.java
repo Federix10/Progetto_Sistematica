@@ -35,11 +35,11 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     Button setspeed, settimeout;
-    Boolean ciclo = true;
-    DataOBD dataOBD = new DataOBD();
+    Boolean ciclo;
+    DataOBD dataOBD;
     Comandi comandi;
     EditText editText;
-    int delay,i;
+    int delay,i=0;
     String scomando=null;
     String comandoresult =null;
     Character dec1 =null;
@@ -61,13 +61,20 @@ public class OBDActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+        ciclo = true;
+        dataOBD = new DataOBD();
         dataOBD.inizializzaOBD();
         dataOBD.start();
+    }
+
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ciclo = false;
+            OBDActivity.this.finish();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public class DataOBD extends Thread {
@@ -77,7 +84,6 @@ public class OBDActivity extends AppCompatActivity {
             describeProtocolCommand = new DescribeProtocolCommand();
             delay=150;
             protocollo = findViewById(R.id.protocol);
-            i=0;
             setspeed = findViewById(R.id.btnSpeed);
             settimeout = findViewById(R.id.btnDTC);
             comandi = new Comandi();
@@ -121,9 +127,13 @@ public class OBDActivity extends AppCompatActivity {
             comandi.ambientair();
             comandi.comandocustomAcceleratore();
             comandi.enginecoolant();
-            while (ciclo == true) {
+            while (true) {
                 if (i != 25) {
                     try {
+                        if (ciclo == false)
+                        {
+                            break;
+                        }
                         comandi.rpm();
                         comandi.speed();
                         comandi.comandocustomAcceleratore();
@@ -141,18 +151,6 @@ public class OBDActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ciclo = false;
-            this.dataOBD.interrupt();
-            OBDActivity.this.finish();
-            GlobalApplication.setSetCT(0);
-            GlobalApplication.getClient().cancel();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     public void dtcactivity (View view)
