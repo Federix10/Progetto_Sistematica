@@ -4,6 +4,10 @@ import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class GlobalApplication extends Application {
 
@@ -20,6 +24,36 @@ public class GlobalApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+    }
+
+    public synchronized void Write()
+    {
+        String data = "ADDRESS PROVA";
+        try {
+            FileOutputStream fOut = openFileOutput("address.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized String Read()
+    {
+        String temp="";
+        try {
+            FileInputStream fin = openFileInput("address.txt");
+            int c;
+            while( (c = fin.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+        }
+        return temp;
     }
 
     public static Context getAppContext() {

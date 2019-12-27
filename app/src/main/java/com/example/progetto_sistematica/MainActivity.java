@@ -2,6 +2,8 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +16,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import utils.Device;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,61 +31,75 @@ public class MainActivity extends AppCompatActivity {
     public static Switch aSwitch;
     TextView switchBtn_txtView;
     TextView switchBtnChat_txtView;
+    BluetoothManager bluetoothManager;
+    BluetoothDevice btdevice;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        aSwitch = findViewById(R.id.chatobd);
-        switchBtn_txtView = findViewById(R.id.chatobd);
-        switchBtnChat_txtView = findViewById(R.id.btnChat);
-        switchBtn_txtView.setText("CHAT");
+        if (Read() == "")
+        {
+            setContentView(R.layout.activity_main);
+            aSwitch = findViewById(R.id.chatobd);
+            switchBtn_txtView = findViewById(R.id.chatobd);
+            switchBtnChat_txtView = findViewById(R.id.btnChat);
+            switchBtn_txtView.setText("CHAT");
+            //textView.setText("Disconnesso");
 
-        //textView.setText("Disconnesso");
+            if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Il dispositivo non supporta il bluetooth")
+                        .setTitle("ERRORE");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {}
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
 
-        if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Il dispositivo non supporta il bluetooth")
-                    .setTitle("ERRORE");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+            while(!bluetoothAdapter.isEnabled());
+            List<Device> list2 = new ArrayList<Device>();
+            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+            if (pairedDevices.size() > 0) {
+                for (BluetoothDevice device : pairedDevices) {
+                    Device d = new Device(device.getName(), device.getAddress());
+                    list2.add(d);
+                }
+            }
+            ListView mylistView = findViewById(R.id.listadevice);
+            BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
+            mylistView.setAdapter(listAdapter2);
+
+            aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {}
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        switchBtn_txtView.setText("OBD");
+                        switchBtnChat_txtView.setText("OBD");
+                    }
+                    else {
+                        switchBtn_txtView.setText("CHAT");
+                        switchBtnChat_txtView.setText("CHAT");
+                    }
+                }
             });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+        }
+        else if (Read() != "")
+        {
+            bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+            btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
+            Toast.makeText(this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+            ConnectThread client = new ConnectThread(btdevice);
+            client.start();
         }
 
-        if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-        while(!bluetoothAdapter.isEnabled());
-        List<Device> list2 = new ArrayList<Device>();
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-        if (pairedDevices.size() > 0) {
-            for (BluetoothDevice device : pairedDevices) {
-                Device d = new Device(device.getName(), device.getAddress());
-                list2.add(d);
-            }
-        }
-        ListView mylistView = findViewById(R.id.listadevice);
-        BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
-        mylistView.setAdapter(listAdapter2);
-
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    switchBtn_txtView.setText("OBD");
-                    switchBtnChat_txtView.setText("OBD");
-                }
-                else {
-                    switchBtn_txtView.setText("CHAT");
-                    switchBtnChat_txtView.setText("CHAT");
-                }
-            }
-        });
     } //fine on creates
 
     public void changeActivity(View view)
@@ -97,5 +113,21 @@ public class MainActivity extends AppCompatActivity {
             Intent startNewActivity = new Intent (this, OBDActivity.class);
             startActivity(startNewActivity);
         }
+    }
+
+    public String Read()
+    {
+        String temp="";
+        try {
+            FileInputStream fin = openFileInput("address.txt");
+            int c;
+            while( (c = fin.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+        }
+        return temp;
     }
 }//fine MainActivity

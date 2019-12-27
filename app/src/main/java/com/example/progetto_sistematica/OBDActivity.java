@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
@@ -62,9 +65,49 @@ public class OBDActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
         ciclo = true;
-        dataOBD = new DataOBD();
-        dataOBD.inizializzaOBD();
-        dataOBD.start();
+        if (Read() == "")
+        {
+            Write();
+            dataOBD = new DataOBD();
+            dataOBD.inizializzaOBD();
+            dataOBD.start();
+        }
+        else if (Read() != "")
+        {
+            dataOBD = new DataOBD();
+            dataOBD.inizializzaOBD();
+            dataOBD.start();
+        }
+    }
+
+    public void Write()
+    {
+        String data = GlobalApplication.getDevice().getAddress();
+        try {
+            FileOutputStream fOut = openFileOutput("address.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String Read()
+    {
+        String temp="";
+        try {
+            FileInputStream fin = openFileInput("address.txt");
+            int c;
+            while( (c = fin.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+        }
+        return temp;
     }
 
 
@@ -121,6 +164,7 @@ public class OBDActivity extends AppCompatActivity {
             }
         }
         public void run() {
+            //protocollo.setText(Read());
             comandi.describeProtocol();
             comandi.findfuel();
             comandi.fuellevel();

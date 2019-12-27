@@ -3,7 +3,6 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,15 +43,10 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
-                            if (GlobalApplication.getCT()==1)
-                                changeactivityct();
-                            else
-                            {
+                                GlobalApplication.setDevice(btdevice);
                                 ConnectThread client = new ConnectThread(btdevice);
                                 client.start();
-                                GlobalApplication.setDevice(btdevice);
                                 GlobalApplication.setClient(client);
-                            }
                         }
                     }
                 }
@@ -60,14 +54,4 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         });//fine setOnClickListener
         return convertView;
     }// fine getView
-    private void changeactivityct()
-    {
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.obd_activity, null);
-        Intent intent = new Intent(context, OBDActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
 }
