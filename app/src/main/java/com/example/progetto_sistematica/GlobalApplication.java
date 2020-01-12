@@ -19,11 +19,21 @@ public class GlobalApplication extends Application {
     private static int setCT = 0;
     private static String message;
     private static ConnectThread connectThread;
+    private static int rpm=0;
 
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+    }
+
+    public static synchronized void setRPM(int rpm2){
+        rpm = rpm2;
+    }
+
+    public static int getRPM()
+    {
+        return rpm;
     }
 
     public synchronized void Write()
