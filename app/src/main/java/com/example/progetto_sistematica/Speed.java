@@ -205,6 +205,11 @@ public class Speed extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
+                                if (GlobalApplication.getRPM()>progressMAX)
+                                {
+                                    progressMAX=GlobalApplication.getRPM()+1000;
+                                    circularProgressBar.setProgressMax(progressMAX);
+                                }
                                 circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
                                 if (GlobalApplication.getRPM()<2000)
                                     circularProgressBar.setColor(Color.BLUE);
