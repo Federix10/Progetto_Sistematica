@@ -20,6 +20,7 @@ public class GlobalApplication extends Application {
     private static String message;
     private static ConnectThread connectThread;
     private static int rpm=0;
+    private static int speed=0;
 
     @Override
     public void onCreate() {
@@ -34,6 +35,15 @@ public class GlobalApplication extends Application {
     public static int getRPM()
     {
         return rpm;
+    }
+
+    public static synchronized void setSpeed(int speed2){
+        speed = speed2;
+    }
+
+    public static int getSpeed()
+    {
+        return speed;
     }
 
     public synchronized void Write()

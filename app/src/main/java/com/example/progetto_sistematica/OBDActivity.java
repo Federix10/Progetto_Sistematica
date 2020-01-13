@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.anastr.speedviewlib.SpeedView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.FileInputStream;
@@ -65,7 +66,8 @@ public class OBDActivity extends AppCompatActivity {
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
     private Handler handler = new Handler();
     CircularProgressBar circularProgressBar;
-
+    SpeedView speedometer;
+    int progressMAX, speedMAX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,13 +128,25 @@ public class OBDActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public class Grafica extends Thread
+    {
+        public void run()
+        {
+
+        }
+    }
+
     public class DataOBD extends Thread {
 
         public void inizializzaOBD ()
         {
+            progressMAX=7000;
+            speedMAX=200;
+            speedometer = findViewById(R.id.speedView2);
+            speedometer.setMaxSpeed(speedMAX);
             editText2=findViewById(R.id.delayms2);
             circularProgressBar = findViewById(R.id.progressBar);
-            circularProgressBar.setProgressMax(7000);
+            circularProgressBar.setProgressMax(progressMAX);
             describeProtocolCommand = new DescribeProtocolCommand();
             delay=150;
             progress=500;
@@ -174,7 +188,6 @@ public class OBDActivity extends AppCompatActivity {
             }
         }
         public void run() {
-            //protocollo.setText(Read());
             comandi.describeProtocol();
             comandi.findfuel();
             comandi.fuellevel();
@@ -192,11 +205,21 @@ public class OBDActivity extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
+                                circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
                                 if (GlobalApplication.getRPM()<2000)
                                     circularProgressBar.setColor(Color.BLUE);
-                                else if (GlobalApplication.getRPM()>2000)
+                                else if (GlobalApplication.getRPM()>2000 && GlobalApplication.getRPM()<3000)
+                                    circularProgressBar.setColor(Color.rgb(135,206,250));
+                                else if (GlobalApplication.getRPM()>3000 && GlobalApplication.getRPM()<5000)
+                                    circularProgressBar.setColor(Color.rgb(255,165,0));
+                                else if (GlobalApplication.getRPM()>5000)
                                     circularProgressBar.setColor(Color.RED);
-                                circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
+                                if (GlobalApplication.getSpeed()>speedMAX)
+                                {
+                                    speedMAX=GlobalApplication.getSpeed()+20;
+                                    speedometer.setMaxSpeed(speedMAX);
+                                }
+                                speedometer.speedTo(GlobalApplication.getSpeed(),500);
                             }
                         });
                         comandi.speed();
@@ -212,21 +235,6 @@ public class OBDActivity extends AppCompatActivity {
                     i = 0;
                     comandi.fuellevel();
                     comandi.enginecoolant();
-                    comandi.rpm();
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (GlobalApplication.getRPM()<2000)
-                                circularProgressBar.setColor(Color.BLUE);
-                            else if (GlobalApplication.getRPM()>2000)
-                                circularProgressBar.setColor(Color.RED);
-                            circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
-                        }
-                    });
-                    comandi.speed();
-                    //comandi.comandocustomAcceleratore();
-                    comandi.maf();
-                    comandi.throttleposition();
                 }
             }
         }
@@ -310,12 +318,13 @@ public class OBDActivity extends AppCompatActivity {
         public void speed() {
             try {
                 speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                textViewSpeed.setText(speedCommand.getFormattedResult());
+                GlobalApplication.setSpeed(Integer.parseInt(speedCommand.getCalculatedResult()));
+                //textViewSpeed.setText(speedCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
             finally {
                 if (textViewSpeed.getText()=="") {
-                    textViewSpeed.setText("Parametro non corretto");
+                    //textViewSpeed.setText("Parametro non corretto");
                     return;
                 }
                 else{
