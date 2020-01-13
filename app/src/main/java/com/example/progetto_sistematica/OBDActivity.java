@@ -134,9 +134,10 @@ public class OBDActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ciclo = false;
-            OBDActivity.this.finish();
-            return false;
+            System.exit(1);
+            //ciclo = false;
+            //OBDActivity.this.finish();
+            //return false;
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -118,9 +118,10 @@ public class Speed extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            ciclo = false;
-            Speed.this.finish();
-            return false;
+            System.exit(1);
+            //ciclo = false;
+            //Speed.this.finish();
+            //return false;
             //GlobalApplication.setSetCT(0);
             /*Speed.this.finish();
             Context context = GlobalApplication.getAppContext();
