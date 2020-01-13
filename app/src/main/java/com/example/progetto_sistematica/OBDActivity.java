@@ -46,7 +46,7 @@ public class OBDActivity extends AppCompatActivity {
     DataOBD dataOBD;
     Comandi comandi;
     EditText editText,editText2;
-    int delay,i=0,progress=500;
+    int delay,i=0,progress;
     String scomando=null;
     String comandoresult =null;
     Character dec1 =null;
@@ -135,6 +135,7 @@ public class OBDActivity extends AppCompatActivity {
             circularProgressBar.setProgressMax(7000);
             describeProtocolCommand = new DescribeProtocolCommand();
             delay=150;
+            progress=500;
             protocollo = findViewById(R.id.protocol);
             setspeed = findViewById(R.id.btnSpeed);
             settimeout = findViewById(R.id.btnDTC);
