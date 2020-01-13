@@ -256,6 +256,26 @@ public class Speed extends AppCompatActivity {
         }
     }
 
+    public void WriteOBD(int obd)
+    {
+        String data = String.valueOf(obd);
+        try {
+            FileOutputStream fOut = openFileOutput("obd.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setOBD(View view)
+    {
+        GlobalApplication.setOBD(0);
+        WriteOBD(0);
+    }
+
     public void setTimeout (View view)
     {
         Editable editable=editText.getText();

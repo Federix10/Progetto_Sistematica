@@ -21,11 +21,21 @@ public class GlobalApplication extends Application {
     private static ConnectThread connectThread;
     private static int rpm=0;
     private static int speed=0;
+    private static int obd=0;
 
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+    }
+
+    public static synchronized void setOBD(int obd2){
+        obd = obd2;
+    }
+
+    public static int getOBD()
+    {
+        return obd;
     }
 
     public static synchronized void setRPM(int rpm2){
@@ -50,7 +60,7 @@ public class GlobalApplication extends Application {
     {
         String data = "ADDRESS PROVA";
         try {
-            FileOutputStream fOut = openFileOutput("address.txt", MODE_PRIVATE);
+            FileOutputStream fOut = openFileOutput("activity.txt", MODE_PRIVATE);
             fOut.write(data.getBytes());
             fOut.close();
             Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();

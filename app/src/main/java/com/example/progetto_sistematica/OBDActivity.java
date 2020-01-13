@@ -118,6 +118,19 @@ public class OBDActivity extends AppCompatActivity {
         return temp;
     }
 
+    public void WriteOBD(int obd)
+    {
+        String data = String.valueOf(obd);
+        try {
+            FileOutputStream fOut = openFileOutput("obd.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -126,14 +139,6 @@ public class OBDActivity extends AppCompatActivity {
             return false;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public class Grafica extends Thread
-    {
-        public void run()
-        {
-
-        }
     }
 
     public class DataOBD extends Thread {
@@ -254,13 +259,15 @@ public class OBDActivity extends AppCompatActivity {
 
     public void speedactivity (View view)
     {
-        Context context = GlobalApplication.getAppContext();
+        GlobalApplication.setOBD(1);
+        WriteOBD(1);
+        /*Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_speed, null);
         Intent intent = new Intent(context, Speed.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        context.startActivity(intent);*/
     }
 
     public void setTimeout (View view)

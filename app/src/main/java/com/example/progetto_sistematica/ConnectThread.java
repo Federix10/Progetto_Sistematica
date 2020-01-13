@@ -60,14 +60,28 @@ public class ConnectThread extends Thread {
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
         System.out.println("Connesso con server");
         GlobalApplication.setSocket(mmSocket);
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_speed, null);
+        if (GlobalApplication.getOBD()==1)
+        {
+            Context context = GlobalApplication.getAppContext();
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.activity_speed, null);
             Intent intent = new Intent(context, Speed.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-        GlobalApplication.setSetCT(1);
+            GlobalApplication.setSetCT(1);
+        }
+        else
+        {
+            Context context = GlobalApplication.getAppContext();
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.obd_activity, null);
+            Intent intent = new Intent(context, OBDActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            GlobalApplication.setSetCT(1);
+        }
         }
 
     // Closes the client socket and causes the thread to finish.

@@ -38,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ReadOBD()=="")
+        {
+            GlobalApplication.setOBD(0);
+        }
+        else if (ReadOBD()!="")
+        {
+            GlobalApplication.setOBD(Integer.parseInt(ReadOBD()));
+        }
+
         if (Read() == "")
         {
             setContentView(R.layout.activity_main);
@@ -77,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
             mylistView.setAdapter(listAdapter2);
 
-            aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /*aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
@@ -87,6 +96,19 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         switchBtn_txtView.setText("CHAT");
                         switchBtnChat_txtView.setText("CHAT");
+                    }
+                }
+            });*/
+            aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        switchBtn_txtView.setText("OBD");
+                        switchBtnChat_txtView.setText("OBD");
+                    }
+                    else {
+                        switchBtn_txtView.setText("OBD2");
+                        switchBtnChat_txtView.setText("OBD2");
                     }
                 }
             });
@@ -107,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
         if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
         {
         Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dipossitivo", Toast.LENGTH_SHORT).show();
+        }
+        else if (aSwitch.isChecked())
+        {
+            Intent startNewActivity = new Intent (this, Speed.class);
+            startActivity(startNewActivity);
         }
         else
         {
@@ -129,5 +156,21 @@ public class MainActivity extends AppCompatActivity {
         catch(Exception e){
         }
         return temp;
+    }
+
+    public String ReadOBD()
+    {
+        String obd="";
+        try {
+            FileInputStream fin = openFileInput("obd.txt");
+            int c;
+            while( (c = fin.read()) != -1){
+                obd = obd + Character.toString((char)c);
+            }
+            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+        }
+        return obd;
     }
 }//fine MainActivity
