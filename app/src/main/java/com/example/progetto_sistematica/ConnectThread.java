@@ -58,6 +58,7 @@ public class ConnectThread extends Thread {
         manageMyConnectedSocket(mmSocket);
     }
     private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
+        GlobalApplication.setSetCT(1);
         System.out.println("Connesso con server");
         GlobalApplication.setSocket(mmSocket);
         if (GlobalApplication.getOBD()==1)
@@ -69,7 +70,6 @@ public class ConnectThread extends Thread {
             Intent intent = new Intent(context, Speed.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-            GlobalApplication.setSetCT(1);
         }
         else
         {
@@ -80,7 +80,6 @@ public class ConnectThread extends Thread {
             Intent intent = new Intent(context, OBDActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-            GlobalApplication.setSetCT(1);
         }
         }
 

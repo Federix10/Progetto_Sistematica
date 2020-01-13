@@ -117,9 +117,19 @@ public class MainActivity extends AppCompatActivity {
         {
             bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
-            Toast.makeText(this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-            ConnectThread client = new ConnectThread(btdevice);
-            client.start();
+            do {
+                Toast.makeText(this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+                ConnectThread client = new ConnectThread(btdevice);
+                client.start();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (GlobalApplication.getCT()==0)
+                    Toast.makeText(this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+            }
+            while (GlobalApplication.getCT()!=1);
         }
 
     } //fine on creates
