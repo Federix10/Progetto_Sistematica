@@ -1,15 +1,12 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -121,8 +118,11 @@ public class Speed extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //GlobalApplication.setSetCT(0);
+            ciclo = false;
             Speed.this.finish();
+            return false;
+            //GlobalApplication.setSetCT(0);
+            /*Speed.this.finish();
             Context context = GlobalApplication.getAppContext();
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -130,7 +130,7 @@ public class Speed extends AppCompatActivity {
             Intent intent = new Intent(context, OBDActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-            return false;
+            return false;*/
         }
         return super.onKeyDown(keyCode, event);
     }
