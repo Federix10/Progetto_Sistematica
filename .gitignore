@@ -13,3 +13,4 @@
 .externalNativeBuild
 build.gradle
 .idea/gradle.xml
+/.idea/
