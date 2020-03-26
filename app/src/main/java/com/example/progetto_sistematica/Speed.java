@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,7 @@ public class Speed extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
+    EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,13 @@ public class Speed extends AppCompatActivity {
         return temp;
     }
 
+    public void setTimeoutSpeed (View view)
+    {
+        Editable editable=editText.getText();
+        String str_delay = editable.toString();
+        delay=Integer.valueOf(str_delay);
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             System.exit(1);
@@ -103,6 +113,7 @@ public class Speed extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            editText=findViewById(R.id.editTextDelayActivitySpeed);
             handler = new Handler();
             progressMAX=7000;
             speedMAX=200;
