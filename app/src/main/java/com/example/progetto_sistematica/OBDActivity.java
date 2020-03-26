@@ -64,7 +64,7 @@ public class OBDActivity extends AppCompatActivity {
     DescribeProtocolCommand describeProtocolCommand;
     TextView maf,utilizzo1, protocollo;
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
-    private Handler handler = new Handler();
+    private Handler handler;
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
@@ -146,6 +146,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            handler = new Handler();
             progressMAX=7000;
             speedMAX=200;
             speedometer = findViewById(R.id.speedView2);
@@ -176,7 +177,7 @@ public class OBDActivity extends AppCompatActivity {
             rpmCommand = new RPMCommand(); //giri motore
             textViewRpm = findViewById(R.id.rpm);
             speedCommand = new SpeedCommand();//velocità
-            textViewSpeed = findViewById(R.id.speed);
+            //textViewSpeed = findViewById(R.id.speed);
             ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();//temp ambientale
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
             textViewConsumoMedio = findViewById(R.id.consumoMedioLT);
@@ -208,6 +209,7 @@ public class OBDActivity extends AppCompatActivity {
                             break;
                         }
                         comandi.rpm();
+                        comandi.speed();
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -233,7 +235,6 @@ public class OBDActivity extends AppCompatActivity {
                                 speedometer.speedTo(GlobalApplication.getSpeed(),500);
                             }
                         });
-                        comandi.speed();
                         //comandi.comandocustomAcceleratore();
                         comandi.maf();
                         comandi.throttleposition();
@@ -335,7 +336,7 @@ public class OBDActivity extends AppCompatActivity {
                 //textViewSpeed.setText(speedCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
-            finally {
+            /*finally {
                 if (textViewSpeed.getText()=="") {
                     //textViewSpeed.setText("Parametro non corretto");
                     return;
@@ -343,7 +344,7 @@ public class OBDActivity extends AppCompatActivity {
                 else{
                     return;
                 }
-            }
+            }*/
         }
 
         public void fuellevel() {
