@@ -41,7 +41,7 @@ public class Speed extends AppCompatActivity {
     TextView textViewRpm;
     private Handler handler;
     CircularProgressBar circularProgressBar;
-    SpeedView speedometer;
+    SpeedView speedometer,speedometerRpm;
     int progressMAX, speedMAX;
     EditText editText;
     @Override
@@ -119,6 +119,8 @@ public class Speed extends AppCompatActivity {
             speedMAX=200;
             speedometer = findViewById(R.id.speedView);
             speedometer.setMaxSpeed(speedMAX);
+            speedometerRpm=findViewById(R.id.speedViewRpm);
+            speedometerRpm.setMaxSpeed(7000);
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
             delay=100;
@@ -143,6 +145,7 @@ public class Speed extends AppCompatActivity {
             }
         }
         public void run() {
+            speedometerRpm.setSpeedTextSize(0);
             while (true) {
                 try {
                     if (ciclo == false)
@@ -158,6 +161,7 @@ public class Speed extends AppCompatActivity {
                             {
                                 progressMAX=GlobalApplication.getRPM()+1000;
                                 circularProgressBar.setProgressMax(progressMAX);
+                                speedometerRpm.setMaxSpeed(progressMAX);
                             }
                             circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
                             if (GlobalApplication.getRPM()<2000)
@@ -173,11 +177,8 @@ public class Speed extends AppCompatActivity {
                                 speedMAX=GlobalApplication.getSpeed()+20;
                                 speedometer.setMaxSpeed(speedMAX);
                             }
-                            if (GlobalApplication.getSpeed()==0)
-                                speedometer.setWithTremble(true);
-                            else
-                                speedometer.setWithTremble(false);
-                            speedometer.speedTo(GlobalApplication.getSpeed(),500);
+                            speedometer.speedTo(GlobalApplication.getSpeed());
+                            speedometerRpm.speedTo(GlobalApplication.getRPM());
                         }
                     });
                     i++;

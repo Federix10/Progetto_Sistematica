@@ -232,7 +232,7 @@ public class OBDActivity extends AppCompatActivity {
                                     speedMAX=GlobalApplication.getSpeed()+20;
                                     speedometer.setMaxSpeed(speedMAX);
                                 }
-                                speedometer.speedTo(GlobalApplication.getSpeed(),500);
+                                speedometer.speedTo(GlobalApplication.getSpeed());
                             }
                         });
                         //comandi.comandocustomAcceleratore();

@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/rpm3"
@@ -49,6 +49,16 @@
         app:layout_constraintEnd_toEndOf="@+id/progressBar2"
         app:layout_constraintStart_toStartOf="@+id/progressBar2"
         app:layout_constraintTop_toTopOf="@+id/progressBar2" />
+
+    <com.github.anastr.speedviewlib.SpeedView
+        android:id="@+id/speedViewRpm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline0.5"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:withTremble="false" />
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/speedView"
