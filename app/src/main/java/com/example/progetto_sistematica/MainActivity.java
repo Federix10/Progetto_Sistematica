@@ -85,20 +85,6 @@ public class MainActivity extends AppCompatActivity {
             ListView mylistView = findViewById(R.id.listadevice);
             BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
             mylistView.setAdapter(listAdapter2);
-
-            /*aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        switchBtn_txtView.setText("OBD");
-                        switchBtnChat_txtView.setText("OBD");
-                    }
-                    else {
-                        switchBtn_txtView.setText("CHAT");
-                        switchBtnChat_txtView.setText("CHAT");
-                    }
-                }
-            });*/
             aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -118,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
             do {
-                Toast.makeText(this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
                 ConnectThread client = new ConnectThread(btdevice);
                 client.start();
                 try {
@@ -127,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (GlobalApplication.getCT()==0)
-                    Toast.makeText(this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
             }
             while (GlobalApplication.getCT()!=1);
+            MainActivity.this.finish();
         }
 
     } //fine on creates
