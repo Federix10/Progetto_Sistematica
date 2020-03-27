@@ -54,11 +54,11 @@
         android:text="progress"
         android:textSize="7sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.15"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.083"
+        card_view:layout_constraintEnd_toStartOf="@+id/delayms2"
+        card_view:layout_constraintHorizontal_bias="0.49"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.74" />
+        card_view:layout_constraintVertical_bias="0.756" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/progressBar"
@@ -102,10 +102,10 @@
         android:textSize="18sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.15"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.954"
-        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.95"
+        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.13999999" />
+        card_view:layout_constraintVertical_bias="0.05" />
 
     <Button
         android:id="@+id/btnDTC"
@@ -115,10 +115,11 @@
         android:text="Timeout"
         android:textSize="8sp"
         card_view:layout_constraintBottom_toTopOf="@+id/btnSpeed2"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.08"
+        card_view:layout_constraintEnd_toStartOf="@+id/delayms"
+        card_view:layout_constraintHorizontal_bias="0.49"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.481" />
 
     <Button
         android:id="@+id/btnSpeed"
@@ -129,8 +130,8 @@
         android:textSize="8sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.15"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.71"
-        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.3"
+        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         card_view:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -141,8 +142,8 @@
         android:ems="10"
         android:inputType="number"
         card_view:layout_constraintBottom_toTopOf="@+id/delayms2"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.435"
+        card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
+        card_view:layout_constraintHorizontal_bias="1.0"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -165,8 +166,8 @@
         android:ems="10"
         android:inputType="number"
         card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.15"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="0.435"
+        card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
+        card_view:layout_constraintHorizontal_bias="1.0"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintVertical_bias="0.78" />
@@ -403,5 +404,18 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/tempoUtilizzo" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonGraph"
+        android:layout_width="64dp"
+        android:layout_height="32dp"
+        android:onClick="graphActivity"
+        android:text="Graph"
+        android:textSize="8sp"
+        card_view:layout_constraintBottom_toTopOf="@+id/guideline0.15"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toEndOf="@+id/btnSpeed"
+        card_view:layout_constraintTop_toBottomOf="@+id/tempOut"
+        card_view:layout_constraintVertical_bias="0.25" />
 </android.support.constraint.ConstraintLayout>
 

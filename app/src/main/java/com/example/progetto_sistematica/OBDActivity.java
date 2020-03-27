@@ -252,6 +252,14 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    public void graphActivity (View view)
+    {
+        ciclo=false;
+        OBDActivity.this.finish();
+        Intent startNewActivity = new Intent (this, Graph.class);
+        startActivity(startNewActivity);
+    }
+
     public void dtcactivity (View view)
     {
         OBDActivity.this.finish();
