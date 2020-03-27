@@ -142,11 +142,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (aSwitch.isChecked())
         {
+            MainActivity.this.finish();
             Intent startNewActivity = new Intent (this, Speed.class);
             startActivity(startNewActivity);
         }
         else
         {
+            MainActivity.this.finish();
             Intent startNewActivity = new Intent (this, OBDActivity.class);
             startActivity(startNewActivity);
         }

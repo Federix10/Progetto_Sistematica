@@ -19,12 +19,12 @@
         android:onClick="changeActivity"
         android:text="CHAT" />
 
-        <ListView
-            android:id="@+id/listadevice"
-            android:layout_width="wrap_content"
-            android:layout_height="667dp"
-            android:divider="#005b00"
-            android:dividerHeight="1dp" />
+    <ListView
+        android:id="@+id/listadevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="#005b00"
+        android:dividerHeight="1dp" />
 
     </LinearLayout>
 

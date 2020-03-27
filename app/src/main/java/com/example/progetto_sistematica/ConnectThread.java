@@ -68,7 +68,7 @@ public class ConnectThread extends Thread {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.activity_speed, null);
             Intent intent = new Intent(context, Speed.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             context.startActivity(intent);
         }
         else
@@ -78,7 +78,7 @@ public class ConnectThread extends Thread {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.obd_activity, null);
             Intent intent = new Intent(context, OBDActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             context.startActivity(intent);
         }
         }
