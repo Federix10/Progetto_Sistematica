@@ -1,6 +1,7 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -104,7 +105,10 @@ public class Speed extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            System.exit(1);
+            ciclo=false;
+            Speed.this.finish();
+            Intent startNewActivity = new Intent (this, OBDActivity.class);
+            startActivity(startNewActivity);
         }
         return super.onKeyDown(keyCode, event);
     }

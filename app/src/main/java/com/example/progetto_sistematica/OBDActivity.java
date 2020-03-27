@@ -132,11 +132,19 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    public void riprovaOBDActivity (View view)
+    {
+        ciclo=false;
+        OBDActivity.this.finish();
+        Intent startNewActivity = new Intent (this, OBDActivity.class);
+        startActivity(startNewActivity);
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            ciclo = false;
+            OBDActivity.this.finish();
             System.exit(1);
-            //ciclo = false;
-            //OBDActivity.this.finish();
             //return false;
         }
         return super.onKeyDown(keyCode, event);
