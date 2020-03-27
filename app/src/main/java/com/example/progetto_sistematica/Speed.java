@@ -210,8 +210,12 @@ public class Speed extends AppCompatActivity {
 
     public void setOBD(View view)
     {
-        GlobalApplication.setOBD(0);
-        WriteOBD(0);
+        //GlobalApplication.setOBD(0);
+        //WriteOBD(0);
+        ciclo=false;
+        Speed.this.finish();
+        Intent startNewActivity = new Intent (this, OBDActivity.class);
+        startActivity(startNewActivity);
     }
 
     private class Comandi

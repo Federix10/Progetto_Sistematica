@@ -282,8 +282,12 @@ public class OBDActivity extends AppCompatActivity {
 
     public void speedactivity (View view)
     {
-        GlobalApplication.setOBD(1);
-        WriteOBD(1);
+        //GlobalApplication.setOBD(1);
+        //WriteOBD(1);
+        ciclo=false;
+        OBDActivity.this.finish();
+        Intent startNewActivity = new Intent (this, Speed.class);
+        startActivity(startNewActivity);
         /*Context context = GlobalApplication.getAppContext();
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

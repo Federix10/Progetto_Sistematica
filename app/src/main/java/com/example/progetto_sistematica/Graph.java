@@ -92,7 +92,7 @@ public class Graph extends AppCompatActivity {
                 {
                     speed.add(velocita);
                 }
-                comandiOBD.speed();
+                //comandiOBD.speed();
                 try {
                     Thread.sleep(delay);
                     comandiOBD.speed();
@@ -100,8 +100,8 @@ public class Graph extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            /*if ((int)speed.get(0)>0)
-                speed.add(0,0);*/
+            if ((int)speed.get(0)>0)
+                speed.add(0,0);
             speed.add(100);
             size=speed.size();
             Graph.this.runOnUiThread(new Runnable() {
