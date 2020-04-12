@@ -188,7 +188,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tempMotore"
+                android:id="@+id/txt1Card1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -199,16 +199,16 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/vin"
+                android:id="@+id/txt2Card1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/tempMotore" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card1" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -227,7 +227,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tempRefrigerante"
+                android:id="@+id/txt1Card2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Temperatura Refrigerante"
@@ -240,7 +240,7 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/tempRefrigeranteDegrees"
+                android:id="@+id/txt2Card2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -249,7 +249,7 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/tempRefrigerante" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card2" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -268,10 +268,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/consumoMedio"
+                android:id="@+id/txt1Card3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Consumo Medio"
+                android:text="Consumo Medio in sviluppo"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -280,16 +280,16 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/consumoMedioLT"
+                android:id="@+id/txt2Card3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/consumoMedio" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card3" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
@@ -309,7 +309,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/carburante"
+                android:id="@+id/txt1Card4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -320,7 +320,7 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/carburante2"
+                android:id="@+id/txt2Card4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -329,7 +329,7 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/carburante" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card4" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -348,9 +348,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/consumoLH"
+                android:id="@+id/txt1Card5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="Mass Air Flow"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -359,7 +360,7 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/pressioneGommeBar"
+                android:id="@+id/txt2Card5"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -368,7 +369,7 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/consumoLH" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card5" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
@@ -387,9 +388,10 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tempoUtilizzo"
+                android:id="@+id/txt1Card6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="Posizione acceleratore"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -398,16 +400,16 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/utilizzo"
+                android:id="@+id/txt2Card6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/tempoUtilizzo" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card6" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

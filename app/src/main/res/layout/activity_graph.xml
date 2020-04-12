@@ -29,30 +29,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextGraphDelay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/buttonGraphDelay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guidelineGraphVertical0.8"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/buttonGraphDelay"
+        android:id="@+id/buttonGraphSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="28dp"
-        android:onClick="setTimeoutSpeedGraph"
-        android:text="Delay"
+        android:onClick="saveSpeedGraph"
+        android:text="Salva"
         app:layout_constraintBottom_toTopOf="@+id/guidelineGraphHorizontal0.7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/graph"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.06999999" />
+
+    <Button
+        android:id="@+id/buttonGraphLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="28dp"
+        android:onClick="loadSpeedGraph"
+        android:text="Carica"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineGraphHorizontal0.7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/graph"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGraphSave"
+        app:layout_constraintVertical_bias="0.16" />
 
     <Button
         android:id="@+id/button3"
@@ -65,7 +69,18 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelineGraphHorizontal0.7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/graph"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGraphDelay"
-        app:layout_constraintVertical_bias="0.35000002" />
+        app:layout_constraintTop_toBottomOf="@+id/textView0100s" />
+
+    <TextView
+        android:id="@+id/textView0100s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineGraphHorizontal0.7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/guidelineGraphVertical0.8"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGraphLoad"
+        app:layout_constraintVertical_bias="0.225" />
 
 </android.support.constraint.ConstraintLayout>

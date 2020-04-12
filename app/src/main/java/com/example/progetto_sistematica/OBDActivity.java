@@ -1,7 +1,6 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +21,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
+import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.protocol.DescribeProtocolCommand;
@@ -63,11 +63,16 @@ public class OBDActivity extends AppCompatActivity {
     ThrottlePositionCommand throttlePositionCommand;
     DescribeProtocolCommand describeProtocolCommand;
     TextView maf,utilizzo1, protocollo;
-    TextView textViewRpm, textViewPosizioneAcceleratore, textViewSpeed, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewDtcNumber, textViewfuelLevel, textViewConsumoMedio;
+    TextView textViewRpm, textViewPosizioneAcceleratore, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewfuelLevel, textViewConsumo, textViewABS;
     private Handler handler;
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
+    ConsumptionRateCommand consumptionRateCommand;
+    //AbsoluteLoadCommand absoluteLoadCommand;
+    DtcNumberCommand dtcNumberCommand;
+    TextView dtcNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,25 +116,11 @@ public class OBDActivity extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 temp = temp + Character.toString((char)c);
             }
-            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
         }
         return temp;
-    }
-
-    public void WriteOBD(int obd)
-    {
-        String data = String.valueOf(obd);
-        try {
-            FileOutputStream fOut = openFileOutput("obd.txt", MODE_PRIVATE);
-            fOut.write(data.getBytes());
-            fOut.close();
-            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void riprovaOBDActivity (View view)
@@ -154,6 +145,12 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            consumptionRateCommand = new ConsumptionRateCommand();
+            textViewConsumo = findViewById(R.id.txt2Card3);
+            dtcNumberCommand = new DtcNumberCommand();
+            dtcNumber = findViewById(R.id.txt2Card1);
+            //absoluteLoadCommand = new AbsoluteLoadCommand();
+            //textViewABS = findViewById(R.id.txt2Card1);
             handler = new Handler();
             progressMAX=7000;
             speedMAX=200;
@@ -170,25 +167,23 @@ public class OBDActivity extends AppCompatActivity {
             settimeout = findViewById(R.id.btnDTC);
             comandi = new Comandi();
             throttlePositionCommand = new ThrottlePositionCommand();
-            utilizzo1 = findViewById(R.id.utilizzo);
-            maf = findViewById(R.id.pressioneGommeBar);
+            utilizzo1 = findViewById(R.id.txt2Card6);
+            maf = findViewById(R.id.txt2Card5);
             massAirFlowCommand = new MassAirFlowCommand();
             editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
-            textViewfuelLevel = findViewById(R.id.carburante2);
+            textViewfuelLevel = findViewById(R.id.txt2Card4);
             comando = new ObdRawCommand("01 11");
             //textViewPosizioneAcceleratore= findViewById(R.id.posizioneAcceleratore);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
-            textViewFindFuelType = findViewById(R.id.carburante);
+            textViewFindFuelType = findViewById(R.id.txt1Card4);
             engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();//temp regrigerante
-            textViewengineCoolantTemperature = findViewById(R.id.tempRefrigeranteDegrees);
+            textViewengineCoolantTemperature = findViewById(R.id.txt2Card2);
             rpmCommand = new RPMCommand(); //giri motore
             textViewRpm = findViewById(R.id.rpm);
             speedCommand = new SpeedCommand();//velocità
-            //textViewSpeed = findViewById(R.id.speed);
             ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();//temp ambientale
             textViewAmbieAirTemperature = findViewById(R.id.tempOut);
-            textViewConsumoMedio = findViewById(R.id.consumoMedioLT);
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
@@ -202,7 +197,11 @@ public class OBDActivity extends AppCompatActivity {
                 // handle errors
             }
         }
+
         public void run() {
+            //comandi.abs();
+            comandi.dtc();
+            comandi.consumo();
             comandi.describeProtocol();
             comandi.findfuel();
             comandi.fuellevel();
@@ -246,6 +245,7 @@ public class OBDActivity extends AppCompatActivity {
                         //comandi.comandocustomAcceleratore();
                         comandi.maf();
                         comandi.throttleposition();
+                        //comandi.abs();
                         i++;
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -255,6 +255,7 @@ public class OBDActivity extends AppCompatActivity {
                     i = 0;
                     comandi.fuellevel();
                     comandi.enginecoolant();
+                    comandi.consumo();
                 }
             }
         }
@@ -270,31 +271,18 @@ public class OBDActivity extends AppCompatActivity {
 
     public void dtcactivity (View view)
     {
+        ciclo=false;
         OBDActivity.this.finish();
-        Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_dtc, null);
-        Intent intent = new Intent(context, DTC.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        Intent startNewActivity = new Intent (this, DTC.class);
+        startActivity(startNewActivity);
     }
 
     public void speedactivity (View view)
     {
-        //GlobalApplication.setOBD(1);
-        //WriteOBD(1);
         ciclo=false;
         OBDActivity.this.finish();
         Intent startNewActivity = new Intent (this, Speed.class);
         startActivity(startNewActivity);
-        /*Context context = GlobalApplication.getAppContext();
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_speed, null);
-        Intent intent = new Intent(context, Speed.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);*/
     }
 
     public void setTimeout (View view)
@@ -313,10 +301,62 @@ public class OBDActivity extends AppCompatActivity {
 
     private class Comandi
     {
+        /*public void abs() {
+            try {
+                absoluteLoadCommand.run(socket.getInputStream(), socket.getOutputStream()); //consumo per ora
+                textViewABS.setText(absoluteLoadCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewABS.getText()=="") {
+                    textViewABS.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }*/
+
+        public void dtc() {
+            try {
+                dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream()); //DTC
+                String s = dtcNumberCommand.getFormattedResult();
+                int s2 = dtcNumberCommand.getTotalAvailableCodes();
+                dtcNumber.setText(s+"\n"+String.valueOf(s2));
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (dtcNumber.getText()=="") {
+                    dtcNumber.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
+
+        public void consumo() {
+            try {
+                consumptionRateCommand.run(socket.getInputStream(), socket.getOutputStream()); //consumo per ora
+                textViewConsumo.setText(consumptionRateCommand.getFormattedResult());
+            }
+            catch (IOException | InterruptedException e) {}
+            finally {
+                if (textViewConsumo.getText()=="") {
+                    textViewConsumo.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }
+        }
 
         public void describeProtocol() {
             try {
-                describeProtocolCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
+                describeProtocolCommand.run(socket.getInputStream(), socket.getOutputStream()); //protocollo attualmente in uso
                 protocollo.setText(describeProtocolCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
@@ -403,7 +443,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void findfuel() {
             try {
-                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());//find fuel
+                findFuelTypeCommand.run(socket.getInputStream(), socket.getOutputStream());//tipo di carburante
                 textViewFindFuelType.setText(findFuelTypeCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
@@ -426,7 +466,7 @@ public class OBDActivity extends AppCompatActivity {
             catch (IOException | InterruptedException e) {}
             finally {
                 if (textViewAmbieAirTemperature.getText()=="") {
-                    textViewAmbieAirTemperature.setText("Parametro non corretto");
+                    textViewAmbieAirTemperature.setText("NaN");
                     return;
                 }
                 else{
@@ -454,7 +494,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void throttleposition() {
             try {
-                throttlePositionCommand.run(socket.getInputStream(), socket.getOutputStream());//maf
+                throttlePositionCommand.run(socket.getInputStream(), socket.getOutputStream());//posizione accelleratore
                 utilizzo1.setText(throttlePositionCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
@@ -471,7 +511,7 @@ public class OBDActivity extends AppCompatActivity {
 
         public void comandocustomAcceleratore() {
             try {
-                comando.run(socket.getInputStream(), socket.getOutputStream());//posizione acceleratore
+                comando.run(socket.getInputStream(), socket.getOutputStream());//posizione acceleratore custom
                 scomando=comando.getFormattedResult();
                 dec1 = scomando.charAt(scomando.length() - 2);
                 dec2 = scomando.charAt(scomando.length() - 1);
