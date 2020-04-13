@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -64,7 +63,6 @@ public class OBDActivity extends AppCompatActivity {
     DescribeProtocolCommand describeProtocolCommand;
     TextView maf,utilizzo1, protocollo;
     TextView textViewRpm, textViewPosizioneAcceleratore, textViewAmbieAirTemperature, textViewengineCoolantTemperature, textViewFindFuelType, textViewfuelLevel, textViewConsumo, textViewABS;
-    private Handler handler;
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
@@ -154,11 +152,12 @@ public class OBDActivity extends AppCompatActivity {
             dtcNumber = findViewById(R.id.txt2Card1);
             //absoluteLoadCommand = new AbsoluteLoadCommand();
             //textViewABS = findViewById(R.id.txt2Card1);
-            handler = new Handler();
             progressMAX=7000;
             speedMAX=200;
             speedometer = findViewById(R.id.speedView2);
             speedometer.setMaxSpeed(speedMAX);
+            speedometer.setWithTremble(false);
+            speedometer.setTickNumber(11);
             editText2=findViewById(R.id.delayms2);
             circularProgressBar = findViewById(R.id.progressBar);
             circularProgressBar.setProgressMax(progressMAX);
@@ -220,7 +219,7 @@ public class OBDActivity extends AppCompatActivity {
                         }
                         comandi.rpm();
                         comandi.speed();
-                        handler.post(new Runnable() {
+                        OBDActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (GlobalApplication.getRPM()>progressMAX)
@@ -241,8 +240,9 @@ public class OBDActivity extends AppCompatActivity {
                                 {
                                     speedMAX=GlobalApplication.getSpeed()+20;
                                     speedometer.setMaxSpeed(speedMAX);
+                                    speedometer.setTickNumber(11);
                                 }
-                                speedometer.speedTo(GlobalApplication.getSpeed());
+                                speedometer.speedTo(GlobalApplication.getSpeed(),500);
                             }
                         });
                         //comandi.comandocustomAcceleratore();

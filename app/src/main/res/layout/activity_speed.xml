@@ -57,8 +57,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.3"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:withTremble="false" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/speedView"
@@ -68,8 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertical0.6"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        app:withTremble="false" />
+        app:layout_constraintVertical_bias="0.8"/>
 
     <Button
         android:id="@+id/btnOBD"

@@ -91,8 +91,7 @@
         card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
-        card_view:layout_constraintTop_toTopOf="@+id/guideline0.15"
-        card_view:withTremble="false" />
+        card_view:layout_constraintTop_toTopOf="@+id/guideline0.15" />
 
     <TextView
         android:id="@+id/tempOut"

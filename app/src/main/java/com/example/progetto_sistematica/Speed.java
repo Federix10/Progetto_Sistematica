@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -36,15 +35,15 @@ public class Speed extends AppCompatActivity {
     Boolean ciclo;
     Speed.DataOBD dataOBD;
     Speed.Comandi comandi;
-    int delay,i=0,progress;
+    int delay,progress;
     RPMCommand rpmCommand;
     SpeedCommand speedCommand;
     TextView textViewRpm;
-    private Handler handler;
     CircularProgressBar circularProgressBar;
     SpeedView speedometer,speedometerRpm;
     int progressMAX, speedMAX;
     EditText editText;
+    int tickRpmNumber=8, tickSpeedNumber=11;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,13 +117,16 @@ public class Speed extends AppCompatActivity {
         public void inizializzaOBD ()
         {
             editText=findViewById(R.id.editTextDelayActivitySpeed);
-            handler = new Handler();
             progressMAX=7000;
             speedMAX=200;
             speedometer = findViewById(R.id.speedView);
             speedometer.setMaxSpeed(speedMAX);
+            speedometer.setTickNumber(tickSpeedNumber);
+            speedometer.setWithTremble(false);
             speedometerRpm=findViewById(R.id.speedViewRpm);
             speedometerRpm.setMaxSpeed(7000);
+            speedometerRpm.setTickNumber(tickRpmNumber);
+            speedometerRpm.setWithTremble(false);
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
             delay=100;
@@ -158,14 +160,16 @@ public class Speed extends AppCompatActivity {
                     }
                     comandi.rpm();
                     comandi.speed();
-                    handler.post(new Runnable() {
+                    Speed.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (GlobalApplication.getRPM()>progressMAX)
                             {
+                                tickRpmNumber++;
                                 progressMAX=GlobalApplication.getRPM()+1000;
                                 circularProgressBar.setProgressMax(progressMAX);
                                 speedometerRpm.setMaxSpeed(progressMAX);
+                                speedometerRpm.setTickNumber(tickRpmNumber);
                             }
                             circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
                             if (GlobalApplication.getRPM()<2000)
@@ -180,12 +184,12 @@ public class Speed extends AppCompatActivity {
                             {
                                 speedMAX=GlobalApplication.getSpeed()+20;
                                 speedometer.setMaxSpeed(speedMAX);
+                                speedometer.setTickNumber(tickSpeedNumber);
                             }
-                            speedometer.speedTo(GlobalApplication.getSpeed());
-                            speedometerRpm.speedTo(GlobalApplication.getRPM());
+                            speedometer.speedTo(GlobalApplication.getSpeed(),500);
+                            speedometerRpm.speedTo(GlobalApplication.getRPM(),500);
                         }
                     });
-                    i++;
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -194,24 +198,8 @@ public class Speed extends AppCompatActivity {
         }
     }
 
-    public void WriteOBD(int obd)
-    {
-        String data = String.valueOf(obd);
-        try {
-            FileOutputStream fOut = openFileOutput("obd.txt", MODE_PRIVATE);
-            fOut.write(data.getBytes());
-            fOut.close();
-            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setOBD(View view)
     {
-        //GlobalApplication.setOBD(0);
-        //WriteOBD(0);
         ciclo=false;
         Speed.this.finish();
         Intent startNewActivity = new Intent (this, OBDActivity.class);
