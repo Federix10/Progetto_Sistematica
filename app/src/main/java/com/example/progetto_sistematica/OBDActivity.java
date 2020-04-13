@@ -72,6 +72,7 @@ public class OBDActivity extends AppCompatActivity {
     //AbsoluteLoadCommand absoluteLoadCommand;
     DtcNumberCommand dtcNumberCommand;
     TextView dtcNumber;
+    ObdRawCommand customFuel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +146,8 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            customFuel = new ObdRawCommand("01 81");
+            comando = new ObdRawCommand("01 46");
             consumptionRateCommand = new ConsumptionRateCommand();
             textViewConsumo = findViewById(R.id.txt2Card3);
             dtcNumberCommand = new DtcNumberCommand();
@@ -173,7 +176,6 @@ public class OBDActivity extends AppCompatActivity {
             editText = findViewById(R.id.delayms);
             fuelLevelCommand = new FuelLevelCommand(); //fuel level
             textViewfuelLevel = findViewById(R.id.txt2Card4);
-            comando = new ObdRawCommand("01 11");
             //textViewPosizioneAcceleratore= findViewById(R.id.posizioneAcceleratore);
             findFuelTypeCommand = new FindFuelTypeCommand(); //find fuel type
             textViewFindFuelType = findViewById(R.id.txt1Card4);
@@ -203,10 +205,11 @@ public class OBDActivity extends AppCompatActivity {
             comandi.dtc();
             comandi.consumo();
             comandi.describeProtocol();
-            comandi.findfuel();
+            //comandi.findfuel();
             comandi.fuellevel();
             comandi.ambientair();
-            //comandi.comandocustomAcceleratore();
+            comandi.comandocustomAcceleratore();
+            comandi.comandocustomFuelType();
             comandi.enginecoolant();
             while (true) {
                 if (i != 25) {
@@ -518,18 +521,37 @@ public class OBDActivity extends AppCompatActivity {
                 comandoresult= new StringBuilder().append(dec1).append(dec2).toString();
                 int dec = Integer.parseInt(comandoresult, 16);
                 scomando = Integer.toString(dec);
-                textViewPosizioneAcceleratore.setText(scomando);
+                textViewFindFuelType.setText(scomando);
             }
             catch (IOException | InterruptedException e) {}
-            finally {
-                if (textViewPosizioneAcceleratore.getText()=="") {
-                    textViewPosizioneAcceleratore.setText("Parametro non corretto");
+            /*finally {
+                if (textViewFindFuelType.getText()=="") {
+                    textViewFindFuelType.setText("Parametro non corretto");
                     return;
                 }
                 else{
                     return;
                 }
+            }*/
+        }
+
+        public void comandocustomFuelType()
+        {
+            try {
+                customFuel.run(socket.getInputStream(), socket.getOutputStream());
+                textViewFindFuelType.append(" "+customFuel.getFormattedResult());
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
             }
+            /*finally {
+                if (textViewFindFuelType.getText()=="") {
+                    textViewFindFuelType.setText("Parametro non corretto");
+                    return;
+                }
+                else{
+                    return;
+                }
+            }*/
         }
     }
 }
