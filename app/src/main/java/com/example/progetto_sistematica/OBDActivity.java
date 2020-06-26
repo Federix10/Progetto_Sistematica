@@ -168,7 +168,7 @@ public class OBDActivity extends AppCompatActivity {
             circularProgressBar.setProgressMax(progressMAX);
             describeProtocolCommand = new DescribeProtocolCommand();
             delay=150;
-            progress=500;
+            progress=200;
             protocollo = findViewById(R.id.protocol);
             setspeed = findViewById(R.id.btnSpeed);
             settimeout = findViewById(R.id.btnDTC);

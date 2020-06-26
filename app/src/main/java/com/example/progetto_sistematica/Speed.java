@@ -129,7 +129,7 @@ public class Speed extends AppCompatActivity {
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
             delay=100;
-            progress=500;
+            progress=200;
             setspeed = findViewById(R.id.btnSpeed);
             settimeout = findViewById(R.id.btnDTC);
             comandi = new Speed.Comandi();
