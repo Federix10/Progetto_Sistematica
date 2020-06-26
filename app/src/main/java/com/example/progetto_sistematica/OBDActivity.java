@@ -1,10 +1,13 @@
 package com.example.progetto_sistematica;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -157,6 +160,8 @@ public class OBDActivity extends AppCompatActivity {
             speedometer = findViewById(R.id.speedView2);
             speedometer.setMaxSpeed(speedMAX);
             speedometer.setWithTremble(false);
+            speedometer.setHighSpeedColor(Color.GREEN);
+            speedometer.setMediumSpeedColor(Color.GREEN);
             speedometer.setTickNumber(11);
             editText2=findViewById(R.id.delayms2);
             circularProgressBar = findViewById(R.id.progressBar);
@@ -285,6 +290,14 @@ public class OBDActivity extends AppCompatActivity {
         ciclo=false;
         OBDActivity.this.finish();
         Intent startNewActivity = new Intent (this, Speed.class);
+        startActivity(startNewActivity);
+    }
+
+    public void setting (View view)
+    {
+        ciclo=false;
+        OBDActivity.this.finish();
+        Intent startNewActivity = new Intent (this, Setting.class);
         startActivity(startNewActivity);
     }
 

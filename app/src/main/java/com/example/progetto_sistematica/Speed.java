@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
+import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
 import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
@@ -38,9 +39,10 @@ public class Speed extends AppCompatActivity {
     int delay,progress;
     RPMCommand rpmCommand;
     SpeedCommand speedCommand;
+    FuelLevelCommand fuelLevelCommand;
     TextView textViewRpm;
     CircularProgressBar circularProgressBar;
-    SpeedView speedometer,speedometerRpm;
+    SpeedView speedometer;
     int progressMAX, speedMAX;
     EditText editText;
     int tickRpmNumber=8, tickSpeedNumber=11;
@@ -123,10 +125,7 @@ public class Speed extends AppCompatActivity {
             speedometer.setMaxSpeed(speedMAX);
             speedometer.setTickNumber(tickSpeedNumber);
             speedometer.setWithTremble(false);
-            speedometerRpm=findViewById(R.id.speedViewRpm);
-            speedometerRpm.setMaxSpeed(7000);
-            speedometerRpm.setTickNumber(tickRpmNumber);
-            speedometerRpm.setWithTremble(false);
+
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
             delay=100;
@@ -135,6 +134,7 @@ public class Speed extends AppCompatActivity {
             settimeout = findViewById(R.id.btnDTC);
             comandi = new Speed.Comandi();
             rpmCommand = new RPMCommand(); //giri motore
+            fuelLevelCommand = new FuelLevelCommand(); //livello carburante
             textViewRpm = findViewById(R.id.rpm3);
             speedCommand = new SpeedCommand();//velocità
             try {
@@ -151,7 +151,8 @@ public class Speed extends AppCompatActivity {
             }
         }
         public void run() {
-            speedometerRpm.setSpeedTextSize(0);
+            speedometer.setHighSpeedColor(Color.GREEN);
+            speedometer.setMediumSpeedColor(Color.GREEN);
             while (true) {
                 try {
                     if (ciclo == false)
@@ -168,8 +169,6 @@ public class Speed extends AppCompatActivity {
                                 tickRpmNumber++;
                                 progressMAX=GlobalApplication.getRPM()+1000;
                                 circularProgressBar.setProgressMax(progressMAX);
-                                speedometerRpm.setMaxSpeed(progressMAX);
-                                speedometerRpm.setTickNumber(tickRpmNumber);
                             }
                             circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
                             if (GlobalApplication.getRPM()<2000)
@@ -187,7 +186,6 @@ public class Speed extends AppCompatActivity {
                                 speedometer.setTickNumber(tickSpeedNumber);
                             }
                             speedometer.speedTo(GlobalApplication.getSpeed(),500);
-                            speedometerRpm.speedTo(GlobalApplication.getRPM(),500);
                         }
                     });
                     Thread.sleep(delay);
