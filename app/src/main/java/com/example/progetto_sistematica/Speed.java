@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
@@ -46,6 +49,11 @@ public class Speed extends AppCompatActivity {
     int progressMAX, speedMAX;
     EditText editText;
     int tickRpmNumber=8, tickSpeedNumber=11;
+
+    Method speed, rpm;
+    String sSpeed="", sRpm="";
+    ListaComandi listaComandi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +72,13 @@ public class Speed extends AppCompatActivity {
             dataOBD.inizializzaOBD();
             dataOBD.start();
         }
-
+        listaComandi = new ListaComandi(socket);
+        try {
+            speed = ListaComandi.class.getMethod("speed");
+            rpm = ListaComandi.class.getMethod("rpm");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 
     public void Write()
@@ -161,6 +175,15 @@ public class Speed extends AppCompatActivity {
                     }
                     comandi.rpm();
                     comandi.speed();
+                    /*try {
+                        sSpeed = (String) speed.invoke(listaComandi);
+                        sRpm = (String) rpm.invoke(listaComandi);
+                        GlobalApplication.setSpeed(Integer.parseInt(sSpeed));
+                        GlobalApplication.setRPM(Integer.parseInt(sRpm));
+                        textViewRpm.setText(sRpm);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }*/
                     Speed.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

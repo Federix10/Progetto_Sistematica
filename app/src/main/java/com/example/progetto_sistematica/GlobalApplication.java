@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class GlobalApplication extends Application {
 
@@ -22,11 +23,95 @@ public class GlobalApplication extends Application {
     private static int rpm=0;
     private static int speed=0;
     private static int obd=0;
+    private static ArrayList<String> arrayComandi = new ArrayList<>();
+    private static ArrayList<String> arrayCommand = new ArrayList<>();
+    private static ArrayList<String> progressBarArrayComandi = new ArrayList<>();
+    private static ArrayList<String> progressBarArrayCommand = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+    }
+
+    public static synchronized void aggiungiProgressBarComandi()
+    {
+        progressBarArrayComandi.add("Giri motore");
+        progressBarArrayComandi.add("Livello carburante");
+        progressBarArrayComandi.add("Temperatura motore");
+    }
+
+    public static synchronized void aggiungiProgressBarCommand()
+    {
+        progressBarArrayCommand.add("rpmcirclebar");
+        progressBarArrayCommand.add("fuellevelcirclebar");
+        progressBarArrayCommand.add("enginetempcirclebar");
+    }
+
+    public static ArrayList getProgressBarComandi()
+    {
+        return progressBarArrayComandi;
+    }
+
+    public static String getProgressBarCommand(int i) {return progressBarArrayCommand.get(i);}
+
+    public static synchronized void aggiungiComandi()
+    {
+        arrayComandi.add("Mass Air Flow");
+        arrayComandi.add("Consumo L/H");
+        arrayComandi.add("Livello carburante");
+        arrayComandi.add("Temperatura motore");
+        arrayComandi.add("Posizione Acceleratore");
+        arrayComandi.add("Velocità");
+        arrayComandi.add("Giri motore");
+        arrayComandi.add("Temperatura esterna");
+        arrayComandi.add("Diagnostica errori");
+        arrayComandi.add("Voltaggio batteria");
+        arrayComandi.add("Tipo carburante");
+        arrayComandi.add("Carico del motore");
+        arrayComandi.add("Codici di errore");
+        arrayComandi.add("Rapporto di combustione");
+        arrayComandi.add("Codice identificativo auto");
+        arrayComandi.add("Rapporto aria/carburante");
+        arrayComandi.add("Check motorino avviamento");
+        arrayComandi.add("Regolazione Carburante");
+    }
+
+    public static synchronized void aggiungiCommand()
+    {
+        arrayCommand.add("maf");
+        arrayCommand.add("consumo");
+        arrayCommand.add("fuellevel");
+        arrayCommand.add("enginetemp");
+        arrayCommand.add("throttleposition");
+        arrayCommand.add("speed");
+        arrayCommand.add("rpm");
+        arrayCommand.add("ambientair");
+        arrayCommand.add("dtc");
+        arrayCommand.add("volt");
+        arrayCommand.add("fueltype");
+        arrayCommand.add("engineload");
+        arrayCommand.add("troublecode");
+        arrayCommand.add("equivratio");
+        arrayCommand.add("vin");
+        arrayCommand.add("airfuelratio");
+        arrayCommand.add("ignitionmonitor");
+        arrayCommand.add("fueltrim");
+    }
+
+    public static ArrayList getComandi()
+    {
+        return arrayComandi;
+    }
+
+    public static String getComando(int i)
+    {
+        return arrayComandi.get(i);
+    }
+
+    public static String getCommand(int i)
+    {
+        return arrayCommand.get(i);
     }
 
     public static synchronized void setOBD(int obd2){

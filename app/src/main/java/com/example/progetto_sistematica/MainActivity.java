@@ -6,7 +6,9 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkFirstRun();
+        GlobalApplication.aggiungiComandi();
+        GlobalApplication.aggiungiCommand();
+        GlobalApplication.aggiungiProgressBarComandi();
+        GlobalApplication.aggiungiProgressBarCommand();
         if (ReadOBD()=="")
         {
             GlobalApplication.setOBD(0);
@@ -171,5 +179,37 @@ public class MainActivity extends AppCompatActivity {
         catch(Exception e){
         }
         return obd;
+    }
+
+    public void checkFirstRun()
+    {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                if (isFirstStart) {
+                    SharedPreferences.Editor e = getPrefs.edit();
+                    e.putBoolean("firstStart", false);
+                    WriteNewComandi();
+                    e.apply();
+                }
+            }
+        });
+        t.start();
+        Toast.makeText(MainActivity.this, "FirstRun", Toast.LENGTH_SHORT).show();
+    }
+
+    public void WriteNewComandi()
+    {
+        String data = "0,1,2,3,4,5,0";
+        try {
+            FileOutputStream fOut = openFileOutput("command.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }//fine MainActivity

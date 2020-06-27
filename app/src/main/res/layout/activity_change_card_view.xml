@@ -55,25 +55,27 @@
         card_view:cpb_progressbar_color="#3f51b5"
         card_view:cpb_progressbar_width="10dp"
         card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.4"
+        card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="@+id/guideline0.15" />
 
     <TextView
-        android:id="@+id/rpm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/rpmProgressChange"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center_horizontal|center_vertical"
         android:textAlignment="center"
-        android:textSize="28sp"
+        android:textSize="20sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toEndOf="@+id/progressBar"
-        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintStart_toStartOf="@+id/progressBar"
         card_view:layout_constraintTop_toTopOf="@+id/guideline0.15" />
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/speedView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        card_view:sv_speedTextSize="0dp"
         card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
@@ -119,7 +121,7 @@
 
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView1"
+        android:id="@+id/CardView1Change"
         card_view:cardCornerRadius="8dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -133,7 +135,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card1"
+                android:id="@+id/txt1Card1Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -144,21 +146,22 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card1"
+                android:id="@+id/txt2Card1Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 1"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card1" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card1Change" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView2"
+        android:id="@+id/CardView2Change"
         android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.8"
@@ -172,10 +175,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card2"
+                android:id="@+id/txt1Card2Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Temperatura Refrigerante"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -185,21 +187,22 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card2"
+                android:id="@+id/txt2Card2Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 2"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card2" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card2Change" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView3"
+        android:id="@+id/CardView3Change"
         android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
@@ -213,10 +216,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card3"
+                android:id="@+id/txt1Card3Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Consumo Medio in sviluppo"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -225,22 +227,23 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card3"
+                android:id="@+id/txt2Card3Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 3"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card3" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card3Change" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView4"
+        android:id="@+id/CardView4Change"
         android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.6"
@@ -254,7 +257,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card4"
+                android:id="@+id/txt1Card4Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -265,21 +268,22 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card4"
+                android:id="@+id/txt2Card4Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 4"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card4" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card4Change" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView5"
+        android:id="@+id/CardView5Change"
         android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.8"
@@ -293,10 +297,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card5"
+                android:id="@+id/txt1Card5Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Mass Air Flow"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -305,21 +308,22 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card5"
+                android:id="@+id/txt2Card5Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 5"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card5" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card5Change" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView6"
+        android:id="@+id/CardView6Change"
         android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
@@ -333,10 +337,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt1Card6"
+                android:id="@+id/txt1Card6Change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Posizione acceleratore"
                 android:textAlignment="center"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -345,16 +348,17 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/txt2Card6"
+                android:id="@+id/txt2Card6Change"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
+                android:text="Card 6"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card6" />
+                card_view:layout_constraintTop_toBottomOf="@+id/txt1Card6Change" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
