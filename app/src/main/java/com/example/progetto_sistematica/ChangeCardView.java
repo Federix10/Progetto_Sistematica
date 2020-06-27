@@ -16,41 +16,74 @@ import java.util.ArrayList;
 public class ChangeCardView extends AppCompatActivity {
 
     CardView cardView1, cardView2, cardView3, cardView4, cardView5, cardView6;
-    int checkedItem = 0, command1=3, command2=3, command3=0, command4=0, command5=0, command6=0;
+    int checkedItem = 0, command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1;
     ArrayList<String> comandi = new ArrayList<>();
+    ArrayList<String> arrayComandi = new ArrayList<>();
     String[] command = null;
-    String commandRead="";
+    String commandRead="", numberRead="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_card_view);
+        comandi.add("Comando1");
+        comandi.add("Comando2");
+        comandi.add("Comando3");
+        for (int i=0;i<comandi.size();i++)
+        {
+            arrayComandi.add(comandi.get(i));
+        }
         commandRead=Read();
-        if (commandRead.isEmpty()==false)
+        if (commandRead.isEmpty())
+        {
+            Toast.makeText(this, "Devi assegnare dei comandi", Toast.LENGTH_SHORT).show();
+        }
+        else
         {
             for (int i=0;i<commandRead.length();i++)
             {
                 char c = commandRead.charAt(i);
+                numberRead+=c;
                 if (c==',')
                 {
-                    i++;
+                    numberRead="";
+                    break;
                 }
-                else if (command1==0)
-                    command1=Integer.parseInt(String.valueOf(c));
-                else if (command2==0)
-                    command2=Integer.parseInt(String.valueOf(c));
-                else if (command3==0)
-                    command3=Integer.parseInt(String.valueOf(c));
-                else if (command4==0)
-                    command4=Integer.parseInt(String.valueOf(c));
-                else if (command5==0)
-                    command5=Integer.parseInt(String.valueOf(c));
-                else if (command6==0)
-                    command6=Integer.parseInt(String.valueOf(c));
+                else if (c=='-')
+                {
+                    break;
+                }
+                else
+                {
+                    if (command1<0)
+                        command1=Integer.parseInt(numberRead);
+                    else if (command2<0)
+                        command2=Integer.parseInt(numberRead);
+                    else if (command3<0)
+                        command3=Integer.parseInt(numberRead);
+                    else if (command4<0)
+                        command4=Integer.parseInt(numberRead);
+                    else if (command5<0)
+                        command5=Integer.parseInt(numberRead);
+                    else if (command6<0)
+                        command6=Integer.parseInt(numberRead);
+                }
             }
         }
-        comandi.add("Vuoto");
-        comandi.add("Comando1");
-        comandi.add("Comando2");
+        Toast.makeText(this, commandRead+" value: "+String.valueOf(command1+","+command2+","+command3+","+command4+","+command5+","+command6), Toast.LENGTH_LONG).show();
+
+        if (command1 > 0)
+            comandi.remove(command1);
+        if (command2 > 0)
+            comandi.remove(command2);
+        if (command3 > 0)
+            comandi.remove(command3);
+        if (command4 > 0)
+            comandi.remove(command4);
+        if (command5 > 0)
+            comandi.remove(command5);
+        if (command6 > 0)
+            comandi.remove(command6);
+
         cardView1 = findViewById(R.id.CardView1);
         cardView2 = findViewById(R.id.CardView2);
         cardView3 = findViewById(R.id.CardView3);
@@ -68,11 +101,11 @@ public class ChangeCardView extends AppCompatActivity {
                 builder.setSingleChoiceItems(command, command1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which==command1 || which==command2 || which==command3 || which==command4 || which==command5 || which==command6)
+                        /*if (which==command1 || which==command2 || which==command3 || which==command4 || which==command5 || which==command6)
                         {
                             Toast.makeText(ChangeCardView.this, "Hai già selezionato questo comando", Toast.LENGTH_SHORT).show();
                         }
-                        else
+                        else*/
                             command1 = which;
                     }
                 });
@@ -82,8 +115,7 @@ public class ChangeCardView extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(ChangeCardView.this, "Selezionato: " + command[checkedItem], Toast.LENGTH_SHORT).show();
-                        if (checkedItem!=0)
-                            command1 = checkedItem;
+                        comandi.remove(command1);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -110,11 +142,11 @@ public class ChangeCardView extends AppCompatActivity {
                 builder.setSingleChoiceItems(command, command2, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which==command1 || which==command2 || which==command3 || which==command4 || which==command5 || which==command6)
+                        /*if (which==command1 || which==command2 || which==command3 || which==command4 || which==command5 || which==command6)
                         {
                             Toast.makeText(ChangeCardView.this, "Hai già selezionato questo comando", Toast.LENGTH_SHORT).show();
                         }
-                        else
+                        else*/
                             command2 = which;
                     }
                 });
@@ -124,8 +156,7 @@ public class ChangeCardView extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(ChangeCardView.this, "Selezionato: " + command[checkedItem], Toast.LENGTH_SHORT).show();
-                        if (checkedItem!=0)
-                            command2 = checkedItem;
+                        comandi.remove(command2);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -153,14 +184,20 @@ public class ChangeCardView extends AppCompatActivity {
 
     public void cancella(View view)
     {
-        command1=0;
-        command2=0;
-        command3=0;
-        command4=0;
-        command5=0;
-        command6=0;
+        command1=-1;
+        command2=-1;
+        command3=-1;
+        command4=-1;
+        command5=-1;
+        command6=-1;
         String vuoto=command1+","+command2+","+command3+","+command4+","+command5+","+command6;
         Write(vuoto);
+        comandi = new ArrayList<>();
+        for (int i=0;i<arrayComandi.size();i++)
+        {
+            comandi.add(arrayComandi.get(i));
+        }
+        Toast.makeText(this, "Effettuato correttamente", Toast.LENGTH_SHORT).show();
     }
 
     public void salva(View view)
@@ -191,7 +228,6 @@ public class ChangeCardView extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 temp = temp + Character.toString((char)c);
             }
-            Toast.makeText(this, temp, Toast.LENGTH_SHORT).show();
             //Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
