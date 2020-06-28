@@ -48,7 +48,7 @@ public class Speed extends AppCompatActivity {
     SpeedView speedometer;
     int progressMAX, speedMAX;
     EditText editText;
-    int tickRpmNumber=8, tickSpeedNumber=11;
+    int tickNumber=0;
 
     Method speed, rpm;
     String sSpeed="", sRpm="";
@@ -137,7 +137,7 @@ public class Speed extends AppCompatActivity {
             speedMAX=200;
             speedometer = findViewById(R.id.speedView);
             speedometer.setMaxSpeed(speedMAX);
-            speedometer.setTickNumber(tickSpeedNumber);
+            speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
             speedometer.setWithTremble(false);
 
             circularProgressBar = findViewById(R.id.progressBar2);
@@ -189,7 +189,6 @@ public class Speed extends AppCompatActivity {
                         public void run() {
                             if (GlobalApplication.getRPM()>progressMAX)
                             {
-                                tickRpmNumber++;
                                 progressMAX=GlobalApplication.getRPM()+1000;
                                 circularProgressBar.setProgressMax(progressMAX);
                             }
@@ -204,9 +203,19 @@ public class Speed extends AppCompatActivity {
                                 circularProgressBar.setColor(Color.RED);
                             if (GlobalApplication.getSpeed()>speedMAX)
                             {
-                                speedMAX=GlobalApplication.getSpeed()+20;
+                                speedMAX+=20;
                                 speedometer.setMaxSpeed(speedMAX);
-                                speedometer.setTickNumber(tickSpeedNumber);
+                                if (tickNumber==0)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220);
+                                if (tickNumber==1)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220,240);
+                                if (tickNumber==2)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220,240,260);
+                                if (tickNumber==3)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220,240,260,280);
+                                if (tickNumber==4)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300);
+                                tickNumber++;
                             }
                             speedometer.speedTo(GlobalApplication.getSpeed(),500);
                         }

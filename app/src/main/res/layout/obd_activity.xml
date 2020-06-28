@@ -87,11 +87,11 @@
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/speedView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
+        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         card_view:layout_constraintTop_toTopOf="@+id/guideline0.15" />
 
     <TextView

@@ -79,13 +79,13 @@ public class OBDActivity extends AppCompatActivity {
     TextView textViewRpm,textViewAmbientAir;
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
-    int limit1=2000, limit2=3000, limit3=4000;
-
+    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
         checkComandi();
+
         ciclo = true;
         if (Read() == "")
         {
@@ -256,7 +256,9 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setWithTremble(false);
             speedometer.setHighSpeedColor(Color.GREEN);
             speedometer.setMediumSpeedColor(Color.GREEN);
-            speedometer.setTickNumber(11);
+            speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
+            //speedometer.setTickNumber(11);
+
             editText2=findViewById(R.id.delayms2);
             delay=150;
             progress=200;
@@ -318,9 +320,19 @@ public class OBDActivity extends AppCompatActivity {
 
                             if (GlobalApplication.getSpeed()>speedMAX)
                             {
-                                speedMAX=GlobalApplication.getSpeed()+20;
+                                speedMAX+=20;
                                 speedometer.setMaxSpeed(speedMAX);
-                                speedometer.setTickNumber(11);
+                                if (tickNumber==0)
+                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220);
+                                if (tickNumber==1)
+                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240);
+                                if (tickNumber==2)
+                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,260);
+                                if (tickNumber==3)
+                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,260,280);
+                                if (tickNumber==4)
+                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,270,300);
+                                tickNumber++;
                             }
                             speedometer.speedTo(GlobalApplication.getSpeed(),500);
                         }
