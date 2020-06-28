@@ -13,7 +13,8 @@
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.12"
+        card_view:layout_constraintGuide_begin="110dp" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline0.4"
         android:layout_width="1dp"
@@ -38,17 +39,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5"/>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineVertical0.55"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.55"/>
+        app:layout_constraintGuide_percent="0.52" />
 
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         card_view:cpb_background_progressbar_color="#b6bbd8"
         card_view:cpb_background_progressbar_width="5dp"
@@ -75,9 +77,9 @@
         android:id="@+id/speedView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.4"
+        card_view:layout_constraintBottom_toTopOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
+        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
         card_view:layout_constraintTop_toTopOf="@+id/guideline0.1"
         card_view:sv_speedTextSize="0dp" />
 
