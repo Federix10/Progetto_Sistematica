@@ -1,6 +1,7 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -44,9 +45,8 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                     for (BluetoothDevice btdevice : pairedDevices) {
                         if (btdevice.getName().equals(d.getNome())) {
                                 GlobalApplication.setDevice(btdevice);
-                                ConnectThread client = new ConnectThread(btdevice);
+                                MainActivity.ConnectThread client = new MainActivity.ConnectThread(GlobalApplication.getDevice());
                                 client.start();
-                                GlobalApplication.setClient(client);
                         }
                     }
                 }

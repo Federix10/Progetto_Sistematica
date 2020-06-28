@@ -3,6 +3,7 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -20,9 +22,11 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import utils.Device;
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView switchBtnChat_txtView;
     BluetoothManager bluetoothManager;
     BluetoothDevice btdevice;
+    static Context contextOBD;
 
 
     @Override
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         GlobalApplication.aggiungiCommand();
         GlobalApplication.aggiungiProgressBarComandi();
         GlobalApplication.aggiungiProgressBarCommand();
+        contextOBD = this;
         if (ReadOBD()=="")
         {
             GlobalApplication.setOBD(0);
@@ -219,6 +225,66 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    static class ConnectThread extends Thread {
+        public final BluetoothSocket mmSocket;
+        public final BluetoothDevice mmDevice;
+        UUID MY_UUID=UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+        private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        public ConnectThread(BluetoothDevice device) {
+            // Use a temporary object that is later assigned to mmSocket
+            // because mmSocket is final.
+            BluetoothSocket tmp = null;
+            mmDevice = device;
+            try {
+                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+            } catch (IOException e) {
+                System.out.println("Socket's create() method failed");
+            }
+            mmSocket = tmp;
+        }
+
+        public void run() {
+            bluetoothAdapter.cancelDiscovery();
+            try {
+                mmSocket.connect();
+            } catch (IOException connectException) {
+                // Unable to connect; close the socket and return.
+                try {
+                    mmSocket.close();
+                } catch (IOException closeException) {
+                    System.out.println("Could not close the client socket");
+                }
+                return;
+            }
+            manageMyConnectedSocket(mmSocket);
+        }
+        private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
+            GlobalApplication.setSetCT(1);
+            System.out.println("Connesso con server");
+            GlobalApplication.setSocket(mmSocket);
+            if (GlobalApplication.getOBD()==1)
+            {
+                Intent startNewActivity = new Intent (contextOBD, OBDActivity.class);
+                contextOBD.startActivity(startNewActivity);
+            }
+            else
+            {
+                Intent startNewActivity = new Intent (contextOBD, OBDActivity.class);
+                contextOBD.startActivity(startNewActivity);
+            }
+        }
+
+        public void cancel() {
+            try {
+                mmSocket.close();
+            } catch (IOException e) {
+                System.out.println("Could not close the client socket");
+            }
         }
     }
 }//fine MainActivity

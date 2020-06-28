@@ -19,7 +19,7 @@ public class GlobalApplication extends Application {
     private static int setAT = 0;
     private static int setCT = 0;
     private static String message;
-    private static ConnectThread connectThread;
+    private static MainActivity.ConnectThread connectThread;
     private static int rpm=0;
     private static int speed=0;
     private static int obd=0;
@@ -186,11 +186,11 @@ public class GlobalApplication extends Application {
     }
 
 
-    public static synchronized ConnectThread getClient(){
+    public static synchronized MainActivity.ConnectThread getClient(){
         return connectThread;
     }
 
-    public static synchronized void setClient(ConnectThread connectThread1){
+    public static synchronized void setClient(MainActivity.ConnectThread connectThread1){
         connectThread = connectThread1;
     }
 
