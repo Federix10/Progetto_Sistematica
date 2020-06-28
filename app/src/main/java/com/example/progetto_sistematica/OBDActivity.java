@@ -11,11 +11,15 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,12 +84,15 @@ public class OBDActivity extends AppCompatActivity {
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
     int limit1=2000, limit2=3000, limit3=4000, tickNumber=0;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
         checkComandi();
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ciclo = true;
         if (Read() == "")
         {
@@ -100,6 +107,27 @@ public class OBDActivity extends AppCompatActivity {
             dataOBD.inizializzaOBD();
             dataOBD.start();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.impostazioni) {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, Setting.class);
+            startActivity(startNewActivity);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void checkComandi()
@@ -437,14 +465,6 @@ public class OBDActivity extends AppCompatActivity {
         ciclo=false;
         OBDActivity.this.finish();
         Intent startNewActivity = new Intent (this, Speed.class);
-        startActivity(startNewActivity);
-    }
-
-    public void setting (View view)
-    {
-        ciclo=false;
-        OBDActivity.this.finish();
-        Intent startNewActivity = new Intent (this, Setting.class);
         startActivity(startNewActivity);
     }
 

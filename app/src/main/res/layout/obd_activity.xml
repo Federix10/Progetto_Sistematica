@@ -105,7 +105,7 @@
         card_view:layout_constraintHorizontal_bias="0.95"
         card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.05" />
+        card_view:layout_constraintVertical_bias="0.65999997" />
 
     <Button
         android:id="@+id/btnDTC"
@@ -132,7 +132,8 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.2"
         card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.5"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.75" />
 
     <EditText
         android:id="@+id/delayms"
@@ -418,22 +419,10 @@
         android:textSize="8sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.15"
         card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toEndOf="@+id/btnSpeed"
-        card_view:layout_constraintTop_toBottomOf="@+id/tempOut"
-        card_view:layout_constraintVertical_bias="0.25" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="64dp"
-        android:layout_height="32dp"
-        android:onClick="setting"
-        android:text="Setting"
-        android:textSize="8sp"
-        card_view:layout_constraintBottom_toTopOf="@+id/btnSpeed"
-        card_view:layout_constraintEnd_toStartOf="@+id/tempOut"
-        card_view:layout_constraintHorizontal_bias="0.89"
-        card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="1.0" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
