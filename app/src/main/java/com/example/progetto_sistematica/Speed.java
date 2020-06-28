@@ -48,7 +48,7 @@ public class Speed extends AppCompatActivity {
     SpeedView speedometer;
     int progressMAX, speedMAX;
     EditText editText;
-    int tickNumber=0;
+    int tickNumber=0, limit1=2000, limit2=3000, limit3=4000;
 
     Method speed, rpm;
     String sSpeed="", sRpm="";
@@ -193,14 +193,15 @@ public class Speed extends AppCompatActivity {
                                 circularProgressBar.setProgressMax(progressMAX);
                             }
                             circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
-                            if (GlobalApplication.getRPM()<2000)
+                            if (GlobalApplication.getRPM()<limit1)
                                 circularProgressBar.setColor(Color.BLUE);
-                            else if (GlobalApplication.getRPM()>2000 && GlobalApplication.getRPM()<3000)
+                            else if (GlobalApplication.getRPM()>limit1 && GlobalApplication.getRPM()<limit2)
                                 circularProgressBar.setColor(Color.rgb(135,206,250));
-                            else if (GlobalApplication.getRPM()>3000 && GlobalApplication.getRPM()<5000)
+                            else if (GlobalApplication.getRPM()>=limit2 && GlobalApplication.getRPM()<limit3)
                                 circularProgressBar.setColor(Color.rgb(255,165,0));
-                            else if (GlobalApplication.getRPM()>5000)
+                            else if (GlobalApplication.getRPM()>=limit3)
                                 circularProgressBar.setColor(Color.RED);
+
                             if (GlobalApplication.getSpeed()>speedMAX)
                             {
                                 speedMAX+=20;
