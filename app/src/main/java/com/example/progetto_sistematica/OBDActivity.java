@@ -1,17 +1,17 @@
 package com.example.progetto_sistematica;
 
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothSocket;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.preference.EditTextPreference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -19,48 +19,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.SpeedView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.*;
-import java.util.ArrayList;
 
-import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
-import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
-import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
-import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
-import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
-import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
-import br.ufrn.imd.obd.commands.protocol.DescribeProtocolCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
 import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
 import br.ufrn.imd.obd.commands.protocol.TimeoutCommand;
-import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
-import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import br.ufrn.imd.obd.enums.ObdProtocols;
 
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    Button setspeed, settimeout;
     Boolean ciclo;
     DataOBD dataOBD;
     Comandi comandi;
-    EditText editText,editText2;
     int delay,progress;
     String scomando=null;
     String comandoresult =null;
@@ -74,13 +58,13 @@ public class OBDActivity extends AppCompatActivity {
     int progressMAX, speedMAX;
     ObdRawCommand customFuel;
 
-    String commandRead="", numberRead="";
+    String commandRead="";
     int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=-1,count=0;
     ListaComandi listaComandi;
-    Method card1, card2, card3, card4, card5, card6,circleBar,ambientAir;
-    String sCard1="", sCard2="", sCard3="", sCard4="", sCard5="", sCard6="",sCircleBar="",sAmbientAir="";
+    Method card1, card2, card3, card4, card5, card6,circleBar;
+    String sCard1="", sCard2="", sCard3="", sCard4="", sCard5="", sCard6="",sCircleBar="";
     double iCircleBar=0.0;
-    TextView textViewRpm,textViewAmbientAir;
+    TextView textViewRpm;
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
     int limit1=2000, limit2=3000, limit3=4000, tickNumber=0;
@@ -109,6 +93,13 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    public String getValuePreferences(String name)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String s = preferences.getString(name,"0");
+        return s;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -122,7 +113,28 @@ public class OBDActivity extends AppCompatActivity {
         if (id == R.id.impostazioni) {
             ciclo=false;
             OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, Setting.class);
+            Intent startNewActivity = new Intent (this, SettingsActivity.class);
+            startActivity(startNewActivity);
+            return true;
+        }
+        else if (id == R.id.speedactivity) {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, Speed.class);
+            startActivity(startNewActivity);
+            return true;
+        }
+        else if (id == R.id.grafico) {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, Graph.class);
+            startActivity(startNewActivity);
+            return true;
+        }
+        else if (id == R.id.cambiaComandi) {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, ChangeCardView.class);
             startActivity(startNewActivity);
             return true;
         }
@@ -254,13 +266,9 @@ public class OBDActivity extends AppCompatActivity {
             t2c5 = findViewById(R.id.txt2Card5);
             t2c6 = findViewById(R.id.txt2Card6);
 
-            setspeed = findViewById(R.id.btnSpeed);
-            settimeout = findViewById(R.id.btnDTC);
 
             textViewRpm = findViewById(R.id.rpm);
-            textViewAmbientAir = findViewById(R.id.tempOut);
 
-            editText = findViewById(R.id.delayms);
 
             circularProgressBar = findViewById(R.id.progressBar);
 
@@ -287,9 +295,8 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
             //speedometer.setTickNumber(11);
 
-            editText2=findViewById(R.id.delayms2);
-            delay=150;
-            progress=200;
+            delay=Integer.parseInt(getValuePreferences("delayCommand"));
+            progress=Integer.parseInt(getValuePreferences("delayCircleBar"));
 
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità
@@ -366,12 +373,6 @@ public class OBDActivity extends AppCompatActivity {
                         }
                     });
                     Thread.sleep(delay);
-                    count++;
-                    if (count==50)
-                    {
-                        setAmbientAir();
-                        count=0;
-                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -379,14 +380,6 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
-    public void setAmbientAir()
-    {
-        try {
-            textViewAmbientAir.setText((String) ambientAir.invoke(listaComandi));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void setCard(){
         try {
@@ -403,7 +396,6 @@ public class OBDActivity extends AppCompatActivity {
             card6 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command6));
             t1c6.setText(GlobalApplication.getComando(command6));
             circleBar = ListaComandi.class.getMethod(GlobalApplication.getProgressBarCommand(commandProgressBar));
-            ambientAir = ListaComandi.class.getMethod("ambientair");
             } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
@@ -450,36 +442,6 @@ public class OBDActivity extends AppCompatActivity {
             return false;
         }
         return true;
-    }
-
-    public void graphActivity (View view)
-    {
-        ciclo=false;
-        OBDActivity.this.finish();
-        Intent startNewActivity = new Intent (this, Graph.class);
-        startActivity(startNewActivity);
-    }
-
-    public void speedactivity (View view)
-    {
-        ciclo=false;
-        OBDActivity.this.finish();
-        Intent startNewActivity = new Intent (this, Speed.class);
-        startActivity(startNewActivity);
-    }
-
-    public void setTimeout (View view)
-    {
-        Editable editable=editText.getText();
-        String str_delay = editable.toString();
-        delay=Integer.valueOf(str_delay);
-    }
-
-    public void setTimeoutProgress (View view)
-    {
-        Editable editable=editText2.getText();
-        String str_delay = editable.toString();
-        progress=Integer.valueOf(str_delay);
     }
 
     private class Comandi

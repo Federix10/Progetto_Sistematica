@@ -10,9 +10,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -199,6 +199,18 @@ public class MainActivity extends AppCompatActivity {
                     e.putBoolean("firstStart", false);
                     WriteNewComandi();
                     e.apply();
+                    SharedPreferences.Editor delayCommand = getPrefs.edit();
+                    delayCommand.putString("delayCommand", "150");
+                    delayCommand.apply();
+                    SharedPreferences.Editor delayCircleBar = getPrefs.edit();
+                    delayCircleBar.putString("delayCircleBar", "200");
+                    delayCircleBar.apply();
+                    SharedPreferences.Editor delaySpeed = getPrefs.edit();
+                    delaySpeed.putString("delaySpeed", "100");
+                    delaySpeed.apply();
+                    SharedPreferences.Editor delaySpeedCircleBar = getPrefs.edit();
+                    delaySpeedCircleBar.putString("delaySpeedCircleBar", "200");
+                    delaySpeedCircleBar.apply();
                 }
             }
         });

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Progetto_Sistematica</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="setting_base">Impostazioni base</string>
+    <string name="setting_advanced">Impostazioni avanzate</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Cambia timeout comandi</string>
+    <string name="reply_title">Default reply action</string>
+
 </resources>

@@ -5,4 +5,13 @@
     <item
         android:id="@+id/impostazioni"
         android:title="Impostazioni" />
+    <item
+        android:id="@+id/cambiaComandi"
+        android:title="Cambia comandi" />
+    <item
+        android:id="@+id/speedactivity"
+        android:title="Speed Activity" />
+    <item
+        android:id="@+id/grafico"
+        android:title="Grafico" />
 </menu>

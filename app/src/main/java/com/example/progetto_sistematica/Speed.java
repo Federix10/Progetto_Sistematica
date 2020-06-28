@@ -2,10 +2,13 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,7 +23,6 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
@@ -35,7 +37,6 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class Speed extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    Button setspeed, settimeout;
     Boolean ciclo;
     Speed.DataOBD dataOBD;
     Speed.Comandi comandi;
@@ -47,7 +48,6 @@ public class Speed extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
-    EditText editText;
     int tickNumber=0, limit1=2000, limit2=3000, limit3=4000;
 
     Method speed, rpm;
@@ -81,6 +81,13 @@ public class Speed extends AppCompatActivity {
         }
     }
 
+    public String getValuePreferences(String name)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String s = preferences.getString(name,"0");
+        return s;
+    }
+
     public void Write()
     {
         String data = GlobalApplication.getDevice().getAddress();
@@ -111,13 +118,6 @@ public class Speed extends AppCompatActivity {
         return temp;
     }
 
-    public void setTimeoutSpeed (View view)
-    {
-        Editable editable=editText.getText();
-        String str_delay = editable.toString();
-        delay=Integer.valueOf(str_delay);
-    }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             ciclo=false;
@@ -132,7 +132,6 @@ public class Speed extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
-            editText=findViewById(R.id.editTextDelayActivitySpeed);
             progressMAX=7000;
             speedMAX=200;
             speedometer = findViewById(R.id.speedView);
@@ -142,10 +141,8 @@ public class Speed extends AppCompatActivity {
 
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
-            delay=100;
-            progress=200;
-            setspeed = findViewById(R.id.btnSpeed);
-            settimeout = findViewById(R.id.btnDTC);
+            delay=Integer.parseInt(getValuePreferences("delaySpeed"));
+            progress=Integer.parseInt(getValuePreferences("delaySpeedCircleBar"));
             comandi = new Speed.Comandi();
             rpmCommand = new RPMCommand(); //giri motore
             fuelLevelCommand = new FuelLevelCommand(); //livello carburante
