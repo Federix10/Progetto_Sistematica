@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +30,8 @@ public class ChangeCardView extends AppCompatActivity {
     ArrayList<String> progressBarComandi;
     String[] command = null;
     String[] progressBarCommand = null;
-    String commandRead="", numberRead="";
+    String commandRead="", numberRead="", sComandoCustom="";
+    EditText customCommand;
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6,tProgressBar;
 
     @Override
@@ -79,7 +83,7 @@ public class ChangeCardView extends AppCompatActivity {
 
             commandProgressBar = Integer.parseInt(commandRead2);
         }
-        Toast.makeText(this, commandRead+" value: "+String.valueOf(command1+","+command2+","+command3+","+command4+","+command5+","+command6+","+commandProgressBar), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, commandRead+" value: "+String.valueOf(command1+","+command2+","+command3+","+command4+","+command5+","+command6+","+commandProgressBar), Toast.LENGTH_LONG).show();
         checkArray();
 
         cardView1 = findViewById(R.id.CardView1Change);
@@ -105,6 +109,10 @@ public class ChangeCardView extends AppCompatActivity {
         t1c5.setText(command[command5]);
         t1c6.setText(command[command6]);
         tProgressBar.setText(progressBarCommand[commandProgressBar]);
+
+        customCommand = findViewById(R.id.comandoCustom);
+        sComandoCustom = ReadCustomCommand();
+        customCommand.setText(sComandoCustom);
 
         progressBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,6 +318,15 @@ public class ChangeCardView extends AppCompatActivity {
 
     }
 
+    public void setCustomCommand (View view)
+    {
+        Editable editable=customCommand.getText();
+        sComandoCustom = editable.toString();
+        Toast.makeText(this, "Comando custom salvato: "+sComandoCustom, Toast.LENGTH_SHORT).show();
+        WriteCustomCommand(sComandoCustom);
+        ListaComandi.setCustomCommand(sComandoCustom);
+    }
+
     public void checkArray()
     {
         command = new String[comandi.size()];
@@ -383,6 +400,33 @@ public class ChangeCardView extends AppCompatActivity {
             ChangeCardView.this.finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void WriteCustomCommand(String data)
+    {
+        try {
+            FileOutputStream fOut = openFileOutput("customcommand.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String ReadCustomCommand()
+    {
+        String temp="";
+        try {
+            FileInputStream fin = openFileInput("customcommand.txt");
+            int c;
+            while( (c = fin.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+        }
+        catch(Exception e){
+        }
+        return temp;
     }
 
 }

@@ -211,5 +211,14 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+        data="";
+        try {
+            FileOutputStream fOut = openFileOutput("customcommand.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }//fine MainActivity

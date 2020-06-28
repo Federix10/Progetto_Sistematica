@@ -64,7 +64,7 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Posizione Acceleratore");
         arrayComandi.add("Velocità");
         arrayComandi.add("Giri motore");
-        arrayComandi.add("Temperatura esterna");
+        arrayComandi.add("Temperatura ambiente");
         arrayComandi.add("Diagnostica errori");
         arrayComandi.add("Voltaggio batteria");
         arrayComandi.add("Tipo carburante");
@@ -75,6 +75,11 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Rapporto aria/carburante");
         arrayComandi.add("Check motorino avviamento");
         arrayComandi.add("Regolazione Carburante");
+        arrayComandi.add("Temperatura aria aspirata");
+        arrayComandi.add("Autonomia Motore");
+        arrayComandi.add("Temparatura Olio Motore");
+        arrayComandi.add("Tipo Adattatore OBD");
+        arrayComandi.add("Comando Custom");
     }
 
     public static synchronized void aggiungiCommand()
@@ -97,6 +102,11 @@ public class GlobalApplication extends Application {
         arrayCommand.add("airfuelratio");
         arrayCommand.add("ignitionmonitor");
         arrayCommand.add("fueltrim");
+        arrayCommand.add("intakeair");
+        arrayCommand.add("engineruntime");
+        arrayCommand.add("oiltemp");
+        arrayCommand.add("warmstart");
+        arrayCommand.add("customcommand");
     }
 
     public static ArrayList getComandi()

@@ -9,11 +9,14 @@ import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 import br.ufrn.imd.obd.commands.control.EquivalentRatioCommand;
 import br.ufrn.imd.obd.commands.control.IgnitionMonitorCommand;
 import br.ufrn.imd.obd.commands.control.ModuleVoltageCommand;
+import br.ufrn.imd.obd.commands.control.TimingAdvanceCommand;
 import br.ufrn.imd.obd.commands.control.TroubleCodesCommand;
 import br.ufrn.imd.obd.commands.control.VinCommand;
 import br.ufrn.imd.obd.commands.engine.LoadCommand;
 import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
+import br.ufrn.imd.obd.commands.engine.OilTempCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
+import br.ufrn.imd.obd.commands.engine.RuntimeCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
 import br.ufrn.imd.obd.commands.fuel.AirFuelRatioCommand;
@@ -21,8 +24,14 @@ import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelTrimCommand;
+import br.ufrn.imd.obd.commands.protocol.AdaptiveTimingCommand;
+import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
+import br.ufrn.imd.obd.commands.protocol.ObdWarmStartCommand;
+import br.ufrn.imd.obd.commands.temperature.AirIntakeTemperatureCommand;
 import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
 import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
+import br.ufrn.imd.obd.enums.AdaptiveTiming;
+import br.ufrn.imd.obd.enums.AvailableCommand;
 import br.ufrn.imd.obd.utils.TroubleCodeDescription;
 
 public class ListaComandi {
@@ -45,6 +54,13 @@ public class ListaComandi {
     AirFuelRatioCommand airFuelRatioCommand = new AirFuelRatioCommand();
     IgnitionMonitorCommand ignitionMonitorCommand = new IgnitionMonitorCommand();
     FuelTrimCommand fuelTrimCommand = new FuelTrimCommand();
+    AirIntakeTemperatureCommand airIntakeTemperatureCommand = new AirIntakeTemperatureCommand();
+    RuntimeCommand runtimeCommand = new RuntimeCommand();
+    OilTempCommand oilTempCommand = new OilTempCommand();
+    ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
+
+    private static String sCustomCommand="";
+    ObdRawCommand customCommand = new ObdRawCommand(sCustomCommand);
     BluetoothSocket socket;
 
     public ListaComandi(BluetoothSocket socket)
@@ -231,7 +247,7 @@ public class ListaComandi {
     public String dtc()
     {
         try {
-            dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            dtcNumberCommand.run(socket.getInputStream(), socket.getOutputStream()); //codice errore (DTC)
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -247,7 +263,7 @@ public class ListaComandi {
     public String volt()
     {
         try {
-            moduleVoltageCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            moduleVoltageCommand.run(socket.getInputStream(), socket.getOutputStream()); //volt batteria
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -279,7 +295,7 @@ public class ListaComandi {
     public String engineload()
     {
         try {
-            loadCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            loadCommand.run(socket.getInputStream(), socket.getOutputStream()); //carico del motore
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -295,7 +311,7 @@ public class ListaComandi {
     public String troublecode()
     {
         try {
-            troubleCodesCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            troubleCodesCommand.run(socket.getInputStream(), socket.getOutputStream()); //codice di errore
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -311,7 +327,7 @@ public class ListaComandi {
     public String equivratio()
     {
         try {
-            equivalentRatioCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            equivalentRatioCommand.run(socket.getInputStream(), socket.getOutputStream()); //rapporto aria/benzina
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -327,7 +343,7 @@ public class ListaComandi {
     public String vin()
     {
         try {
-            vinCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            vinCommand.run(socket.getInputStream(), socket.getOutputStream()); //codice identificatore veicolo
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -343,7 +359,7 @@ public class ListaComandi {
     public String airfuelratio()
     {
         try {
-            airFuelRatioCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            airFuelRatioCommand.run(socket.getInputStream(), socket.getOutputStream()); //rapporto aria/benzina
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -359,7 +375,7 @@ public class ListaComandi {
     public String ignitionmonitor()
     {
         try {
-            ignitionMonitorCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            ignitionMonitorCommand.run(socket.getInputStream(), socket.getOutputStream()); //controllo motore avviamento
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -375,7 +391,7 @@ public class ListaComandi {
     public String fueltrim()
     {
         try {
-            fuelTrimCommand.run(socket.getInputStream(), socket.getOutputStream()); //tipo carburante
+            fuelTrimCommand.run(socket.getInputStream(), socket.getOutputStream()); //carburante bruciato
         } catch (IOException | InterruptedException e) {
         }
         finally {
@@ -386,5 +402,91 @@ public class ListaComandi {
                 return fuelTrimCommand.getFormattedResult();
             }
         }
+    }
+
+    public String intakeair()
+    {
+        try {
+            airIntakeTemperatureCommand.run(socket.getInputStream(), socket.getOutputStream()); //temp aria aspirata
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (airIntakeTemperatureCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return airIntakeTemperatureCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public String engineruntime()
+    {
+        try {
+            runtimeCommand.run(socket.getInputStream(), socket.getOutputStream()); //autonomia motore
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (runtimeCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return runtimeCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public String oiltemp()
+    {
+        try {
+            oilTempCommand.run(socket.getInputStream(), socket.getOutputStream()); //temp olio motore
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (oilTempCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return oilTempCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public String warmstart()
+    {
+        try {
+            obdWarmStartCommand.run(socket.getInputStream(), socket.getOutputStream()); //warm start
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (obdWarmStartCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return obdWarmStartCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public String customcommand()
+    {
+        try {
+            customCommand.run(socket.getInputStream(), socket.getOutputStream());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (customCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return customCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public static synchronized void setCustomCommand(String s)
+    {
+        sCustomCommand = s;
     }
 }
