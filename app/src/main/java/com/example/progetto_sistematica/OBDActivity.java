@@ -147,6 +147,13 @@ public class OBDActivity extends AppCompatActivity {
             System.exit(1);
             Toast.makeText(this, "Connessione chiusa", Toast.LENGTH_SHORT).show();
         }
+        else if (id == R.id.dtc) {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, DTC.class);
+            startActivity(startNewActivity);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
