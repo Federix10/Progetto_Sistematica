@@ -1,17 +1,13 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.io.IOException;
-import java.security.acl.LastOwnerException;
 
 import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 import br.ufrn.imd.obd.commands.control.EquivalentRatioCommand;
 import br.ufrn.imd.obd.commands.control.IgnitionMonitorCommand;
 import br.ufrn.imd.obd.commands.control.ModuleVoltageCommand;
-import br.ufrn.imd.obd.commands.control.TimingAdvanceCommand;
 import br.ufrn.imd.obd.commands.control.TroubleCodesCommand;
 import br.ufrn.imd.obd.commands.control.VinCommand;
 import br.ufrn.imd.obd.commands.engine.LoadCommand;
@@ -26,15 +22,11 @@ import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelTrimCommand;
-import br.ufrn.imd.obd.commands.protocol.AdaptiveTimingCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdWarmStartCommand;
 import br.ufrn.imd.obd.commands.temperature.AirIntakeTemperatureCommand;
 import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
 import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
-import br.ufrn.imd.obd.enums.AdaptiveTiming;
-import br.ufrn.imd.obd.enums.AvailableCommand;
-import br.ufrn.imd.obd.utils.TroubleCodeDescription;
 
 public class ListaComandi {
 

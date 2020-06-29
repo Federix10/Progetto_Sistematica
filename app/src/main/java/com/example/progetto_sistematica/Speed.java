@@ -9,11 +9,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -226,17 +223,8 @@ public class Speed extends AppCompatActivity {
         }
     }
 
-    public void setOBD(View view)
-    {
-        ciclo=false;
-        Speed.this.finish();
-        Intent startNewActivity = new Intent (this, OBDActivity.class);
-        startActivity(startNewActivity);
-    }
-
     private class Comandi
     {
-
         public void rpm() {
             try {
                 rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm

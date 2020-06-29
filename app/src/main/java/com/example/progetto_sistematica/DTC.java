@@ -1,23 +1,16 @@
 package com.example.progetto_sistematica;
 
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
-import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 
 public class DTC extends AppCompatActivity {
 
@@ -35,7 +28,6 @@ public class DTC extends AppCompatActivity {
         listaComandi = new ListaComandi(GlobalApplication.getSocket());
         toolbar = (Toolbar) findViewById(R.id.toolbarDTC);
         setSupportActionBar(toolbar);
-        // add back arrow to toolbar
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,7 +42,6 @@ public class DTC extends AppCompatActivity {
 
         String commandRead2 = sDTC;
         commandRead2 = commandRead2.substring(1,commandRead2.length()-1);
-        //dtcNumber.setText(commandRead2);
         int index = commandRead2.indexOf(",");
         while (true)
         {

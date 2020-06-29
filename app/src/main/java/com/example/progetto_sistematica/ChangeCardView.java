@@ -7,10 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +79,6 @@ public class ChangeCardView extends AppCompatActivity {
 
             commandProgressBar = Integer.parseInt(commandRead2);
         }
-        //Toast.makeText(this, commandRead+" value: "+String.valueOf(command1+","+command2+","+command3+","+command4+","+command5+","+command6+","+commandProgressBar), Toast.LENGTH_LONG).show();
         checkArray();
 
         cardView1 = findViewById(R.id.CardView1Change);

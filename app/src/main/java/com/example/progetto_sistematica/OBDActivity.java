@@ -2,23 +2,15 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.preference.EditTextPreference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -202,9 +194,6 @@ public class OBDActivity extends AppCompatActivity {
 
             commandProgressBar = Integer.parseInt(commandRead2);
         }
-
-        //Toast.makeText(this, commandRead+" value: "+String.valueOf(command1+","+command2+","+command3+","+command4+","+command5+","+command6+","+commandProgressBar), Toast.LENGTH_LONG).show();
-
     }
 
     public String ReadComandi()
@@ -309,7 +298,6 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setHighSpeedColor(Color.GREEN);
             speedometer.setMediumSpeedColor(Color.GREEN);
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
-            //speedometer.setTickNumber(11);
 
             delay=Integer.parseInt(GlobalApplication.getValuePreferences("delayCommand"));
             progress=Integer.parseInt(GlobalApplication.getValuePreferences("delayCircleBar"));
@@ -462,7 +450,7 @@ public class OBDActivity extends AppCompatActivity {
 
     private class Comandi
     {
-        public void rpm() {
+        /*public void rpm() {
             try {
                 rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
                 GlobalApplication.setRPM(Integer.parseInt(rpmCommand.getCalculatedResult()));
@@ -478,13 +466,12 @@ public class OBDActivity extends AppCompatActivity {
                     return;
                 }
             }
-        }
+        }*/
 
         public void speed() {
             try {
                 speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
                 GlobalApplication.setSpeed(Integer.parseInt(speedCommand.getCalculatedResult()));
-                //textViewSpeed.setText(speedCommand.getFormattedResult());
             }
             catch (IOException | InterruptedException e) {}
         }

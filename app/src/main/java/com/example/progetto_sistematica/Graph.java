@@ -189,16 +189,6 @@ public class Graph extends AppCompatActivity {
             return dataPoints;
         }
 
-        /*public DataPoint[] impostaDataPoint2 ()
-        {
-            DataPoint[] dataPoints2 = new DataPoint[size];
-            for (int i=0;i<rpm.size();i++)
-            {
-                dataPoints2[i] = new DataPoint(i,(int)rpm.get(i));
-            }
-            return dataPoints2;
-        }*/
-
         public void Write()
         {
             String data = "";

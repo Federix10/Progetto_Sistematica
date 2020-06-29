@@ -23,8 +23,6 @@ import android.widget.Toast;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             switchBtn_txtView = findViewById(R.id.chatobd);
             switchBtnChat_txtView = findViewById(R.id.btnChat);
             switchBtn_txtView.setText("CHAT");
-            //textView.setText("Disconnesso");
 
             if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -165,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 temp = temp + Character.toString((char)c);
             }
-            //Toast.makeText(getBaseContext(),"Read address",Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
         }
@@ -181,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 obd = obd + Character.toString((char)c);
             }
-            //Toast.makeText(getBaseContext(),"Read OBD" + obd,Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
         }
