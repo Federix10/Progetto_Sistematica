@@ -4,9 +4,13 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -22,12 +26,20 @@ public class DTC extends AppCompatActivity {
     String sDTC="";
     TextView dtcNumber;
     ArrayList<String> codiciErorre = new ArrayList<>();
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dtc);
         listaComandi = new ListaComandi(GlobalApplication.getSocket());
+        toolbar = (Toolbar) findViewById(R.id.toolbarDTC);
+        setSupportActionBar(toolbar);
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         try {
             dtc = ListaComandi.class.getMethod("troublecode");
             sDTC = String.valueOf(dtc.invoke(listaComandi));
@@ -63,15 +75,15 @@ public class DTC extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (item.getItemId() == android.R.id.home) {
             DTC.this.finish();
             Intent startNewActivity = new Intent (this, OBDActivity.class);
             startActivity(startNewActivity);
-            return false;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onOptionsItemSelected(item);
     }
+
 }
