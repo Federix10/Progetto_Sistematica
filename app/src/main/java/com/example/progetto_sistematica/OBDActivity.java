@@ -35,7 +35,7 @@ public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
     Boolean ciclo;
-    DataOBD dataOBD;
+    static DataOBD dataOBD;
     Comandi comandi;
     int delay,progress;
     String scomando=null;
@@ -141,7 +141,7 @@ public class OBDActivity extends AppCompatActivity {
         }
         else if (id == R.id.dtc) {
             ciclo=false;
-            OBDActivity.this.finish();
+            //OBDActivity.this.finish();
             Intent startNewActivity = new Intent (this, DTC.class);
             startActivity(startNewActivity);
             return true;
