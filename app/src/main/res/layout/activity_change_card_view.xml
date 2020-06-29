@@ -94,20 +94,6 @@
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/comandoCustom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:editable="true"
-        android:ems="10"
-        android:inputType="number"
-        card_view:layout_constraintBottom_toBottomOf="@+id/guideline0.1"
-        card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
-        card_view:layout_constraintHorizontal_bias="1.0"
-        card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.78" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CardView1Change"
@@ -361,18 +347,6 @@
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.1"
         card_view:layout_constraintEnd_toStartOf="@+id/write"
         card_view:layout_constraintStart_toStartOf="@+id/guidelineVertical0.55"
-        card_view:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnCustomCommand"
-        android:layout_width="64dp"
-        android:layout_height="32dp"
-        android:onClick="setCustomCommand"
-        android:text="Salva"
-        android:textSize="8sp"
-        card_view:layout_constraintBottom_toTopOf="@+id/comandoCustom"
-        card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
-        card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent" />
 
     <Button

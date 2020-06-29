@@ -46,6 +46,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
                                 GlobalApplication.setDevice(btdevice);
                                 MainActivity.ConnectThread client = new MainActivity.ConnectThread(GlobalApplication.getDevice());
                                 client.start();
+                                GlobalApplication.setClient(client);
                         }
                     }
                 }

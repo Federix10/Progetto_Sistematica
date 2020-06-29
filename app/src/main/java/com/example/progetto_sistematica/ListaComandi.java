@@ -1,6 +1,8 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.io.IOException;
 import java.security.acl.LastOwnerException;
@@ -59,7 +61,7 @@ public class ListaComandi {
     OilTempCommand oilTempCommand = new OilTempCommand();
     ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
 
-    private static String sCustomCommand="";
+    String sCustomCommand=GlobalApplication.getValuePreferences("customCommand");
     ObdRawCommand customCommand = new ObdRawCommand(sCustomCommand);
     BluetoothSocket socket;
 
@@ -485,8 +487,4 @@ public class ListaComandi {
         }
     }
 
-    public static synchronized void setCustomCommand(String s)
-    {
-        sCustomCommand = s;
-    }
 }

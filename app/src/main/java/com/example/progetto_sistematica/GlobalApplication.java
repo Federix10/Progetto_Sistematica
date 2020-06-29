@@ -4,6 +4,8 @@ import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -32,6 +34,13 @@ public class GlobalApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+    }
+
+    public static String getValuePreferences(String name)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+        String s = preferences.getString(name,"");
+        return s;
     }
 
     public static synchronized void aggiungiProgressBarComandi()
@@ -79,7 +88,7 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Autonomia Motore");
         arrayComandi.add("Temparatura Olio Motore");
         arrayComandi.add("Tipo Adattatore OBD");
-        arrayComandi.add("Comando Custom");
+        arrayComandi.add("Comando Custom: "+getValuePreferences("customCommand"));
     }
 
     public static synchronized void aggiungiCommand()

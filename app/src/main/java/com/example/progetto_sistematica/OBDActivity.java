@@ -77,10 +77,15 @@ public class OBDActivity extends AppCompatActivity {
         checkComandi();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         ciclo = true;
         if (Read() == "")
         {
-            Write();
+            Write(GlobalApplication.getDevice().getAddress());
             dataOBD = new DataOBD();
             dataOBD.inizializzaOBD();
             dataOBD.start();
@@ -91,13 +96,6 @@ public class OBDActivity extends AppCompatActivity {
             dataOBD.inizializzaOBD();
             dataOBD.start();
         }
-    }
-
-    public String getValuePreferences(String name)
-    {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String s = preferences.getString(name,"0");
-        return s;
     }
 
     @Override
@@ -137,6 +135,17 @@ public class OBDActivity extends AppCompatActivity {
             Intent startNewActivity = new Intent (this, ChangeCardView.class);
             startActivity(startNewActivity);
             return true;
+        }
+        if (item.getItemId() == android.R.id.home) {
+            ciclo=false;
+            GlobalApplication.getClient().cancel();
+            GlobalApplication.getClient().interrupt();
+            Write("");
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, MainActivity.class);
+            startActivity(startNewActivity);
+            System.exit(1);
+            Toast.makeText(this, "Connessione chiusa", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -206,9 +215,9 @@ public class OBDActivity extends AppCompatActivity {
         return temp;
     }
 
-    public void Write()
+    public void Write(String s)
     {
-        String data = GlobalApplication.getDevice().getAddress();
+        String data = s;
         try {
             FileOutputStream fOut = openFileOutput("address.txt", MODE_PRIVATE);
             fOut.write(data.getBytes());
@@ -237,9 +246,9 @@ public class OBDActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             ciclo = false;
-            //OBDActivity.this.finish();
+            OBDActivity.this.finish();
             System.exit(1);
-            //return false;
+            return false;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -295,8 +304,8 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
             //speedometer.setTickNumber(11);
 
-            delay=Integer.parseInt(getValuePreferences("delayCommand"));
-            progress=Integer.parseInt(getValuePreferences("delayCircleBar"));
+            delay=Integer.parseInt(GlobalApplication.getValuePreferences("delayCommand"));
+            progress=Integer.parseInt(GlobalApplication.getValuePreferences("delayCircleBar"));
 
             rpmCommand = new RPMCommand(); //giri motore
             speedCommand = new SpeedCommand();//velocità

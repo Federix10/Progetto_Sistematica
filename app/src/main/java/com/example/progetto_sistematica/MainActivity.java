@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
                 ConnectThread client = new ConnectThread(btdevice);
                 client.start();
+                GlobalApplication.setClient(client);
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 temp = temp + Character.toString((char)c);
             }
-            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),"Read address",Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
         }
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             while( (c = fin.read()) != -1){
                 obd = obd + Character.toString((char)c);
             }
-            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),"Read OBD" + obd,Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
         }
@@ -211,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor delaySpeedCircleBar = getPrefs.edit();
                     delaySpeedCircleBar.putString("delaySpeedCircleBar", "200");
                     delaySpeedCircleBar.apply();
+                    SharedPreferences.Editor customCommand = getPrefs.edit();
+                    customCommand.putString("customCommand", "01 46");
+                    customCommand.apply();
                 }
             }
         });
         t.start();
-        Toast.makeText(MainActivity.this, "FirstRun", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "FirstRun", Toast.LENGTH_SHORT).show();
     }
 
     public void WriteNewComandi()
