@@ -152,6 +152,14 @@ public class OBDActivity extends AppCompatActivity {
             startActivity(startNewActivity);
             return true;
         }
+        else if (id == R.id.allcommand)
+        {
+            ciclo=false;
+            OBDActivity.this.finish();
+            Intent startNewActivity = new Intent (this, AllCommand.class);
+            startActivity(startNewActivity);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -17,4 +17,7 @@
     <item
         android:id="@+id/dtc"
         android:title="DTC" />
+    <item
+        android:id="@+id/allcommand"
+        android:title="All Command" />
 </menu>
