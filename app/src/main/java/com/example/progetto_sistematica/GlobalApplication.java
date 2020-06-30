@@ -68,6 +68,8 @@ public class GlobalApplication extends Application {
         executionTime.add(1);
         executionTime.add(0);
         executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(0);
     }
 
     public static Integer getExecutionTime(int i)
@@ -120,7 +122,9 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Autonomia Motore");
         arrayComandi.add("Temparatura Olio Motore");
         arrayComandi.add("Tipo Adattatore OBD");
-        arrayComandi.add("Comando Custom: "+getValuePreferences("customCommand"));
+        arrayComandi.add("Pressione barometrica");
+        arrayComandi.add("Vita rimanente batteria ibride");
+        //arrayComandi.add("Comando Custom: "+getValuePreferences("customCommand"));
     }
 
     public static synchronized void aggiungiCommand()
@@ -147,7 +151,9 @@ public class GlobalApplication extends Application {
         arrayCommand.add("engineruntime");
         arrayCommand.add("oiltemp");
         arrayCommand.add("warmstart");
-        arrayCommand.add("customcommand");
+        arrayCommand.add("barometricpressure");
+        arrayCommand.add("hybridbatterybemainingLbife");
+        //arrayCommand.add("customcommand");
     }
 
     public static ArrayList getComandi()

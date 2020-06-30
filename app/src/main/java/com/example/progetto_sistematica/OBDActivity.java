@@ -67,11 +67,6 @@ public class OBDActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
-        GlobalApplication.aggiungiComandi();
-        GlobalApplication.aggiungiCommand();
-        GlobalApplication.aggiungiProgressBarComandi();
-        GlobalApplication.aggiungiProgressBarCommand();
-        GlobalApplication.aggiungiExecutionTime();
         checkComandi();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

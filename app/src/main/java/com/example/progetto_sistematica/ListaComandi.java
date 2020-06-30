@@ -22,6 +22,7 @@ import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
 import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelTrimCommand;
+import br.ufrn.imd.obd.commands.pressure.BarometricPressureCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdWarmStartCommand;
 import br.ufrn.imd.obd.commands.temperature.AirIntakeTemperatureCommand;
@@ -52,9 +53,11 @@ public class ListaComandi {
     RuntimeCommand runtimeCommand = new RuntimeCommand();
     OilTempCommand oilTempCommand = new OilTempCommand();
     ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
+    BarometricPressureCommand barometricPressureCommand = new BarometricPressureCommand();
+    ObdRawCommand hybridBatteryRemainingLife = new ObdRawCommand("5B 91");
 
-    String sCustomCommand=GlobalApplication.getValuePreferences("customCommand");
-    ObdRawCommand customCommand = new ObdRawCommand(sCustomCommand);
+    //String sCustomCommand=GlobalApplication.getValuePreferences("customCommand");
+    //ObdRawCommand customCommand = new ObdRawCommand(sCustomCommand);
     BluetoothSocket socket;
 
     public ListaComandi(BluetoothSocket socket)
@@ -462,7 +465,70 @@ public class ListaComandi {
         }
     }
 
-    public String customcommand()
+    public String barometricpressure()
+    {
+        try {
+            barometricPressureCommand.run(socket.getInputStream(), socket.getOutputStream()); //pressione barometrica
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (barometricPressureCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return barometricPressureCommand.getFormattedResult();
+            }
+        }
+    }
+
+    /*public String hybridbatterybemainingLbife()
+    {
+        String value="";
+        int valore=0;
+        try {
+            hybridBatteryRemainingLife.run(socket.getInputStream(), socket.getOutputStream()); //% batterie auto ibrida
+            value = hybridBatteryRemainingLife.getCalculatedResult();
+            valore = Integer.parseInt(value);
+            valore = (100/255) * valore;
+            value = String.valueOf(valore)+" %";
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (hybridBatteryRemainingLife.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return value;
+            }
+        }
+    }*/
+
+    public String hybridbatterybemainingLbife()
+    {
+        String value="";
+        double valore=0;
+        try {
+            hybridBatteryRemainingLife.run(socket.getInputStream(), socket.getOutputStream()); //% batterie auto ibrida
+            value = hybridBatteryRemainingLife.getFormattedResult();
+            char dec1 = value.charAt(value.length() - 2);
+            char dec2 = value.charAt(value.length() - 1);
+            String comandoresult = new StringBuilder().append(dec1).append(dec2).toString();
+            int dec = Integer.parseInt(comandoresult, 16);
+            valore = 100/255*dec;
+            value = Double.toString(dec) + " %";
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (hybridBatteryRemainingLife.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return value;
+            }
+        }
+    }
+
+    /*public String customcommand()
     {
         try {
             customCommand.run(socket.getInputStream(), socket.getOutputStream());
@@ -477,6 +543,6 @@ public class ListaComandi {
                 return customCommand.getFormattedResult();
             }
         }
-    }
+    }*/
 
 }
