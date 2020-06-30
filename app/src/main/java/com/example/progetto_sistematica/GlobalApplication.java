@@ -125,7 +125,7 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Regolazione Carburante");
         arrayComandi.add("Temperatura aria aspirata");
         arrayComandi.add("Autonomia Motore");
-        arrayComandi.add("Temparatura Olio Motore");
+        arrayComandi.add("Temperatura Olio Motore");
         arrayComandi.add("Tipo Adattatore OBD");
         arrayComandi.add("Pressione barometrica");
         arrayComandi.add("Vita rimanente batteria ibride");
