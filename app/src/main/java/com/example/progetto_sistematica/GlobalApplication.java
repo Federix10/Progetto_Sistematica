@@ -29,6 +29,7 @@ public class GlobalApplication extends Application {
     private static ArrayList<String> arrayCommand = new ArrayList<>();
     private static ArrayList<String> progressBarArrayComandi = new ArrayList<>();
     private static ArrayList<String> progressBarArrayCommand = new ArrayList<>();
+    private static ArrayList<Integer> executionTime = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -41,6 +42,37 @@ public class GlobalApplication extends Application {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(appContext);
         String s = preferences.getString(name,"");
         return s;
+    }
+
+    public static synchronized void aggiungiExecutionTime()
+    {
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(1);
+        executionTime.add(1);
+        executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(0);
+        executionTime.add(1);
+        executionTime.add(0);
+        executionTime.add(1);
+    }
+
+    public static Integer getExecutionTime(int i)
+    {
+        return executionTime.get(i);
     }
 
     public static synchronized void aggiungiProgressBarComandi()
@@ -158,36 +190,6 @@ public class GlobalApplication extends Application {
     public static int getSpeed()
     {
         return speed;
-    }
-
-    public synchronized void Write()
-    {
-        String data = "ADDRESS PROVA";
-        try {
-            FileOutputStream fOut = openFileOutput("activity.txt", MODE_PRIVATE);
-            fOut.write(data.getBytes());
-            fOut.close();
-            Toast.makeText(getBaseContext(),"file saved",Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public synchronized String Read()
-    {
-        String temp="";
-        try {
-            FileInputStream fin = openFileInput("address.txt");
-            int c;
-            while( (c = fin.read()) != -1){
-                temp = temp + Character.toString((char)c);
-            }
-            Toast.makeText(getBaseContext(),"file read",Toast.LENGTH_SHORT).show();
-        }
-        catch(Exception e){
-        }
-        return temp;
     }
 
     public static Context getAppContext() {

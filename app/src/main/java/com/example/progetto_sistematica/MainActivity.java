@@ -47,10 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkFirstRun();
-        GlobalApplication.aggiungiComandi();
-        GlobalApplication.aggiungiCommand();
-        GlobalApplication.aggiungiProgressBarComandi();
-        GlobalApplication.aggiungiProgressBarCommand();
+
         contextOBD = this;
         if (ReadOBD()=="")
         {

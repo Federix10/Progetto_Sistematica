@@ -52,7 +52,7 @@ public class OBDActivity extends AppCompatActivity {
 
     String commandRead="";
     int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=-1,count=0;
-    ListaComandi listaComandi;
+    static ListaComandi listaComandi;
     Method card1, card2, card3, card4, card5, card6,circleBar;
     String sCard1="", sCard2="", sCard3="", sCard4="", sCard5="", sCard6="",sCircleBar="";
     double iCircleBar=0.0;
@@ -61,11 +61,17 @@ public class OBDActivity extends AppCompatActivity {
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
     int limit1=2000, limit2=3000, limit3=4000, tickNumber=0;
     Toolbar toolbar;
+    Boolean c1=false,c2=false,c3=false,c4=false,c5=false,c6=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obd_activity);
+        GlobalApplication.aggiungiComandi();
+        GlobalApplication.aggiungiCommand();
+        GlobalApplication.aggiungiProgressBarComandi();
+        GlobalApplication.aggiungiProgressBarCommand();
+        GlobalApplication.aggiungiExecutionTime();
         checkComandi();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -140,7 +146,7 @@ public class OBDActivity extends AppCompatActivity {
             Toast.makeText(this, "Connessione chiusa", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.dtc) {
-            ciclo=false;
+            //ciclo=false;
             //OBDActivity.this.finish();
             Intent startNewActivity = new Intent (this, DTC.class);
             startActivity(startNewActivity);
@@ -319,6 +325,13 @@ public class OBDActivity extends AppCompatActivity {
         }
 
         public void run() {
+            try {
+                checkForOnce();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             while (true) {
                 try {
                     if (ciclo == false)
@@ -407,21 +420,79 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    public void checkForOnce() throws InvocationTargetException, IllegalAccessException {
+
+        if (GlobalApplication.getExecutionTime(command1)==1)
+        {
+            sCard1 = (String) card1.invoke(listaComandi);
+            t2c1.setText(sCard1);
+            c1=true;
+        }
+        if (GlobalApplication.getExecutionTime(command2)==1)
+        {
+            sCard2 = (String) card2.invoke(listaComandi);
+            t2c2.setText(sCard2);
+            c2=true;
+        }
+        if (GlobalApplication.getExecutionTime(command3)==1)
+        {
+            sCard3 = (String) card3.invoke(listaComandi);
+            t2c3.setText(sCard3);
+            c3=true;
+        }
+        if (GlobalApplication.getExecutionTime(command4)==1)
+        {
+            sCard4 = (String) card4.invoke(listaComandi);
+            t2c4.setText(sCard4);
+            c4=true;
+        }
+        if (GlobalApplication.getExecutionTime(command5)==1)
+        {
+            sCard5 = (String) card5.invoke(listaComandi);
+            t2c5.setText(sCard5);
+            c5=true;
+        }
+        if (GlobalApplication.getExecutionTime(command6)==1)
+        {
+            sCard6 = (String) card6.invoke(listaComandi);
+            t2c6.setText(sCard6);
+            c6=true;
+        }
+    }
+
     public void setValueCard()
     {
         try {
-            sCard1 = (String) card1.invoke(listaComandi);
-            t2c1.setText(sCard1);
-            sCard2 = (String) card2.invoke(listaComandi);
-            t2c2.setText(sCard2);
-            sCard3 = (String) card3.invoke(listaComandi);
-            t2c3.setText(sCard3);
-            sCard4 = (String) card4.invoke(listaComandi);
-            t2c4.setText(sCard4);
-            sCard5 = (String) card5.invoke(listaComandi);
-            t2c5.setText(sCard5);
-            sCard6 = (String) card6.invoke(listaComandi);
-            t2c6.setText(sCard6);
+            if (c1==false)
+            {
+                sCard1 = (String) card1.invoke(listaComandi);
+                t2c1.setText(sCard1);
+            }
+            if (c2==false)
+            {
+                sCard2 = (String) card2.invoke(listaComandi);
+                t2c2.setText(sCard2);
+            }
+            if (c3==false)
+            {
+                sCard3 = (String) card3.invoke(listaComandi);
+                t2c3.setText(sCard3);
+            }
+            if (c4==false)
+            {
+                sCard4 = (String) card4.invoke(listaComandi);
+                t2c4.setText(sCard4);
+            }
+            if (c5==false)
+            {
+                sCard5 = (String) card5.invoke(listaComandi);
+                t2c5.setText(sCard5);
+            }
+            if (c6==false)
+            {
+                sCard6 = (String) card6.invoke(listaComandi);
+                t2c6.setText(sCard6);
+            }
             sCircleBar = (String) circleBar.invoke(listaComandi);
             if (isNumeric(sCircleBar.replaceAll("[^0-9]", "")))
             {

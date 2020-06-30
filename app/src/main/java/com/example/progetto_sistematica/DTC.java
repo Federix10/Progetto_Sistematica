@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class DTC extends AppCompatActivity {
 
     Method dtc;
-    ListaComandi listaComandi;
     String sDTC="";
     TextView dtcNumber;
     ArrayList<String> codiciErorre = new ArrayList<>();
@@ -26,7 +25,6 @@ public class DTC extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dtc);
-        listaComandi = new ListaComandi(GlobalApplication.getSocket());
         toolbar = (Toolbar) findViewById(R.id.toolbarDTC);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
@@ -35,7 +33,7 @@ public class DTC extends AppCompatActivity {
         }
         try {
             dtc = ListaComandi.class.getMethod("troublecode");
-            sDTC = String.valueOf(dtc.invoke(listaComandi));
+            sDTC = String.valueOf(dtc.invoke(OBDActivity.listaComandi));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
