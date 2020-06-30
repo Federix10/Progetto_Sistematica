@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
 
+import br.ufrn.imd.obd.commands.ObdCommand;
 import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
 import br.ufrn.imd.obd.commands.control.EquivalentRatioCommand;
 import br.ufrn.imd.obd.commands.control.IgnitionMonitorCommand;
@@ -54,10 +55,6 @@ public class ListaComandi {
     OilTempCommand oilTempCommand = new OilTempCommand();
     ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
     BarometricPressureCommand barometricPressureCommand = new BarometricPressureCommand();
-    ObdRawCommand hybridBatteryRemainingLife = new ObdRawCommand("5B 91");
-
-    //String sCustomCommand=GlobalApplication.getValuePreferences("customCommand");
-    //ObdRawCommand customCommand = new ObdRawCommand(sCustomCommand);
     BluetoothSocket socket;
 
     public ListaComandi(BluetoothSocket socket)
@@ -481,30 +478,9 @@ public class ListaComandi {
         }
     }
 
-    /*public String hybridbatterybemainingLbife()
-    {
-        String value="";
-        int valore=0;
-        try {
-            hybridBatteryRemainingLife.run(socket.getInputStream(), socket.getOutputStream()); //% batterie auto ibrida
-            value = hybridBatteryRemainingLife.getCalculatedResult();
-            valore = Integer.parseInt(value);
-            valore = (100/255) * valore;
-            value = String.valueOf(valore)+" %";
-        } catch (IOException | InterruptedException e) {
-        }
-        finally {
-            if (hybridBatteryRemainingLife.getCalculatedResult()=="") {
-                return "Parametro non corretto";
-            }
-            else{
-                return value;
-            }
-        }
-    }*/
-
     public String hybridbatterybemainingLbife()
     {
+        ObdRawCommand hybridBatteryRemainingLife = new ObdRawCommand("5B 91");
         String value="";
         double valore=0;
         try {
@@ -528,21 +504,93 @@ public class ListaComandi {
         }
     }
 
-    /*public String customcommand()
+    public String emission()
     {
+        ObdRawCommand emission = new ObdRawCommand("5F 95");
+        String value="";
         try {
-            customCommand.run(socket.getInputStream(), socket.getOutputStream());
+            emission.run(socket.getInputStream(), socket.getOutputStream()); //emissioni
+            value = emission.getFormattedResult();
+            char dec1 = value.charAt(value.length() - 2);
+            char dec2 = value.charAt(value.length() - 1);
+            String comandoresult = new StringBuilder().append(dec1).append(dec2).toString();
+            int dec = Integer.parseInt(comandoresult, 16);
+            value = Double.toString(dec) + " %";
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (emission.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return value;
+            }
+        }
+    }
+
+    public String gear()
+    {
+        ObdRawCommand gear = new ObdRawCommand("A4 164");
+        String value="";
+        try {
+            gear.run(socket.getInputStream(), socket.getOutputStream()); //marcia
+            value = gear.getFormattedResult();
+            char dec1 = value.charAt(value.length() - 2);
+            char dec2 = value.charAt(value.length() - 1);
+            String comandoresult = new StringBuilder().append(dec1).append(dec2).toString();
+            int dec = Integer.parseInt(comandoresult, 16);
+            value = Double.toString(dec) + " %";
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (gear.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return value;
+            }
+        }
+    }
+
+    public String cilynderfuelrate()
+    {
+        ObdRawCommand cylinder = new ObdRawCommand("A2 162");
+        String value="";
+        try {
+            cylinder.run(socket.getInputStream(), socket.getOutputStream()); //cilynderfuelrate
+            value = cylinder.getFormattedResult();
+            char dec1 = value.charAt(value.length() - 2);
+            char dec2 = value.charAt(value.length() - 1);
+            String comandoresult = new StringBuilder().append(dec1).append(dec2).toString();
+            int dec = Integer.parseInt(comandoresult, 16);
+            value = Double.toString(dec) + " %";
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (cylinder.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return value;
+            }
+        }
+    }
+
+    public String customHybrid()
+    {
+        HybridBatteryLife hybridBatteryLife = new HybridBatteryLife("5B 91");
+        try {
+            hybridBatteryLife.run(socket.getInputStream(), socket.getOutputStream());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         finally {
-            if (customCommand.getCalculatedResult()=="") {
+            if (hybridBatteryLife.getCalculatedResult() == "") {
                 return "Parametro non corretto";
-            }
-            else{
-                return customCommand.getFormattedResult();
+            } else {
+                return hybridBatteryLife.getFormattedResult();
             }
         }
-    }*/
+    }
 
 }

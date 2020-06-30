@@ -46,30 +46,34 @@ public class GlobalApplication extends Application {
 
     public static synchronized void aggiungiExecutionTime()
     {
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(1);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(1);
-        executionTime.add(0);
-        executionTime.add(0);
+        executionTime.add(0);//maf
+        executionTime.add(0);//l/h
+        executionTime.add(0);//liv carburante
+        executionTime.add(0);//temp motore
+        executionTime.add(0);//pos acceleratore
+        executionTime.add(0);//speed
+        executionTime.add(0);//rpm
+        executionTime.add(0);//temp ambientale
+        executionTime.add(1);//diagnostica errori
+        executionTime.add(1);//volt
+        executionTime.add(1);//tipo carburante
+        executionTime.add(0);//carico motore
+        executionTime.add(1);//code error
+        executionTime.add(0);//rapporto combustione
+        executionTime.add(1);//vin
+        executionTime.add(0);//rapporto aria/carburante
+        executionTime.add(1);//check motore avviamento
+        executionTime.add(0);//regolazione carburante
+        executionTime.add(0);//temp aria aspirata
+        executionTime.add(1);//autonomia motore
+        executionTime.add(0);//temp olio motore
+        executionTime.add(1);//tipo OBD
+        executionTime.add(0);//pressione barometrica
+        executionTime.add(1);//vita batteria auto ibrida
+        executionTime.add(1);//emissioni
+        executionTime.add(0);//marcia
+        executionTime.add(0);//cylinderfuelrate
+        executionTime.add(0);//CUSTOMHYBRID
     }
 
     public static Integer getExecutionTime(int i)
@@ -124,7 +128,10 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Tipo Adattatore OBD");
         arrayComandi.add("Pressione barometrica");
         arrayComandi.add("Vita rimanente batteria ibride");
-        //arrayComandi.add("Comando Custom: "+getValuePreferences("customCommand"));
+        arrayComandi.add("Emissioni");
+        arrayComandi.add("Marcia");
+        arrayComandi.add("Quantità carburante cilindro");
+        arrayComandi.add("Custom Hybrid");
     }
 
     public static synchronized void aggiungiCommand()
@@ -153,7 +160,10 @@ public class GlobalApplication extends Application {
         arrayCommand.add("warmstart");
         arrayCommand.add("barometricpressure");
         arrayCommand.add("hybridbatterybemainingLbife");
-        //arrayCommand.add("customcommand");
+        arrayCommand.add("emission");
+        arrayCommand.add("gear");
+        arrayCommand.add("cilynderfuelrate");
+        arrayCommand.add("customHybrid");
     }
 
     public static ArrayList getComandi()
