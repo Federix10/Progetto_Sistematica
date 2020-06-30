@@ -74,6 +74,7 @@ public class GlobalApplication extends Application {
         executionTime.add(0);//marcia
         executionTime.add(0);//cylinderfuelrate
         executionTime.add(0);//CUSTOMHYBRID
+        executionTime.add(1);//ODOMETER
     }
 
     public static Integer getExecutionTime(int i)
@@ -132,6 +133,7 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Marcia");
         arrayComandi.add("Quantità carburante cilindro");
         arrayComandi.add("Custom Hybrid");
+        arrayComandi.add("Odometer");
     }
 
     public static synchronized void aggiungiCommand()
@@ -164,6 +166,7 @@ public class GlobalApplication extends Application {
         arrayCommand.add("gear");
         arrayCommand.add("cilynderfuelrate");
         arrayCommand.add("customHybrid");
+        arrayCommand.add("odometer");
     }
 
     public static ArrayList getComandi()

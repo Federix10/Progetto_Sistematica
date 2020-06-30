@@ -593,4 +593,21 @@ public class ListaComandi {
         }
     }
 
+    public String odometer()
+    {
+        Odometer odometer = new Odometer("A6 166");
+        try {
+            odometer.run(socket.getInputStream(), socket.getOutputStream());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (odometer.getCalculatedResult() == "") {
+                return "Parametro non corretto";
+            } else {
+                return odometer.getFormattedResult();
+            }
+        }
+    }
+
 }
