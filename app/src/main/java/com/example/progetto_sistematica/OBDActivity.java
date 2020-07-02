@@ -2,12 +2,15 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,13 +62,22 @@ public class OBDActivity extends AppCompatActivity {
     TextView textViewRpm;
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
-    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0;
+    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0;
     Toolbar toolbar;
     Boolean c1=false,c2=false,c3=false,c4=false,c5=false,c6=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hour = GlobalApplication.getHour();
+        if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+        {
+            setTheme(R.style.DarkTheme);
+        }
+        else
+        {
+            setTheme(R.style.LightTheme);
+        }
         setContentView(R.layout.obd_activity);
         checkComandi();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -307,6 +319,18 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setHighSpeedColor(Color.GREEN);
             speedometer.setMediumSpeedColor(Color.GREEN);
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
+            if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+            {
+                speedometer.setTextColor(Color.WHITE);
+                speedometer.setSpeedTextColor(Color.WHITE);
+                speedometer.setUnitTextColor(Color.WHITE);
+            }
+            else
+            {
+                speedometer.setTextColor(Color.BLACK);
+                speedometer.setSpeedTextColor(Color.BLACK);
+                speedometer.setUnitTextColor(Color.BLACK);
+            }
 
             delay=Integer.parseInt(GlobalApplication.getValuePreferences("delayCommand"));
             progress=Integer.parseInt(GlobalApplication.getValuePreferences("delayCircleBar"));

@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/bgColor">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline0.1"
@@ -67,6 +68,7 @@
         android:layout_height="0dp"
         android:gravity="center_horizontal|center_vertical"
         android:textAlignment="center"
+        android:textColor="?attr/metaTextColor"
         android:textSize="28sp"
         card_view:layout_constraintBottom_toTopOf="@+id/guideline0.4"
         card_view:layout_constraintEnd_toStartOf="@+id/guidelineVertical0.5"
@@ -95,18 +97,20 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.0" />
+                card_view:layout_constraintVertical_bias="0.0"/>
 
             <TextView
                 android:id="@+id/txt2Card1"
@@ -115,6 +119,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -134,13 +139,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
@@ -155,6 +162,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -174,13 +182,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -194,6 +204,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -214,13 +225,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -234,6 +247,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -253,13 +267,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -273,6 +289,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -292,13 +309,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/bgColor">
 
             <TextView
                 android:id="@+id/txt1Card6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="?attr/textColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -312,6 +331,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="?attr/metaTextColor"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"

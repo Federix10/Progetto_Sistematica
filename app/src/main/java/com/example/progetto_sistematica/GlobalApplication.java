@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GlobalApplication extends Application {
 
@@ -42,6 +43,19 @@ public class GlobalApplication extends Application {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(appContext);
         String s = preferences.getString(name,"");
         return s;
+    }
+
+    public static boolean getBooleanPreferences(String name)
+    {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(GlobalApplication.getAppContext());
+        boolean s = preferences.getBoolean(name,false);
+        return s;
+    }
+
+    public static Integer getHour()
+    {
+        Date dt = new Date();  // current time
+        return dt.getHours();
     }
 
     public static synchronized void aggiungiExecutionTime()

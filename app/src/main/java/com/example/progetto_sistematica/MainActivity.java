@@ -210,6 +210,9 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor delaySpeedCircleBar = getPrefs.edit();
                     delaySpeedCircleBar.putString("delaySpeedCircleBar", "200");
                     delaySpeedCircleBar.apply();
+                    SharedPreferences.Editor nightMode = getPrefs.edit();
+                    nightMode.putBoolean("nightMode", false);
+                    nightMode.apply();
                 }
             }
         });

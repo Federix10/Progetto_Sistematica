@@ -45,7 +45,7 @@ public class Speed extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
     int progressMAX, speedMAX;
-    int tickNumber=0, limit1=2000, limit2=3000, limit3=4000;
+    int tickNumber=0, limit1=2000, limit2=3000, limit3=4000,hour=0;
 
     Method speed, rpm;
     String sSpeed="", sRpm="";
@@ -55,6 +55,15 @@ public class Speed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speed);
+        hour = GlobalApplication.getHour();
+        if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+        {
+            setTheme(R.style.DarkTheme);
+        }
+        else
+        {
+            setTheme(R.style.LightTheme);
+        }
         ciclo = true;
         if (Read() == "")
         {
@@ -76,13 +85,6 @@ public class Speed extends AppCompatActivity {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getValuePreferences(String name)
-    {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String s = preferences.getString(name,"0");
-        return s;
     }
 
     public void Write()
@@ -135,11 +137,23 @@ public class Speed extends AppCompatActivity {
             speedometer.setMaxSpeed(speedMAX);
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
             speedometer.setWithTremble(false);
+            if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+            {
+                speedometer.setTextColor(Color.WHITE);
+                speedometer.setSpeedTextColor(Color.WHITE);
+                speedometer.setUnitTextColor(Color.WHITE);
+            }
+            else
+            {
+                speedometer.setTextColor(Color.BLACK);
+                speedometer.setSpeedTextColor(Color.BLACK);
+                speedometer.setUnitTextColor(Color.BLACK);
+            }
 
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
-            delay=Integer.parseInt(getValuePreferences("delaySpeed"));
-            progress=Integer.parseInt(getValuePreferences("delaySpeedCircleBar"));
+            delay=Integer.parseInt(GlobalApplication.getValuePreferences("delaySpeed"));
+            progress=Integer.parseInt(GlobalApplication.getValuePreferences("delaySpeedCircleBar"));
             comandi = new Speed.Comandi();
             rpmCommand = new RPMCommand(); //giri motore
             fuelLevelCommand = new FuelLevelCommand(); //livello carburante

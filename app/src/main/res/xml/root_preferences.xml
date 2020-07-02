@@ -8,6 +8,11 @@
             android:summary="Imposta un comando custom da eseguire"
             android:title="Comando Custom"
             android:inputType="text"/>
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="nightMode"
+            android:summary="Se attivata. funzionerà dalle 20 alle 6"
+            android:title="Modalità notturna" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/setting_advanced">
