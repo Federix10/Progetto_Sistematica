@@ -54,7 +54,6 @@ public class Speed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_speed);
         hour = GlobalApplication.getHour();
         if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
         {
@@ -64,6 +63,7 @@ public class Speed extends AppCompatActivity {
         {
             setTheme(R.style.LightTheme);
         }
+        setContentView(R.layout.activity_speed);
         ciclo = true;
         if (Read() == "")
         {
