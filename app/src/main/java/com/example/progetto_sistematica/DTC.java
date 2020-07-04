@@ -78,7 +78,9 @@ public class DTC extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            return true;
+            DTC.this.finish();
+            Intent startNewActivity = new Intent (this, OBDActivity.class);
+            startActivity(startNewActivity);
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -89,6 +89,7 @@ public class GlobalApplication extends Application {
         executionTime.add(0);//cylinderfuelrate
         executionTime.add(0);//CUSTOMHYBRID
         executionTime.add(1);//ODOMETER
+        executionTime.add(1);//pressione carburante
     }
 
     public static Integer getExecutionTime(int i)
@@ -148,6 +149,7 @@ public class GlobalApplication extends Application {
         arrayComandi.add("Quantità carburante cilindro");
         arrayComandi.add("Custom Hybrid");
         arrayComandi.add("Odometer");
+        arrayComandi.add("Pressione Carburante");
     }
 
     public static synchronized void aggiungiCommand()
@@ -181,6 +183,7 @@ public class GlobalApplication extends Application {
         arrayCommand.add("cilynderfuelrate");
         arrayCommand.add("customHybrid");
         arrayCommand.add("odometer");
+        arrayCommand.add("fuelpressure");
     }
 
     public static ArrayList getComandi()

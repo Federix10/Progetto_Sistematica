@@ -24,6 +24,7 @@ import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
 import br.ufrn.imd.obd.commands.fuel.FuelTrimCommand;
 import br.ufrn.imd.obd.commands.pressure.BarometricPressureCommand;
+import br.ufrn.imd.obd.commands.pressure.FuelPressureCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdWarmStartCommand;
 import br.ufrn.imd.obd.commands.temperature.AirIntakeTemperatureCommand;
@@ -55,6 +56,7 @@ public class ListaComandi {
     OilTempCommand oilTempCommand = new OilTempCommand();
     ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
     BarometricPressureCommand barometricPressureCommand = new BarometricPressureCommand();
+    FuelPressureCommand fuelPressureCommand = new FuelPressureCommand();
     BluetoothSocket socket;
 
     public ListaComandi(BluetoothSocket socket)
@@ -474,6 +476,22 @@ public class ListaComandi {
             }
             else{
                 return barometricPressureCommand.getFormattedResult();
+            }
+        }
+    }
+
+    public String fuelpressure()
+    {
+        try {
+            fuelPressureCommand.run(socket.getInputStream(), socket.getOutputStream()); //pressione carburante
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (fuelPressureCommand.getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return fuelPressureCommand.getFormattedResult();
             }
         }
     }
