@@ -2,17 +2,13 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.anastr.speedviewlib.SpeedView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -55,7 +51,7 @@ public class Speed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hour = GlobalApplication.getHour();
-        if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+        if ((hour>20 || hour<7) && GlobalApplication.getBooleanPreferences("nightMode")==true)
         {
             setTheme(R.style.DarkTheme);
         }
@@ -137,7 +133,7 @@ public class Speed extends AppCompatActivity {
             speedometer.setMaxSpeed(speedMAX);
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
             speedometer.setWithTremble(false);
-            if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+            if ((hour>20 || hour<7) && GlobalApplication.getBooleanPreferences("nightMode")==true)
             {
                 speedometer.setTextColor(Color.WHITE);
                 speedometer.setSpeedTextColor(Color.WHITE);

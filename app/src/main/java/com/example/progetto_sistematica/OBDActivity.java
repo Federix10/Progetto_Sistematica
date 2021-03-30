@@ -2,20 +2,16 @@ package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.github.anastr.speedviewlib.SpeedView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -23,7 +19,8 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
@@ -70,7 +67,7 @@ public class OBDActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hour = GlobalApplication.getHour();
-        if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+        if ((hour>20 || hour<7) && GlobalApplication.getBooleanPreferences("nightMode")==true)
         {
             setTheme(R.style.DarkTheme);
         }
@@ -93,13 +90,15 @@ public class OBDActivity extends AppCompatActivity {
             Write(GlobalApplication.getDevice().getAddress());
             dataOBD = new DataOBD();
             dataOBD.inizializzaOBD();
-            dataOBD.start();
+            Thread thread = new Thread(dataOBD);
+            thread.start();
         }
         else if (Read() != "")
         {
             dataOBD = new DataOBD();
             dataOBD.inizializzaOBD();
-            dataOBD.start();
+            Thread thread = new Thread(dataOBD);
+            thread.start();
         }
     }
 
@@ -144,7 +143,6 @@ public class OBDActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             ciclo=false;
             GlobalApplication.getClient().cancel();
-            GlobalApplication.getClient().interrupt();
             Write("");
             OBDActivity.this.finish();
             Intent startNewActivity = new Intent (this, MainActivity.class);
@@ -270,7 +268,7 @@ public class OBDActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public class DataOBD extends Thread {
+    public class DataOBD implements Runnable {
 
         public void inizializzaOBD ()
         {
@@ -319,7 +317,7 @@ public class OBDActivity extends AppCompatActivity {
             speedometer.setHighSpeedColor(Color.GREEN);
             speedometer.setMediumSpeedColor(Color.GREEN);
             speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200);
-            if (hour>20 && hour<6 && GlobalApplication.getBooleanPreferences("nightMode")==true)
+            if ((hour>20 || hour<7) && GlobalApplication.getBooleanPreferences("nightMode")==true)
             {
                 speedometer.setTextColor(Color.WHITE);
                 speedometer.setSpeedTextColor(Color.WHITE);

@@ -10,21 +10,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -117,21 +117,26 @@ public class MainActivity extends AppCompatActivity {
         {
             bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
-            do {
-                Toast.makeText(MainActivity.this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-                ConnectThread client = new ConnectThread(btdevice);
-                client.start();
-                GlobalApplication.setClient(client);
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    do {
+                        Toast.makeText(MainActivity.this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+                        ConnectThread client = new ConnectThread(btdevice);
+                        client.start();
+                        GlobalApplication.setClient(client);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (GlobalApplication.getCT()==0)
+                            Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+                    }
+                    while (GlobalApplication.getCT()!=1);
+                    MainActivity.this.finish();
                 }
-                if (GlobalApplication.getCT()==0)
-                    Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-            }
-            while (GlobalApplication.getCT()!=1);
-            MainActivity.this.finish();
+            });
         }
 
     } //fine on creates
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     {
         if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
         {
-        Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dipossitivo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dispositivo", Toast.LENGTH_SHORT).show();
         }
         else if (aSwitch.isChecked())
         {

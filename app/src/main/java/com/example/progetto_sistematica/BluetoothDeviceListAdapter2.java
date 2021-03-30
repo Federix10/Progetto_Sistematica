@@ -3,16 +3,17 @@ package com.example.progetto_sistematica;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import java.util.List;
 
+import androidx.annotation.NonNull;
+
+import java.util.List;
 import java.util.Set;
 
 import utils.Device;

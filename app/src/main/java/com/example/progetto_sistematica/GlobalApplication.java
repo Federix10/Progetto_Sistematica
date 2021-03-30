@@ -6,10 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -48,8 +45,7 @@ public class GlobalApplication extends Application {
     public static boolean getBooleanPreferences(String name)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(GlobalApplication.getAppContext());
-        boolean s = preferences.getBoolean(name,false);
-        return s;
+        return preferences.getBoolean(name,false);
     }
 
     public static Integer getHour()
