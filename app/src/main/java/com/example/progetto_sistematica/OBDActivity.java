@@ -21,7 +21,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
+import br.ufrn.imd.obd.commands.ObdCommand;
+import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
@@ -350,6 +353,34 @@ public class OBDActivity extends AppCompatActivity {
         }
 
         public void run() {
+
+            /*  Remove class.getMethod per ottimizzare chiamata metodi e velocità applicazione
+            OBDActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ArrayList<ObdCommand> obdCommandArrayList = new ArrayList<>();
+                        obdCommandArrayList.add(new SpeedCommand()); //aggiungere i vari comandi selezionati dall'utente
+                        for(int i=0;i<obdCommandArrayList.size();i++) //da mettere in un metodo con return String
+                        {
+                            try {
+                                obdCommandArrayList.get(i).run(socket.getInputStream(), socket.getOutputStream()); //velocità
+                            } catch (IOException | InterruptedException e) {
+                            }
+                            finally {
+                                if (obdCommandArrayList.get(i).getCalculatedResult()=="") {
+                                    return "Parametro non corretto";
+                                    //Toast.makeText(OBDActivity.this, "Parametro non corretto", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    return obdCommandArrayList.get(i).getFormattedResult();
+                                    //Toast.makeText(OBDActivity.this, obdCommandArrayList.get(i).getFormattedResult(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                });
+            */
+
             try {
                 checkForOnce();
             } catch (InvocationTargetException e) {
