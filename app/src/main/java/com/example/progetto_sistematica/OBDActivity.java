@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,14 +25,35 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import br.ufrn.imd.obd.commands.ObdCommand;
+import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
+import br.ufrn.imd.obd.commands.control.EquivalentRatioCommand;
+import br.ufrn.imd.obd.commands.control.IgnitionMonitorCommand;
+import br.ufrn.imd.obd.commands.control.ModuleVoltageCommand;
+import br.ufrn.imd.obd.commands.control.TroubleCodesCommand;
+import br.ufrn.imd.obd.commands.control.VinCommand;
+import br.ufrn.imd.obd.commands.engine.LoadCommand;
 import br.ufrn.imd.obd.commands.engine.MassAirFlowCommand;
+import br.ufrn.imd.obd.commands.engine.OilTempCommand;
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
+import br.ufrn.imd.obd.commands.engine.RuntimeCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
+import br.ufrn.imd.obd.commands.engine.ThrottlePositionCommand;
+import br.ufrn.imd.obd.commands.fuel.AirFuelRatioCommand;
+import br.ufrn.imd.obd.commands.fuel.ConsumptionRateCommand;
+import br.ufrn.imd.obd.commands.fuel.FindFuelTypeCommand;
+import br.ufrn.imd.obd.commands.fuel.FuelLevelCommand;
+import br.ufrn.imd.obd.commands.fuel.FuelTrimCommand;
+import br.ufrn.imd.obd.commands.pressure.BarometricPressureCommand;
+import br.ufrn.imd.obd.commands.pressure.FuelPressureCommand;
 import br.ufrn.imd.obd.commands.protocol.EchoOffCommand;
 import br.ufrn.imd.obd.commands.protocol.LineFeedOffCommand;
 import br.ufrn.imd.obd.commands.protocol.ObdRawCommand;
+import br.ufrn.imd.obd.commands.protocol.ObdWarmStartCommand;
 import br.ufrn.imd.obd.commands.protocol.SelectProtocolCommand;
 import br.ufrn.imd.obd.commands.protocol.TimeoutCommand;
+import br.ufrn.imd.obd.commands.temperature.AirIntakeTemperatureCommand;
+import br.ufrn.imd.obd.commands.temperature.AmbientAirTemperatureCommand;
+import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import br.ufrn.imd.obd.enums.ObdProtocols;
 
 public class OBDActivity extends AppCompatActivity {
@@ -55,16 +77,21 @@ public class OBDActivity extends AppCompatActivity {
 
     String commandRead="";
     int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=-1,count=0;
+    ArrayList<Integer> command;
     static ListaComandi listaComandi;
-    Method card1, card2, card3, card4, card5, card6,circleBar;
-    String sCard1="", sCard2="", sCard3="", sCard4="", sCard5="", sCard6="",sCircleBar="";
+    Method circleBar;
+    ArrayList<String> sCard;
+    String sCircleBar="";
     double iCircleBar=0.0;
     TextView textViewRpm;
     TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
+    ArrayList<TextView> t2;
     TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
     int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0;
     Toolbar toolbar;
-    Boolean c1=false,c2=false,c3=false,c4=false,c5=false,c6=false;
+    ArrayList<Boolean> c;
+
+    ArrayList<ObdCommand> obdCommandArrayList, obdCommands;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -275,6 +302,57 @@ public class OBDActivity extends AppCompatActivity {
 
         public void inizializzaOBD ()
         {
+            obdCommandArrayList = new ArrayList<>();
+            obdCommands = new ArrayList<>();
+            t2 = new ArrayList<>();
+            command = new ArrayList<>();
+            command.add(command1);
+            command.add(command2);
+            command.add(command3);
+            command.add(command4);
+            command.add(command5);
+            command.add(command6);
+
+            sCard = new ArrayList<>();
+            sCard.add("");
+            sCard.add("");
+            sCard.add("");
+            sCard.add("");
+            sCard.add("");
+            sCard.add("");
+            c = new ArrayList<>();
+            c.add(false);
+            c.add(false);
+            c.add(false);
+            c.add(false);
+            c.add(false);
+            c.add(false);
+
+            obdCommandArrayList.add(new MassAirFlowCommand());
+            obdCommandArrayList.add(new ConsumptionRateCommand());
+            obdCommandArrayList.add(new FuelLevelCommand());
+            obdCommandArrayList.add(new EngineCoolantTemperatureCommand());
+            obdCommandArrayList.add(new ThrottlePositionCommand());
+            obdCommandArrayList.add(new SpeedCommand());
+            obdCommandArrayList.add(new RPMCommand());
+            obdCommandArrayList.add(new AmbientAirTemperatureCommand());
+            obdCommandArrayList.add(new DtcNumberCommand());
+            obdCommandArrayList.add(new ModuleVoltageCommand());
+            obdCommandArrayList.add(new FindFuelTypeCommand());
+            obdCommandArrayList.add(new LoadCommand());
+            obdCommandArrayList.add(new TroubleCodesCommand());
+            obdCommandArrayList.add(new EquivalentRatioCommand());
+            obdCommandArrayList.add(new VinCommand());
+            obdCommandArrayList.add(new AirFuelRatioCommand());
+            obdCommandArrayList.add(new IgnitionMonitorCommand());
+            obdCommandArrayList.add(new FuelTrimCommand());
+            obdCommandArrayList.add(new AirIntakeTemperatureCommand());
+            obdCommandArrayList.add(new RuntimeCommand());
+            obdCommandArrayList.add(new OilTempCommand());
+            obdCommandArrayList.add(new ObdWarmStartCommand());
+            obdCommandArrayList.add(new BarometricPressureCommand());
+            obdCommandArrayList.add(new FuelPressureCommand());
+
             comandi = new Comandi();
 
             listaComandi = new ListaComandi(socket);
@@ -293,9 +371,14 @@ public class OBDActivity extends AppCompatActivity {
             t2c5 = findViewById(R.id.txt2Card5);
             t2c6 = findViewById(R.id.txt2Card6);
 
+            t2.add(t2c1);
+            t2.add(t2c2);
+            t2.add(t2c3);
+            t2.add(t2c4);
+            t2.add(t2c5);
+            t2.add(t2c6);
 
             textViewRpm = findViewById(R.id.rpm);
-
 
             circularProgressBar = findViewById(R.id.progressBar);
 
@@ -353,39 +436,9 @@ public class OBDActivity extends AppCompatActivity {
         }
 
         public void run() {
-
-            /*  Remove class.getMethod per ottimizzare chiamata metodi e velocità applicazione
-            OBDActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ArrayList<ObdCommand> obdCommandArrayList = new ArrayList<>();
-                        obdCommandArrayList.add(new SpeedCommand()); //aggiungere i vari comandi selezionati dall'utente
-                        for(int i=0;i<obdCommandArrayList.size();i++) //da mettere in un metodo con return String
-                        {
-                            try {
-                                obdCommandArrayList.get(i).run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                            } catch (IOException | InterruptedException e) {
-                            }
-                            finally {
-                                if (obdCommandArrayList.get(i).getCalculatedResult()=="") {
-                                    return "Parametro non corretto";
-                                    //Toast.makeText(OBDActivity.this, "Parametro non corretto", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    return obdCommandArrayList.get(i).getFormattedResult();
-                                    //Toast.makeText(OBDActivity.this, obdCommandArrayList.get(i).getFormattedResult(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                });
-            */
-
             try {
                 checkForOnce();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             while (true) {
@@ -453,21 +506,39 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    private String executeCommand(int i)
+    {
+        try {
+            obdCommands.get(i).run(socket.getInputStream(), socket.getOutputStream());
+        } catch (IOException | InterruptedException e) {
+        }
+        finally {
+            if (obdCommands.get(i).getCalculatedResult()=="") {
+                return "Parametro non corretto";
+            }
+            else{
+                return obdCommands.get(i).getFormattedResult();
+            }
+        }
+    }
+
 
     public void setCard(){
         try {
-            card1 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command1));
+            obdCommands.add(obdCommandArrayList.get(command1));
+            obdCommands.add(obdCommandArrayList.get(command2));
+            obdCommands.add(obdCommandArrayList.get(command3));
+            obdCommands.add(obdCommandArrayList.get(command4));
+            obdCommands.add(obdCommandArrayList.get(command5));
+            obdCommands.add(obdCommandArrayList.get(command6));
+
             t1c1.setText(GlobalApplication.getComando(command1));
-            card2 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command2));
             t1c2.setText(GlobalApplication.getComando(command2));
-            card3 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command3));
             t1c3.setText(GlobalApplication.getComando(command3));
-            card4 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command4));
             t1c4.setText(GlobalApplication.getComando(command4));
-            card5 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command5));
             t1c5.setText(GlobalApplication.getComando(command5));
-            card6 = ListaComandi.class.getMethod(GlobalApplication.getCommand(command6));
             t1c6.setText(GlobalApplication.getComando(command6));
+
             circleBar = ListaComandi.class.getMethod(GlobalApplication.getProgressBarCommand(commandProgressBar));
             } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -476,78 +547,34 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
-    public void checkForOnce() throws InvocationTargetException, IllegalAccessException {
+    public void checkForOnce(){
 
-        if (GlobalApplication.getExecutionTime(command1)==1)
+        for (int i=0;i<obdCommands.size();i++)
         {
-            sCard1 = (String) card1.invoke(listaComandi);
-            t2c1.setText(sCard1);
-            c1=true;
-        }
-        if (GlobalApplication.getExecutionTime(command2)==1)
-        {
-            sCard2 = (String) card2.invoke(listaComandi);
-            t2c2.setText(sCard2);
-            c2=true;
-        }
-        if (GlobalApplication.getExecutionTime(command3)==1)
-        {
-            sCard3 = (String) card3.invoke(listaComandi);
-            t2c3.setText(sCard3);
-            c3=true;
-        }
-        if (GlobalApplication.getExecutionTime(command4)==1)
-        {
-            sCard4 = (String) card4.invoke(listaComandi);
-            t2c4.setText(sCard4);
-            c4=true;
-        }
-        if (GlobalApplication.getExecutionTime(command5)==1)
-        {
-            sCard5 = (String) card5.invoke(listaComandi);
-            t2c5.setText(sCard5);
-            c5=true;
-        }
-        if (GlobalApplication.getExecutionTime(command6)==1)
-        {
-            sCard6 = (String) card6.invoke(listaComandi);
-            t2c6.setText(sCard6);
-            c6=true;
+            if (GlobalApplication.getExecutionTime(command.get(i))==1)
+            {
+                sCard.set(i,executeCommand(i));
+                t2.get(i).setText(sCard.get(i));
+                c.set(i,true);
+            }
         }
     }
 
     public void setValueCard()
     {
         try {
-            if (c1==false)
+            for (int i=0;i<obdCommands.size();i++)
             {
-                sCard1 = (String) card1.invoke(listaComandi);
-                t2c1.setText(sCard1);
-            }
-            if (c2==false)
-            {
-                sCard2 = (String) card2.invoke(listaComandi);
-                t2c2.setText(sCard2);
-            }
-            if (c3==false)
-            {
-                sCard3 = (String) card3.invoke(listaComandi);
-                t2c3.setText(sCard3);
-            }
-            if (c4==false)
-            {
-                sCard4 = (String) card4.invoke(listaComandi);
-                t2c4.setText(sCard4);
-            }
-            if (c5==false)
-            {
-                sCard5 = (String) card5.invoke(listaComandi);
-                t2c5.setText(sCard5);
-            }
-            if (c6==false)
-            {
-                sCard6 = (String) card6.invoke(listaComandi);
-                t2c6.setText(sCard6);
+                try {
+                    if (c.get(i)==false)
+                    {
+                        sCard.set(i,executeCommand(i));
+                        t2.get(i).setText(sCard.get(i));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    t2.get(i).setText("Error");
+                }
             }
             sCircleBar = (String) circleBar.invoke(listaComandi);
             if (isNumeric(sCircleBar.replaceAll("[^0-9]", "")))
