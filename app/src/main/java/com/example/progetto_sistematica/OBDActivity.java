@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import br.ufrn.imd.obd.commands.ObdCommand;
 import br.ufrn.imd.obd.commands.control.DtcNumberCommand;
@@ -62,35 +63,24 @@ public class OBDActivity extends AppCompatActivity {
     Boolean ciclo;
     static DataOBD dataOBD;
     Comandi comandi;
-    int delay,progress;
-    String scomando=null;
-    String comandoresult =null;
-    Character dec1 =null;
-    Character dec2= null;
     RPMCommand rpmCommand;
     ObdRawCommand comando;
     SpeedCommand speedCommand;
     CircularProgressBar circularProgressBar;
     SpeedView speedometer;
-    int progressMAX, speedMAX;
     ObdRawCommand customFuel;
 
-    String commandRead="";
-    int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=-1,count=0;
     ArrayList<Integer> command;
     static ListaComandi listaComandi;
     Method circleBar;
     ArrayList<String> sCard;
-    String sCircleBar="";
+    String sCircleBar="", commandRead="";
     double iCircleBar=0.0;
-    TextView textViewRpm;
-    TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6;
     ArrayList<TextView> t2;
-    TextView t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
-    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0;
+    TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6, textViewRpm, t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
+    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0, commandProgressBar=-1, progressMAX, speedMAX, delay,progress;
     Toolbar toolbar;
     ArrayList<Boolean> c;
-
     ArrayList<ObdCommand> obdCommandArrayList, obdCommands;
 
     @Override
@@ -209,38 +199,17 @@ public class OBDActivity extends AppCompatActivity {
         }
         else
         {
-            String commandRead2 = commandRead;
+            command = new ArrayList<>();
+            String commandRead2 = commandRead, stringa;
+            int index;
 
-            int index = commandRead2.indexOf(",");
-            String stringa = commandRead2.substring(0,index);
-            command1 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
-            index = commandRead2.indexOf(",");
-            stringa = commandRead2.substring(0,index);
-            command2 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
-            index = commandRead2.indexOf(",");
-            stringa = commandRead2.substring(0,index);
-            command3 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
-            index = commandRead2.indexOf(",");
-            stringa = commandRead2.substring(0,index);
-            command4 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
-            index = commandRead2.indexOf(",");
-            stringa = commandRead2.substring(0,index);
-            command5 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
-            index = commandRead2.indexOf(",");
-            stringa = commandRead2.substring(0,index);
-            command6 = Integer.parseInt(stringa);
-            commandRead2 = commandRead2.substring(index+1);
-
+            for(int i=0;i<6;i++)
+            {
+                index = commandRead2.indexOf(",");
+                stringa = commandRead2.substring(0,index);
+                command.add(Integer.parseInt(stringa));
+                commandRead2 = commandRead2.substring(index+1);
+            }
             commandProgressBar = Integer.parseInt(commandRead2);
         }
     }
@@ -305,28 +274,12 @@ public class OBDActivity extends AppCompatActivity {
             obdCommandArrayList = new ArrayList<>();
             obdCommands = new ArrayList<>();
             t2 = new ArrayList<>();
-            command = new ArrayList<>();
-            command.add(command1);
-            command.add(command2);
-            command.add(command3);
-            command.add(command4);
-            command.add(command5);
-            command.add(command6);
 
             sCard = new ArrayList<>();
-            sCard.add("");
-            sCard.add("");
-            sCard.add("");
-            sCard.add("");
-            sCard.add("");
-            sCard.add("");
+            sCard.addAll(Arrays.asList("","","","","",""));
+
             c = new ArrayList<>();
-            c.add(false);
-            c.add(false);
-            c.add(false);
-            c.add(false);
-            c.add(false);
-            c.add(false);
+            c.addAll(Arrays.asList(false,false,false,false,false,false));
 
             obdCommandArrayList.add(new MassAirFlowCommand());
             obdCommandArrayList.add(new ConsumptionRateCommand());
@@ -371,12 +324,7 @@ public class OBDActivity extends AppCompatActivity {
             t2c5 = findViewById(R.id.txt2Card5);
             t2c6 = findViewById(R.id.txt2Card6);
 
-            t2.add(t2c1);
-            t2.add(t2c2);
-            t2.add(t2c3);
-            t2.add(t2c4);
-            t2.add(t2c5);
-            t2.add(t2c6);
+            t2.addAll(Arrays.asList(t2c1, t2c2, t2c3, t2c4, t2c5, t2c6));
 
             textViewRpm = findViewById(R.id.rpm);
 
@@ -522,22 +470,21 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
-
     public void setCard(){
         try {
-            obdCommands.add(obdCommandArrayList.get(command1));
-            obdCommands.add(obdCommandArrayList.get(command2));
-            obdCommands.add(obdCommandArrayList.get(command3));
-            obdCommands.add(obdCommandArrayList.get(command4));
-            obdCommands.add(obdCommandArrayList.get(command5));
-            obdCommands.add(obdCommandArrayList.get(command6));
+            obdCommands.add(obdCommandArrayList.get(command.get(0)));
+            obdCommands.add(obdCommandArrayList.get(command.get(1)));
+            obdCommands.add(obdCommandArrayList.get(command.get(2)));
+            obdCommands.add(obdCommandArrayList.get(command.get(3)));
+            obdCommands.add(obdCommandArrayList.get(command.get(4)));
+            obdCommands.add(obdCommandArrayList.get(command.get(5)));
 
-            t1c1.setText(GlobalApplication.getComando(command1));
-            t1c2.setText(GlobalApplication.getComando(command2));
-            t1c3.setText(GlobalApplication.getComando(command3));
-            t1c4.setText(GlobalApplication.getComando(command4));
-            t1c5.setText(GlobalApplication.getComando(command5));
-            t1c6.setText(GlobalApplication.getComando(command6));
+            t1c1.setText(GlobalApplication.getComando(command.get(0)));
+            t1c2.setText(GlobalApplication.getComando(command.get(1)));
+            t1c3.setText(GlobalApplication.getComando(command.get(2)));
+            t1c4.setText(GlobalApplication.getComando(command.get(3)));
+            t1c5.setText(GlobalApplication.getComando(command.get(4)));
+            t1c6.setText(GlobalApplication.getComando(command.get(5)));
 
             circleBar = ListaComandi.class.getMethod(GlobalApplication.getProgressBarCommand(commandProgressBar));
             } catch (NoSuchMethodException e) {
@@ -548,7 +495,6 @@ public class OBDActivity extends AppCompatActivity {
     }
 
     public void checkForOnce(){
-
         for (int i=0;i<obdCommands.size();i++)
         {
             if (GlobalApplication.getExecutionTime(command.get(i))==1)
@@ -604,24 +550,6 @@ public class OBDActivity extends AppCompatActivity {
 
     private class Comandi
     {
-        /*public void rpm() {
-            try {
-                rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
-                GlobalApplication.setRPM(Integer.parseInt(rpmCommand.getCalculatedResult()));
-                textViewRpm.setText(rpmCommand.getFormattedResult());
-            }
-            catch (IOException | InterruptedException e) {}
-            finally {
-                if (textViewRpm.getText()=="") {
-                    textViewRpm.setText("Parametro non corretto");
-                    return;
-                }
-                else{
-                    return;
-                }
-            }
-        }*/
-
         public void speed() {
             try {
                 speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
@@ -629,47 +557,5 @@ public class OBDActivity extends AppCompatActivity {
             }
             catch (IOException | InterruptedException e) {}
         }
-
-        /*public void comandocustomAcceleratore() {
-            try {
-                comando.run(socket.getInputStream(), socket.getOutputStream());//posizione acceleratore custom
-                scomando=comando.getFormattedResult();
-                dec1 = scomando.charAt(scomando.length() - 2);
-                dec2 = scomando.charAt(scomando.length() - 1);
-                comandoresult= new StringBuilder().append(dec1).append(dec2).toString();
-                int dec = Integer.parseInt(comandoresult, 16);
-                scomando = Integer.toString(dec);
-                textViewFindFuelType.setText(scomando);
-            }
-            catch (IOException | InterruptedException e) {}
-            finally {
-                if (textViewFindFuelType.getText()=="") {
-                    textViewFindFuelType.setText("Parametro non corretto");
-                    return;
-                }
-                else{
-                    return;
-                }
-            }
-        }
-
-        public void comandocustomFuelType()
-        {
-            try {
-                customFuel.run(socket.getInputStream(), socket.getOutputStream());
-                textViewFindFuelType.append(" "+customFuel.getFormattedResult());
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            finally {
-                if (textViewFindFuelType.getText()=="") {
-                    textViewFindFuelType.setText("Parametro non corretto");
-                    return;
-                }
-                else{
-                    return;
-                }
-            }
-        }*/
     }
 }
