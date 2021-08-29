@@ -1,5 +1,6 @@
 package com.example.progetto_sistematica;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -284,13 +285,19 @@ public class MainActivity extends AppCompatActivity {
             GlobalApplication.setSocket(mmSocket);
             if (GlobalApplication.getOBD()==1)
             {
+                Activity activity = (Activity) contextOBD;
+                activity.finish();
                 Intent startNewActivity = new Intent (contextOBD, OBDActivity.class);
                 contextOBD.startActivity(startNewActivity);
+
             }
             else
             {
+                Activity activity = (Activity) contextOBD;
+                activity.finish();
                 Intent startNewActivity = new Intent (contextOBD, OBDActivity.class);
                 contextOBD.startActivity(startNewActivity);
+
             }
         }
 

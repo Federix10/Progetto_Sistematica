@@ -380,6 +380,7 @@ public class ChangeCardView extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Toast.makeText(this, "Applicando i nuovi comandi", Toast.LENGTH_SHORT).show();
             ChangeCardView.this.finish();
             Intent startNewActivity = new Intent (this, OBDActivity.class);
             startActivity(startNewActivity);

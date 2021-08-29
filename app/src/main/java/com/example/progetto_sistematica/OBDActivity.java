@@ -1,6 +1,7 @@
 package com.example.progetto_sistematica;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -250,8 +252,17 @@ public class OBDActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             ciclo = false;
-            OBDActivity.this.finish();
-            System.exit(1);
+            new AlertDialog.Builder(this)
+                    .setMessage("Sei sicuro di voler uscire dall'app?")
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            System.exit(0);
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
             return false;
         }
         return super.onKeyDown(keyCode, event);
@@ -359,8 +370,8 @@ public class OBDActivity extends AppCompatActivity {
             delay=Integer.parseInt(GlobalApplication.getValuePreferences("delayCommand"));
             progress=Integer.parseInt(GlobalApplication.getValuePreferences("delayCircleBar"));
 
-            rpmCommand = new RPMCommand(); //giri motore
-            speedCommand = new SpeedCommand();//velocità
+            rpmCommand = new RPMCommand();
+            speedCommand = new SpeedCommand();
 
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
