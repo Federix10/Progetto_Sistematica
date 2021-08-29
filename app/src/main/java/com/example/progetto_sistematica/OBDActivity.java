@@ -77,10 +77,11 @@ public class OBDActivity extends AppCompatActivity {
     private double iCircleBar=0.0;
     private ArrayList<TextView> t2;
     private TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6, textViewRpm, t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
-    private int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0, commandProgressBar=-1, progressMAX, speedMAX, delay,progress;
+    private int tickNumber=0, hour=0, commandProgressBar=-1, progressMAX, speedMAX, delay,progress;
     private Toolbar toolbar;
     private ArrayList<Boolean> c;
     private ArrayList<ObdCommand> obdCommandArrayList, obdCommands;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +110,28 @@ public class OBDActivity extends AppCompatActivity {
             Write(GlobalApplication.getDevice().getAddress());
             dataOBD = new DataOBD();
             dataOBD.inizializzaOBD();
-            Thread thread = new Thread(dataOBD);
+            thread = new Thread(dataOBD);
             thread.start();
         }
         else if (Read() != "")
         {
             dataOBD = new DataOBD();
             dataOBD.inizializzaOBD();
-            Thread thread = new Thread(dataOBD);
+            thread = new Thread(dataOBD);
             thread.start();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ciclo=true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ciclo=false;
     }
 
     @Override
@@ -132,59 +145,39 @@ public class OBDActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.impostazioni) {
-            ciclo=false;
-            OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, SettingsActivity.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, SettingsActivity.class));
             return true;
         }
         else if (id == R.id.speedactivity) {
-            ciclo=false;
-            OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, Speed.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, Speed.class));
             return true;
         }
         else if (id == R.id.grafico) {
-            ciclo=false;
-            OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, Graph.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, Graph.class));
             return true;
         }
         else if (id == R.id.cambiaComandi) {
-            ciclo=false;
             OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, ChangeCardView.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, ChangeCardView.class));
             return true;
         }
         if (item.getItemId() == android.R.id.home) {
-            ciclo=false;
             GlobalApplication.getClient().cancel();
             Write("");
             OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, MainActivity.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, MainActivity.class));
             System.exit(1);
             Toast.makeText(this, "Connessione chiusa", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.dtc) {
-            //ciclo=false;
-            //OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, DTC.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, DTC.class));
             return true;
         }
         else if (id == R.id.allcommand)
         {
-            ciclo=false;
-            OBDActivity.this.finish();
-            Intent startNewActivity = new Intent (this, AllCommand.class);
-            startActivity(startNewActivity);
+            startActivity(new Intent (this, AllCommand.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -193,9 +186,7 @@ public class OBDActivity extends AppCompatActivity {
         commandRead=ReadComandi();
 
         if (commandRead.isEmpty())
-        {
             Toast.makeText(this, "Devi assegnare dei comandi", Toast.LENGTH_SHORT).show();
-        }
         else
         {
             command = new ArrayList<>();
@@ -337,7 +328,7 @@ public class OBDActivity extends AppCompatActivity {
             comando = new ObdRawCommand("01 46");
 
             if (commandProgressBar==0)
-                progressMAX=3000;
+                progressMAX=7000;
             else if (commandProgressBar==1)
                 progressMAX=1000;
             else if (commandProgressBar==2)
@@ -392,17 +383,18 @@ public class OBDActivity extends AppCompatActivity {
             }
             while (true) {
                 try {
-                    if (ciclo == false)
-                        break;
-                    speed();
-                    setValueCard();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setGraphics();
-                        }
-                    });
-                    Thread.sleep(delay);
+                    if(ciclo)
+                    {
+                        speed();
+                        setValueCard();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setGraphics();
+                            }
+                        });
+                        Thread.sleep(delay);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -496,9 +488,6 @@ public class OBDActivity extends AppCompatActivity {
         if (GlobalApplication.getRPM()>progressMAX && commandProgressBar == 0)
         {
             progressMAX+=1000;
-            limit1+=1000;
-            limit2+=1000;
-            limit3+=1000;
             circularProgressBar.setProgressMax(progressMAX);
         }
         circularProgressBar.setProgressWithAnimation((float) iCircleBar, (long) progress);

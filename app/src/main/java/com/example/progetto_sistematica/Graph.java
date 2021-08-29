@@ -26,7 +26,7 @@ public class Graph extends AppCompatActivity {
     private ArrayList speed,rpm;
     private int size=0,velocita=0,giriMotore=0;
     private Dati dati;
-    private private static BluetoothSocket socket = GlobalApplication.getSocket();
+    private static BluetoothSocket socket = GlobalApplication.getSocket();
     private ComandiOBD comandiOBD;
     private SpeedCommand speedCommand;
     private RPMCommand rpmCommand;

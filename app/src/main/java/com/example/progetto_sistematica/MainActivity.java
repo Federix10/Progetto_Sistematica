@@ -11,15 +11,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -60,29 +67,15 @@ public class MainActivity extends AppCompatActivity {
         {
             GlobalApplication.setOBD(Integer.parseInt(ReadOBD()));
         }
+        checkBluetooth();
+        showPairedDevices();
+    }
 
+    private void showPairedDevices()
+    {
         if (Read() == "")
         {
             setContentView(R.layout.activity_main);
-
-            if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Il dispositivo non supporta il bluetooth")
-                        .setTitle("ERRORE");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {}
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-
-            if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
-            while(!bluetoothAdapter.isEnabled());
             List<Device> list2 = new ArrayList<Device>();
             Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
             if (pairedDevices.size() > 0) {
@@ -97,17 +90,77 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (Read() != "")
         {
+            setContentView(R.layout.activity_reconnect);
             bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
-            ConnectThread client = new ConnectThread(btdevice);
-            client.start();
-            GlobalApplication.setClient(client);
-            if (GlobalApplication.getCT()==0)
-                Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-            if (GlobalApplication.getCT()==1)
-                MainActivity.this.finish();
+            Button btnReconnect, btnDelete;
+            btnReconnect = findViewById(R.id.btnReconnect);
+            btnDelete = findViewById(R.id.btnDelete);
+            reconnect();
+            btnReconnect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reconnect();
+                }
+            });
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    GlobalApplication.getClient().cancel();
+                    Write("");
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                }
+            });
         }
-    } //fine on creates
+    }
+
+    public void Write(String s)
+    {
+        String data = s;
+        try {
+            FileOutputStream fOut = openFileOutput("address.txt", MODE_PRIVATE);
+            fOut.write(data.getBytes());
+            fOut.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkBluetooth()
+    {
+        if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Il dispositivo non supporta il bluetooth")
+                    .setTitle("ERRORE");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {}
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+
+        if (!bluetoothAdapter.isEnabled()) { //se il bluetooth è disattivato viene mostrata una finestra che permette di attivarlo
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+    }
+
+    private void reconnect()
+    {
+        ConnectThread client = new ConnectThread(btdevice);
+        client.start();
+        GlobalApplication.setClient(client);
+        if (GlobalApplication.getCT()==0)
+            Toast.makeText(MainActivity.this, "Riconnessione in corso a : "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+        if (GlobalApplication.getCT()==1)
+            MainActivity.this.finish();
+    }
 
     public String Read()
     {

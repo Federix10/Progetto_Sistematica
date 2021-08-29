@@ -35,7 +35,7 @@ public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
         final Device d = getItem(position);
         nome.setText(d.getNome());
         mac.setText(d.getMAC());
-        final Button btnConnect = convertView.findViewById(R.id.btnConnetti);
+        Button btnConnect = convertView.findViewById(R.id.btnConnetti);
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

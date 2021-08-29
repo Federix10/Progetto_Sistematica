@@ -48,8 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home) {
             SettingsActivity.this.finish();
-            Intent startNewActivity = new Intent (this, OBDActivity.class);
-            startActivity(startNewActivity);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -57,8 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             SettingsActivity.this.finish();
-            Intent startNewActivity = new Intent (this, OBDActivity.class);
-            startActivity(startNewActivity);
         }
         return super.onKeyDown(keyCode, event);
     }
