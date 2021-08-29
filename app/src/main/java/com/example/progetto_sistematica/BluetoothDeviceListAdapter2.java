@@ -20,7 +20,7 @@ import utils.Device;
 
 public class BluetoothDeviceListAdapter2 extends ArrayAdapter<Device> {
 
-    final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     public BluetoothDeviceListAdapter2(@NonNull Context context, int resource, List<Device> list) {
         super(context, resource, list);

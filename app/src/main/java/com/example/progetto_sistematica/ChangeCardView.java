@@ -20,15 +20,15 @@ import java.util.ArrayList;
 
 public class ChangeCardView extends AppCompatActivity {
 
-    CardView cardView1, cardView2, cardView3, cardView4, cardView5, cardView6;
-    CircularProgressBar progressBar;
-    int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=0;
-    ArrayList<String> comandi;
-    ArrayList<String> progressBarComandi;
-    String[] command = null;
-    String[] progressBarCommand = null;
-    String commandRead="";
-    TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6,tProgressBar;
+    private CardView cardView1, cardView2, cardView3, cardView4, cardView5, cardView6;
+    private CircularProgressBar progressBar;
+    private int command1=-1, command2=-1, command3=-1, command4=-1, command5=-1, command6=-1, commandProgressBar=0;
+    private ArrayList<String> comandi;
+    private ArrayList<String> progressBarComandi;
+    private String[] command = null;
+    private String[] progressBarCommand = null;
+    private String commandRead="";
+    private TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6,tProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

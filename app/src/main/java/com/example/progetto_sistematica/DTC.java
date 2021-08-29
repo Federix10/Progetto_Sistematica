@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class DTC extends AppCompatActivity {
 
-    Method dtc;
-    String sDTC="";
-    TextView dtcNumber;
-    ArrayList<String> codiciErorre = new ArrayList<>();
-    Toolbar toolbar;
+    private Method dtc;
+    private String sDTC="";
+    private TextView dtcNumber;
+    private ArrayList<String> codiciErorre = new ArrayList<>();
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

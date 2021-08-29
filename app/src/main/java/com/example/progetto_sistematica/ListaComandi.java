@@ -33,31 +33,31 @@ import br.ufrn.imd.obd.commands.temperature.EngineCoolantTemperatureCommand;
 
 public class ListaComandi {
 
-    MassAirFlowCommand massAirFlowCommand = new MassAirFlowCommand();
-    ConsumptionRateCommand consumptionRateCommand = new ConsumptionRateCommand();
-    FuelLevelCommand fuelLevelCommand = new FuelLevelCommand();
-    FindFuelTypeCommand findFuelTypeCommand = new FindFuelTypeCommand();
-    EngineCoolantTemperatureCommand engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
-    ThrottlePositionCommand throttlePositionCommand = new ThrottlePositionCommand();
-    SpeedCommand speedCommand = new SpeedCommand();
-    RPMCommand rpmCommand = new RPMCommand();
-    AmbientAirTemperatureCommand ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
-    DtcNumberCommand dtcNumberCommand = new DtcNumberCommand();
-    ModuleVoltageCommand moduleVoltageCommand = new ModuleVoltageCommand();
-    LoadCommand loadCommand = new LoadCommand();
-    TroubleCodesCommand troubleCodesCommand = new TroubleCodesCommand();
-    EquivalentRatioCommand equivalentRatioCommand = new EquivalentRatioCommand();
-    VinCommand vinCommand = new VinCommand();
-    AirFuelRatioCommand airFuelRatioCommand = new AirFuelRatioCommand();
-    IgnitionMonitorCommand ignitionMonitorCommand = new IgnitionMonitorCommand();
-    FuelTrimCommand fuelTrimCommand = new FuelTrimCommand();
-    AirIntakeTemperatureCommand airIntakeTemperatureCommand = new AirIntakeTemperatureCommand();
-    RuntimeCommand runtimeCommand = new RuntimeCommand();
-    OilTempCommand oilTempCommand = new OilTempCommand();
-    ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
-    BarometricPressureCommand barometricPressureCommand = new BarometricPressureCommand();
-    FuelPressureCommand fuelPressureCommand = new FuelPressureCommand();
-    BluetoothSocket socket;
+    private MassAirFlowCommand massAirFlowCommand = new MassAirFlowCommand();
+    private ConsumptionRateCommand consumptionRateCommand = new ConsumptionRateCommand();
+    private FuelLevelCommand fuelLevelCommand = new FuelLevelCommand();
+    private FindFuelTypeCommand findFuelTypeCommand = new FindFuelTypeCommand();
+    private EngineCoolantTemperatureCommand engineCoolantTemperatureCommand = new EngineCoolantTemperatureCommand();
+    private ThrottlePositionCommand throttlePositionCommand = new ThrottlePositionCommand();
+    private SpeedCommand speedCommand = new SpeedCommand();
+    private RPMCommand rpmCommand = new RPMCommand();
+    private AmbientAirTemperatureCommand ambientAirTemperatureCommand = new AmbientAirTemperatureCommand();
+    private DtcNumberCommand dtcNumberCommand = new DtcNumberCommand();
+    private ModuleVoltageCommand moduleVoltageCommand = new ModuleVoltageCommand();
+    private LoadCommand loadCommand = new LoadCommand();
+    private TroubleCodesCommand troubleCodesCommand = new TroubleCodesCommand();
+    private EquivalentRatioCommand equivalentRatioCommand = new EquivalentRatioCommand();
+    private VinCommand vinCommand = new VinCommand();
+    private AirFuelRatioCommand airFuelRatioCommand = new AirFuelRatioCommand();
+    private IgnitionMonitorCommand ignitionMonitorCommand = new IgnitionMonitorCommand();
+    private FuelTrimCommand fuelTrimCommand = new FuelTrimCommand();
+    private AirIntakeTemperatureCommand airIntakeTemperatureCommand = new AirIntakeTemperatureCommand();
+    private RuntimeCommand runtimeCommand = new RuntimeCommand();
+    private OilTempCommand oilTempCommand = new OilTempCommand();
+    private ObdWarmStartCommand obdWarmStartCommand = new ObdWarmStartCommand();
+    private BarometricPressureCommand barometricPressureCommand = new BarometricPressureCommand();
+    private FuelPressureCommand fuelPressureCommand = new FuelPressureCommand();
+    private BluetoothSocket socket;
 
     public ListaComandi(BluetoothSocket socket)
     {

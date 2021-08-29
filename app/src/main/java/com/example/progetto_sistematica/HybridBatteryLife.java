@@ -5,7 +5,7 @@ import br.ufrn.imd.obd.enums.AvailableCommand;
 
 public class HybridBatteryLife extends ObdCommand {
 
-    float life=0.0f;
+    private float life=0.0f;
     public HybridBatteryLife(String command) {
         super(AvailableCommand.CustomCommand.rawCommand(command));
     }

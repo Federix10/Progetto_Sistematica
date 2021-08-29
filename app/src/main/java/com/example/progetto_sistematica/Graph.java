@@ -22,16 +22,16 @@ import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
 
 public class Graph extends AppCompatActivity {
-    GraphView graph;
-    ArrayList speed,rpm;
-    int size=0,velocita=0,giriMotore=0;
-    Dati dati;
-    private static BluetoothSocket socket = GlobalApplication.getSocket();
-    ComandiOBD comandiOBD;
-    SpeedCommand speedCommand;
-    RPMCommand rpmCommand;
-    Boolean ciclo=true, letto=false;
-    TextView textView0100;
+    private GraphView graph;
+    private ArrayList speed,rpm;
+    private int size=0,velocita=0,giriMotore=0;
+    private Dati dati;
+    private private static BluetoothSocket socket = GlobalApplication.getSocket();
+    private ComandiOBD comandiOBD;
+    private SpeedCommand speedCommand;
+    private RPMCommand rpmCommand;
+    private Boolean ciclo=true, letto=false;
+    private TextView textView0100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

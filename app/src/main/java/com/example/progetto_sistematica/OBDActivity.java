@@ -60,28 +60,27 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class OBDActivity extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    Boolean ciclo;
-    static DataOBD dataOBD;
-    Comandi comandi;
-    RPMCommand rpmCommand;
-    ObdRawCommand comando;
-    SpeedCommand speedCommand;
-    CircularProgressBar circularProgressBar;
-    SpeedView speedometer;
-    ObdRawCommand customFuel;
+    private Boolean ciclo;
+    private static DataOBD dataOBD;
+    private RPMCommand rpmCommand;
+    private ObdRawCommand comando;
+    private SpeedCommand speedCommand;
+    private CircularProgressBar circularProgressBar;
+    private SpeedView speedometer;
+    private ObdRawCommand customFuel;
 
-    ArrayList<Integer> command;
+    private ArrayList<Integer> command;
     static ListaComandi listaComandi;
-    Method circleBar;
-    ArrayList<String> sCard;
-    String sCircleBar="", commandRead="";
-    double iCircleBar=0.0;
-    ArrayList<TextView> t2;
-    TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6, textViewRpm, t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
-    int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0, commandProgressBar=-1, progressMAX, speedMAX, delay,progress;
-    Toolbar toolbar;
-    ArrayList<Boolean> c;
-    ArrayList<ObdCommand> obdCommandArrayList, obdCommands;
+    private Method circleBar;
+    private ArrayList<String> sCard;
+    private String sCircleBar="", commandRead="";
+    private double iCircleBar=0.0;
+    private ArrayList<TextView> t2;
+    private TextView t1c1, t1c2,t1c3,t1c4,t1c5,t1c6, textViewRpm, t2c1,t2c2,t2c3,t2c4,t2c5,t2c6;
+    private int limit1=2000, limit2=3000, limit3=4000, tickNumber=0, hour=0, commandProgressBar=-1, progressMAX, speedMAX, delay,progress;
+    private Toolbar toolbar;
+    private ArrayList<Boolean> c;
+    private ArrayList<ObdCommand> obdCommandArrayList, obdCommands;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,8 +305,6 @@ public class OBDActivity extends AppCompatActivity {
             obdCommandArrayList.add(new BarometricPressureCommand());
             obdCommandArrayList.add(new FuelPressureCommand());
 
-            comandi = new Comandi();
-
             listaComandi = new ListaComandi(socket);
 
             t1c1 = findViewById(R.id.txt1Card1);
@@ -329,6 +326,10 @@ public class OBDActivity extends AppCompatActivity {
             textViewRpm = findViewById(R.id.rpm);
 
             circularProgressBar = findViewById(R.id.progressBar);
+            circularProgressBar.setProgressBarColorStart(Color.RED);
+            circularProgressBar.setProgressBarColorEnd(Color.BLUE);
+            circularProgressBar.setProgressBarWidth(10f);
+            circularProgressBar.setProgressBarColorDirection(CircularProgressBar.GradientDirection.LEFT_TO_RIGHT);
 
             setCard();
 
@@ -336,7 +337,7 @@ public class OBDActivity extends AppCompatActivity {
             comando = new ObdRawCommand("01 46");
 
             if (commandProgressBar==0)
-                progressMAX=7000;
+                progressMAX=3000;
             else if (commandProgressBar==1)
                 progressMAX=1000;
             else if (commandProgressBar==2)
@@ -392,58 +393,13 @@ public class OBDActivity extends AppCompatActivity {
             while (true) {
                 try {
                     if (ciclo == false)
-                    {
                         break;
-                    }
-                    //comandi.rpm();
-                    comandi.speed();
+                    speed();
                     setValueCard();
-                    OBDActivity.this.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (GlobalApplication.getRPM()>progressMAX && commandProgressBar == 0)
-                            {
-                                progressMAX+=1000;
-                                limit1+=1000;
-                                limit2+=1000;
-                                limit3+=1000;
-                                circularProgressBar.setProgressMax(progressMAX);
-                            }
-
-                            if (commandProgressBar==0)
-                            {
-                                circularProgressBar.setProgressWithAnimation((float) iCircleBar, progress);
-                                if (iCircleBar<limit1)
-                                    circularProgressBar.setColor(Color.BLUE);
-                                else if (iCircleBar>limit1 && iCircleBar<limit2)
-                                    circularProgressBar.setColor(Color.rgb(135,206,250));
-                                else if (iCircleBar>=limit2 && iCircleBar<limit3)
-                                    circularProgressBar.setColor(Color.rgb(255,165,0));
-                                else if (iCircleBar>=limit3)
-                                    circularProgressBar.setColor(Color.RED);
-                            }
-                            else if (commandProgressBar==1)
-                                circularProgressBar.setProgress((int) iCircleBar);
-                            else if (commandProgressBar==2)
-                                circularProgressBar.setProgress((float) iCircleBar);
-
-                            if (GlobalApplication.getSpeed()>speedMAX)
-                            {
-                                speedMAX+=20;
-                                speedometer.setMaxSpeed(speedMAX);
-                                if (tickNumber==0)
-                                    speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220);
-                                if (tickNumber==1)
-                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240);
-                                if (tickNumber==2)
-                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,260);
-                                if (tickNumber==3)
-                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,260,280);
-                                if (tickNumber==4)
-                                    speedometer.setTicks(0,30,60,90,120,150,180,210,240,270,300);
-                                tickNumber++;
-                            }
-                            speedometer.speedTo(GlobalApplication.getSpeed(),500);
+                            setGraphics();
                         }
                     });
                     Thread.sleep(delay);
@@ -470,7 +426,7 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
-    public void setCard(){
+    private void setCard(){
         try {
             obdCommands.add(obdCommandArrayList.get(command.get(0)));
             obdCommands.add(obdCommandArrayList.get(command.get(1)));
@@ -506,7 +462,7 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
-    public void setValueCard()
+    private void setValueCard()
     {
         try {
             for (int i=0;i<obdCommands.size();i++)
@@ -535,6 +491,36 @@ public class OBDActivity extends AppCompatActivity {
         }
     }
 
+    private void setGraphics()
+    {
+        if (GlobalApplication.getRPM()>progressMAX && commandProgressBar == 0)
+        {
+            progressMAX+=1000;
+            limit1+=1000;
+            limit2+=1000;
+            limit3+=1000;
+            circularProgressBar.setProgressMax(progressMAX);
+        }
+        circularProgressBar.setProgressWithAnimation((float) iCircleBar, (long) progress);
+        if (GlobalApplication.getSpeed()>speedMAX)
+        {
+            speedMAX+=20;
+            speedometer.setMaxSpeed(speedMAX);
+            if (tickNumber==0)
+                speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220);
+            if (tickNumber==1)
+                speedometer.setTicks(0,30,60,90,120,150,180,210,240);
+            if (tickNumber==2)
+                speedometer.setTicks(0,30,60,90,120,150,180,210,240,260);
+            if (tickNumber==3)
+                speedometer.setTicks(0,30,60,90,120,150,180,210,240,260,280);
+            if (tickNumber==4)
+                speedometer.setTicks(0,30,60,90,120,150,180,210,240,270,300);
+            tickNumber++;
+        }
+        speedometer.speedTo(GlobalApplication.getSpeed(),500);
+    }
+
     public static boolean isNumeric(String strNum)
     {
         if (strNum == null) {
@@ -548,14 +534,11 @@ public class OBDActivity extends AppCompatActivity {
         return true;
     }
 
-    private class Comandi
-    {
-        public void speed() {
-            try {
-                speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                GlobalApplication.setSpeed(Integer.parseInt(speedCommand.getCalculatedResult()));
-            }
-            catch (IOException | InterruptedException e) {}
+    public void speed() {
+        try {
+            speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+            GlobalApplication.setSpeed(Integer.parseInt(speedCommand.getCalculatedResult()));
         }
+        catch (IOException | InterruptedException e) {}
     }
 }

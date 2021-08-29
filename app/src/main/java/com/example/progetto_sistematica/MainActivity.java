@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,14 +37,10 @@ import utils.Device;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BT = 1;
-    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    public static Switch aSwitch;
-    TextView switchBtn_txtView;
-    TextView switchBtnChat_txtView;
-    BluetoothManager bluetoothManager;
-    BluetoothDevice btdevice;
-    static Context contextOBD;
-
+    private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    private BluetoothManager bluetoothManager;
+    private BluetoothDevice btdevice;
+    private static Context contextOBD;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,10 +64,6 @@ public class MainActivity extends AppCompatActivity {
         if (Read() == "")
         {
             setContentView(R.layout.activity_main);
-            aSwitch = findViewById(R.id.chatobd);
-            switchBtn_txtView = findViewById(R.id.chatobd);
-            switchBtnChat_txtView = findViewById(R.id.btnChat);
-            switchBtn_txtView.setText("CHAT");
 
             if (bluetoothAdapter == null) { //se il dispositivo non supporta il bluetooth viene mostrato un alert di errore
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -99,67 +94,20 @@ public class MainActivity extends AppCompatActivity {
             ListView mylistView = findViewById(R.id.listadevice);
             BluetoothDeviceListAdapter2 listAdapter2 = new BluetoothDeviceListAdapter2(getApplicationContext(), R.layout.listitem, list2);
             mylistView.setAdapter(listAdapter2);
-            aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        switchBtn_txtView.setText("OBD");
-                        switchBtnChat_txtView.setText("OBD");
-                    }
-                    else {
-                        switchBtn_txtView.setText("OBD2");
-                        switchBtnChat_txtView.setText("OBD2");
-                    }
-                }
-            });
         }
         else if (Read() != "")
         {
             bluetoothManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             btdevice = bluetoothManager.getAdapter().getRemoteDevice(Read());
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    do {
-                        Toast.makeText(MainActivity.this, "Connessione a: "+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-                        ConnectThread client = new ConnectThread(btdevice);
-                        client.start();
-                        GlobalApplication.setClient(client);
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        if (GlobalApplication.getCT()==0)
-                            Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
-                    }
-                    while (GlobalApplication.getCT()!=1);
-                    MainActivity.this.finish();
-                }
-            });
+            ConnectThread client = new ConnectThread(btdevice);
+            client.start();
+            GlobalApplication.setClient(client);
+            if (GlobalApplication.getCT()==0)
+                Toast.makeText(MainActivity.this, "Riconnessione in corso a :"+ btdevice.getName() + " " + btdevice.getAddress(), Toast.LENGTH_LONG).show();
+            if (GlobalApplication.getCT()==1)
+                MainActivity.this.finish();
         }
-
     } //fine on creates
-
-    public void changeActivity(View view)
-    {
-        if (GlobalApplication.getCT()==0 && GlobalApplication.getAT()==0)
-        {
-        Toast.makeText(GlobalApplication.getAppContext(), "Non sei connesso a nessun dispositivo", Toast.LENGTH_SHORT).show();
-        }
-        else if (aSwitch.isChecked())
-        {
-            MainActivity.this.finish();
-            Intent startNewActivity = new Intent (this, Speed.class);
-            startActivity(startNewActivity);
-        }
-        else
-        {
-            MainActivity.this.finish();
-            Intent startNewActivity = new Intent (this, OBDActivity.class);
-            startActivity(startNewActivity);
-        }
-    }
 
     public String Read()
     {
@@ -222,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         t.start();
-        //Toast.makeText(MainActivity.this, "FirstRun", Toast.LENGTH_SHORT).show();
     }
 
     public void WriteNewComandi()
@@ -255,8 +202,6 @@ public class MainActivity extends AppCompatActivity {
         private BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         public ConnectThread(BluetoothDevice device) {
-            // Use a temporary object that is later assigned to mmSocket
-            // because mmSocket is final.
             BluetoothSocket tmp = null;
             mmDevice = device;
             try {
@@ -272,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 mmSocket.connect();
             } catch (IOException connectException) {
-                // Unable to connect; close the socket and return.
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {
@@ -284,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
         }
         private void manageMyConnectedSocket(BluetoothSocket mmSocket) {
             GlobalApplication.setSetCT(1);
-            System.out.println("Connesso con server");
             GlobalApplication.setSocket(mmSocket);
             if (GlobalApplication.getOBD()==1)
             {

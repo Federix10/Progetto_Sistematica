@@ -5,7 +5,7 @@ import br.ufrn.imd.obd.enums.AvailableCommand;
 
 public class Odometer extends ObdCommand {
 
-    double km=0.0f;
+    private double km=0.0f;
     public Odometer(String command) {
         super(AvailableCommand.CustomCommand.rawCommand(command));
     }

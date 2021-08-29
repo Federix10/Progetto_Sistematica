@@ -26,12 +26,12 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class AllCommand extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    ListView list;
-    String[] maintitle = new String[GlobalApplication.getComandi().size()];
-    Method method;
-    ArrayList<String> command = new ArrayList<>();
-    ListaComandi listaComandi = new ListaComandi(GlobalApplication.getSocket());
-    String[] subtitle = new String[GlobalApplication.getComandi().size()];
+    private ListView list;
+    private String[] maintitle = new String[GlobalApplication.getComandi().size()];
+    private Method method;
+    private ArrayList<String> command = new ArrayList<>();
+    private ListaComandi listaComandi = new ListaComandi(GlobalApplication.getSocket());
+    private String[] subtitle = new String[GlobalApplication.getComandi().size()];
 
 
     @Override

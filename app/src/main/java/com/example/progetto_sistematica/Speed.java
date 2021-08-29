@@ -16,7 +16,6 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import br.ufrn.imd.obd.commands.engine.RPMCommand;
 import br.ufrn.imd.obd.commands.engine.SpeedCommand;
@@ -30,22 +29,15 @@ import br.ufrn.imd.obd.enums.ObdProtocols;
 public class Speed extends AppCompatActivity {
 
     private static BluetoothSocket socket = GlobalApplication.getSocket();
-    Boolean ciclo;
-    Speed.DataOBD dataOBD;
-    Speed.Comandi comandi;
-    int delay,progress;
-    RPMCommand rpmCommand;
-    SpeedCommand speedCommand;
-    FuelLevelCommand fuelLevelCommand;
-    TextView textViewRpm;
-    CircularProgressBar circularProgressBar;
-    SpeedView speedometer;
-    int progressMAX, speedMAX;
-    int tickNumber=0, limit1=2000, limit2=3000, limit3=4000,hour=0;
-
-    Method speed, rpm;
-    String sSpeed="", sRpm="";
-    ListaComandi listaComandi;
+    private Boolean ciclo;
+    private Speed.DataOBD dataOBD;
+    private Speed.Comandi comandi;
+    private RPMCommand rpmCommand;
+    private SpeedCommand speedCommand;
+    private TextView textViewRpm;
+    private CircularProgressBar circularProgressBar;
+    private SpeedView speedometer;
+    private int delay,progress, progressMAX, speedMAX, tickNumber=0, limit1=2000, limit2=3000, limit3=4000,hour=0, rpm=0, speed=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +65,6 @@ public class Speed extends AppCompatActivity {
             dataOBD = new Speed.DataOBD();
             dataOBD.inizializzaOBD();
             dataOBD.start();
-        }
-        listaComandi = new ListaComandi(socket);
-        try {
-            speed = ListaComandi.class.getMethod("speed");
-            rpm = ListaComandi.class.getMethod("rpm");
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
         }
     }
 
@@ -148,13 +133,16 @@ public class Speed extends AppCompatActivity {
 
             circularProgressBar = findViewById(R.id.progressBar2);
             circularProgressBar.setProgressMax(progressMAX);
+            circularProgressBar.setProgressBarColorStart(Color.RED);
+            circularProgressBar.setProgressBarColorEnd(Color.BLUE);
+            circularProgressBar.setProgressBarWidth(10f);
+            circularProgressBar.setProgressBarColorDirection(CircularProgressBar.GradientDirection.LEFT_TO_RIGHT);
             delay=Integer.parseInt(GlobalApplication.getValuePreferences("delaySpeed"));
             progress=Integer.parseInt(GlobalApplication.getValuePreferences("delaySpeedCircleBar"));
             comandi = new Speed.Comandi();
-            rpmCommand = new RPMCommand(); //giri motore
-            fuelLevelCommand = new FuelLevelCommand(); //livello carburante
+            rpmCommand = new RPMCommand();
             textViewRpm = findViewById(R.id.rpm3);
-            speedCommand = new SpeedCommand();//velocità
+            speedCommand = new SpeedCommand();
             try {
                 new EchoOffCommand().run(socket.getInputStream(), socket.getOutputStream());
                 Thread.sleep(200);
@@ -179,34 +167,17 @@ public class Speed extends AppCompatActivity {
                     }
                     comandi.rpm();
                     comandi.speed();
-                    /*try {
-                        sSpeed = (String) speed.invoke(listaComandi);
-                        sRpm = (String) rpm.invoke(listaComandi);
-                        GlobalApplication.setSpeed(Integer.parseInt(sSpeed));
-                        GlobalApplication.setRPM(Integer.parseInt(sRpm));
-                        textViewRpm.setText(sRpm);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }*/
-                    Speed.this.runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (GlobalApplication.getRPM()>progressMAX)
+                            if (rpm>progressMAX)
                             {
-                                progressMAX=GlobalApplication.getRPM()+1000;
+                                progressMAX=rpm+1000;
                                 circularProgressBar.setProgressMax(progressMAX);
                             }
-                            circularProgressBar.setProgressWithAnimation(GlobalApplication.getRPM(), progress);
-                            if (GlobalApplication.getRPM()<limit1)
-                                circularProgressBar.setColor(Color.BLUE);
-                            else if (GlobalApplication.getRPM()>limit1 && GlobalApplication.getRPM()<limit2)
-                                circularProgressBar.setColor(Color.rgb(135,206,250));
-                            else if (GlobalApplication.getRPM()>=limit2 && GlobalApplication.getRPM()<limit3)
-                                circularProgressBar.setColor(Color.rgb(255,165,0));
-                            else if (GlobalApplication.getRPM()>=limit3)
-                                circularProgressBar.setColor(Color.RED);
-
-                            if (GlobalApplication.getSpeed()>speedMAX)
+                            textViewRpm.setText(rpmCommand.getFormattedResult());
+                            circularProgressBar.setProgressWithAnimation(rpm, (long) progress);
+                            if (speed>speedMAX)
                             {
                                 speedMAX+=20;
                                 speedometer.setMaxSpeed(speedMAX);
@@ -222,7 +193,7 @@ public class Speed extends AppCompatActivity {
                                     speedometer.setTicks(0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300);
                                 tickNumber++;
                             }
-                            speedometer.speedTo(GlobalApplication.getSpeed(),500);
+                            speedometer.speedTo(speed,500);
                         }
                     });
                     Thread.sleep(delay);
@@ -235,11 +206,10 @@ public class Speed extends AppCompatActivity {
 
     private class Comandi
     {
-        public void rpm() {
+        private void rpm() {
             try {
-                rpmCommand.run(socket.getInputStream(), socket.getOutputStream()); //rpm
-                GlobalApplication.setRPM(Integer.parseInt(rpmCommand.getCalculatedResult()));
-                textViewRpm.setText(rpmCommand.getFormattedResult());
+                rpmCommand.run(socket.getInputStream(), socket.getOutputStream());
+                rpm=Integer.parseInt(rpmCommand.getCalculatedResult());
             }
             catch (IOException | InterruptedException e) {}
             finally {
@@ -253,22 +223,12 @@ public class Speed extends AppCompatActivity {
             }
         }
 
-        public void speed() {
+        private void speed() {
             try {
-                speedCommand.run(socket.getInputStream(), socket.getOutputStream()); //velocità
-                GlobalApplication.setSpeed(Integer.parseInt(speedCommand.getCalculatedResult()));
-                //textViewSpeed.setText(speedCommand.getFormattedResult());
+                speedCommand.run(socket.getInputStream(), socket.getOutputStream());
+                speed = Integer.parseInt(speedCommand.getCalculatedResult());
             }
             catch (IOException | InterruptedException e) {}
-            /*finally {
-                if (textViewSpeed.getText()=="") {
-                    //textViewSpeed.setText("Parametro non corretto");
-                    return;
-                }
-                else{
-                    return;
-                }
-            }*/
         }
     }
 }
